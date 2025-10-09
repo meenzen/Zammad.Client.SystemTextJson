@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/meenzen/Zammad.Client.SystemTextJson/graph/badge.svg?token=tqT5gmR32w)](https://codecov.io/gh/meenzen/Zammad.Client.SystemTextJson)
 [![NuGet](https://img.shields.io/nuget/v/Zammad.Client.SystemTextJson.svg)](https://www.nuget.org/packages/Zammad.Client.SystemTextJson)
 [![NuGet](https://img.shields.io/nuget/dt/Zammad.Client.SystemTextJson.svg)](https://www.nuget.org/packages/Zammad.Client.SystemTextJson)
 
