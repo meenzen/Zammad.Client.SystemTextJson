@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyTitle>Zammad.Client</AssemblyTitle>
     <Version>1.0.0</Version>
@@ -19,4 +19,17 @@
   <ItemGroup>
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
+  <Target
+    Name="Husky"
+    BeforeTargets="Restore;CollectPackageReferences"
+    Condition="'$(HUSKY)' != 0 and '$(IsCrossTargetingBuild)' == 'true'"
+  >
+    <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
+    <Exec
+      Command="dotnet husky install"
+      StandardOutputImportance="Low"
+      StandardErrorImportance="High"
+      WorkingDirectory="../.."
+    />
+  </Target>
 </Project>
