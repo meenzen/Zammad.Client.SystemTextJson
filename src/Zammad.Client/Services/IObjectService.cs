@@ -2,14 +2,13 @@
 using System.Threading.Tasks;
 using Zammad.Client.Resources;
 
-namespace Zammad.Client.Services
+namespace Zammad.Client.Services;
+
+public interface IObjectService
 {
-    public interface IObjectService
-    {
-        Task<IList<Object>> GetObjectListAsync();
-        Task<Object> GetObjectAsync(int id);
-        Task<Object> CreateObjectAsync(Object @object);
-        Task<Object> UpdateObjectAsync(int id, Object @object);
-        Task<bool> ExecuteMigrationAsync();
-    }
+    Task<IList<Object>> GetObjectListAsync();
+    Task<Object> GetObjectAsync(int id);
+    Task<Object> CreateObjectAsync(Object @object);
+    Task<Object> UpdateObjectAsync(int id, Object @object);
+    Task<bool> ExecuteMigrationAsync();
 }

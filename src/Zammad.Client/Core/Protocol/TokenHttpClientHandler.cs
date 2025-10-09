@@ -3,30 +3,29 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Zammad.Client.Core.Protocol
+namespace Zammad.Client.Core.Protocol;
+
+public class TokenHttpClientHandler : HttpClientHandlerBase
 {
-    public class TokenHttpClientHandler : HttpClientHandlerBase
+    private readonly AuthenticationHeaderValue _authenticationHeader;
+
+    public TokenHttpClientHandler(string token, string onBehalfOf)
+        : base(onBehalfOf)
     {
-        private readonly AuthenticationHeaderValue _authenticationHeader;
+        ArgumentCheck.ThrowIfNullOrEmpty(token, nameof(token));
 
-        public TokenHttpClientHandler(string token, string onBehalfOf)
-            : base(onBehalfOf)
-        {
-            ArgumentCheck.ThrowIfNullOrEmpty(token, nameof(token));
+        _authenticationHeader = CreateAuthenticationHeader(token);
+    }
 
-            _authenticationHeader = CreateAuthenticationHeader(token);
-        }
+    private static AuthenticationHeaderValue CreateAuthenticationHeader(string token) =>
+        new AuthenticationHeaderValue("Token", $"token={token}");
 
-        private static AuthenticationHeaderValue CreateAuthenticationHeader(string token) =>
-            new AuthenticationHeaderValue("Token", $"token={token}");
-
-        protected override Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request,
-            CancellationToken cancellationToken
-        )
-        {
-            request.Headers.Authorization = _authenticationHeader;
-            return base.SendAsync(request, cancellationToken);
-        }
+    protected override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request,
+        CancellationToken cancellationToken
+    )
+    {
+        request.Headers.Authorization = _authenticationHeader;
+        return base.SendAsync(request, cancellationToken);
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace Zammad.Client.Core
+﻿namespace Zammad.Client.Core;
+
+public enum ZammadAuthentication
 {
-    public enum ZammadAuthentication
-    {
-        Basic,
-        Token,
-    }
+    Basic,
+    Token,
 }

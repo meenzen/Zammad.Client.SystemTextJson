@@ -5,34 +5,33 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Zammad.Client.Core.Protocol
+namespace Zammad.Client.Core.Protocol;
+
+public class BasicHttpClientHandler : HttpClientHandlerBase
 {
-    public class BasicHttpClientHandler : HttpClientHandlerBase
+    private readonly AuthenticationHeaderValue _authenticationHeader;
+
+    public BasicHttpClientHandler(string user, string password, string onBehalfOf)
+        : base(onBehalfOf)
     {
-        private readonly AuthenticationHeaderValue _authenticationHeader;
+        ArgumentCheck.ThrowIfNullOrEmpty(user, nameof(user));
+        ArgumentCheck.ThrowIfNullOrEmpty(password, nameof(password));
 
-        public BasicHttpClientHandler(string user, string password, string onBehalfOf)
-            : base(onBehalfOf)
-        {
-            ArgumentCheck.ThrowIfNullOrEmpty(user, nameof(user));
-            ArgumentCheck.ThrowIfNullOrEmpty(password, nameof(password));
+        _authenticationHeader = CreateAuthenticationHeader(user, password);
+    }
 
-            _authenticationHeader = CreateAuthenticationHeader(user, password);
-        }
+    private static AuthenticationHeaderValue CreateAuthenticationHeader(string user, string password) =>
+        new AuthenticationHeaderValue(
+            "Basic",
+            Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{user}:{password}"))
+        );
 
-        private static AuthenticationHeaderValue CreateAuthenticationHeader(string user, string password) =>
-            new AuthenticationHeaderValue(
-                "Basic",
-                Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{user}:{password}"))
-            );
-
-        protected override Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request,
-            CancellationToken cancellationToken
-        )
-        {
-            request.Headers.Authorization = _authenticationHeader;
-            return base.SendAsync(request, cancellationToken);
-        }
+    protected override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request,
+        CancellationToken cancellationToken
+    )
+    {
+        request.Headers.Authorization = _authenticationHeader;
+        return base.SendAsync(request, cancellationToken);
     }
 }

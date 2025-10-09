@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Zammad.Client.Core
+namespace Zammad.Client.Core;
+
+internal static class ArgumentCheck
 {
-    internal static class ArgumentCheck
+    internal static void ThrowIfNull(object value, string paramName)
     {
-        internal static void ThrowIfNull(object value, string paramName)
+        if (value is null)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(paramName);
-            }
+            throw new ArgumentNullException(paramName);
         }
+    }
 
-        internal static void ThrowIfNullOrEmpty<T>(IEnumerable<T> value, string paramName)
+    internal static void ThrowIfNullOrEmpty<T>(IEnumerable<T> value, string paramName)
+    {
+        ThrowIfNull(value, paramName);
+
+        if (!value.Any())
         {
-            ThrowIfNull(value, paramName);
-
-            if (!value.Any())
-            {
-                throw new ArgumentOutOfRangeException(paramName);
-            }
+            throw new ArgumentOutOfRangeException(paramName);
         }
     }
 }
