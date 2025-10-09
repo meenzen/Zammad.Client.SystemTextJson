@@ -13,21 +13,17 @@
     <RepositoryUrl>https://github.com/Asesjix/Zammad-Client</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
-  
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
-    <PackageReference Include="moq" Version="4.9.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="moq" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Zammad.Client\Zammad.Client.csproj" />
   </ItemGroup>
-  
 </Project>

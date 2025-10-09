@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="2.1.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageVersion Include="moq" Version="4.9.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageVersion Include="xunit" Version="2.4.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+</Project>
