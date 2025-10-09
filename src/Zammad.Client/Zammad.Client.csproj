@@ -3,15 +3,8 @@
     <AssemblyTitle>Zammad.Client.SystemTextJson</AssemblyTitle>
     <PackageId>Zammad.Client.SystemTextJson</PackageId>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Product>Zammad Client</Product>
     <Description>Modern Zammad Client Library for .NET</Description>
-    <Authors>meenzen</Authors>
-    <PackageProjectUrl>https://github.com/meenzen/Zammad.Client.SystemTextJson</PackageProjectUrl>
-    <PackageTags>zammad</PackageTags>
-    <RepositoryUrl>https://github.com/meenzen/Zammad.Client.SystemTextJson</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
