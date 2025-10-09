@@ -8,6 +8,13 @@
         "upgrade-assistant"
       ],
       "rollForward": false
+    },
+    "nbgv": {
+      "version": "3.8.118",
+      "commands": [
+        "nbgv"
+      ],
+      "rollForward": false
     }
   }
 }
