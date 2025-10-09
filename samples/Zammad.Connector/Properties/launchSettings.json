@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Zammad.Connector": {
-      "commandName": "Project",
-      "commandLineArgs": "Export-Ticket -ExportFile Export\\Tickets.xml"
-    }
-  }
-}

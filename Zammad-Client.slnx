@@ -9,9 +9,6 @@
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
-  <Folder Name="/samples/">
-    <Project Path="samples/Zammad.Connector/Zammad.Connector.csproj" />
-  </Folder>
   <Folder Name="/src/">
     <Project Path="src/Zammad.Client/Zammad.Client.csproj" />
   </Folder>
