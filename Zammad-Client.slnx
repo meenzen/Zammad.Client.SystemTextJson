@@ -1,0 +1,22 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/root/">
+    <File Path=".editorconfig" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/Zammad.Connector/Zammad.Connector.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Zammad.Client/Zammad.Client.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Zammad.Client.IntegrationTests/Zammad.Client.IntegrationTests.csproj" />
+    <Project Path="test/Zammad.Client.Tests/Zammad.Client.Tests.csproj" />
+  </Folder>
+</Solution>
