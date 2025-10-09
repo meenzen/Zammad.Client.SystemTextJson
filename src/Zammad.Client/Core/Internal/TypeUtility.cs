@@ -12,7 +12,7 @@ namespace Zammad.Client.Core.Internal
             var fromType = from.GetType();
             var toType = to.GetType();
 
-            if (toType.IsSubclassOf(fromType) == false)
+            if (!toType.IsSubclassOf(fromType))
             {
                 throw new ArgumentException($"The type of the argument \"{nameof(to)}\" must be derived from the type of the argument \"{nameof(from)}\".");
             }

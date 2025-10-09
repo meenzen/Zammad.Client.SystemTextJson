@@ -22,7 +22,7 @@ namespace Zammad.Connector.Core.IO
         private void CreateDirectoryForFileIfNotExists(string fileName)
         {
             var directoryName = Path.GetDirectoryName(fileName);
-            if (Directory.Exists(directoryName) == false)
+            if (!Directory.Exists(directoryName))
             {
                 _logger.LogDebug("Create folder {0}...", directoryName);
                 Directory.CreateDirectory(directoryName);

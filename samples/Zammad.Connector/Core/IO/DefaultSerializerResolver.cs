@@ -48,13 +48,10 @@ namespace Zammad.Connector.Core.IO
             {
                 _logger.LogDebug("Search serializer for file extension {0}...", fileExtension);
                 var serializerAttribute = SerializerAttribute.Extract(serializerType);
-                if (serializerAttribute != null)
+                if (serializerAttribute != null && string.Equals(serializerAttribute.FileExtension, fileExtension, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (string.Equals(serializerAttribute.FileExtension, fileExtension, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        _logger.LogDebug("Create serializer for file extension {0}...", fileExtension);
-                        return _serviceProvider.GetService(serializerType);
-                    }
+                    _logger.LogDebug("Create serializer for file extension {0}...", fileExtension);
+                    return _serviceProvider.GetService(serializerType);
                 }
             }
             return null;

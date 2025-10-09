@@ -32,14 +32,14 @@ namespace Zammad.Connector
                     var command = _commandResolver.Resolve(name, args);
                     await command.ExecuteAsync();
 
-                    if (_options.AutoClose == false)
+                    if (!_options.AutoClose)
                     {
                         Console.ReadKey();
                     }
                 }
                 catch(Exception e)
                 {
-                    _logger.LogCritical(e.Message);
+                    _logger.LogCritical(e, e.Message);
                 }
             }
             else

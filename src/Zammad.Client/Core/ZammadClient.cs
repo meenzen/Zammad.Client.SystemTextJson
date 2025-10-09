@@ -14,7 +14,7 @@ namespace Zammad.Client.Core
             _account = account ?? throw new ArgumentNullException(nameof(account));
         }
 
-        protected HttpRequestBuilder NewRequest()
+        protected static HttpRequestBuilder NewRequest()
         {
             return new HttpRequestBuilder();
         }
@@ -24,7 +24,7 @@ namespace Zammad.Client.Core
             using (var httpClient = CreateHttpClient())
             {
                 var httpResponse = await httpClient.SendAsync(httpRequest);
-                if (httpResponse.IsSuccessStatusCode == false)
+                if (!httpResponse.IsSuccessStatusCode)
                 {
                     throw new ZammadException(httpRequest, httpResponse);
                 }
@@ -47,7 +47,7 @@ namespace Zammad.Client.Core
             }
         }
 
-        protected HttpResponseParser NewParser(HttpResponseMessage httpResponse)
+        protected static HttpResponseParser NewParser(HttpResponseMessage httpResponse)
         {
             return new HttpResponseParser()
                 .UseHttpResponse(httpResponse);

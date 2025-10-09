@@ -17,7 +17,7 @@ namespace Zammad.Client.Core.Protocol
             _authenticationHeader = CreateAuthenticationHeader(token);
         }
 
-        private AuthenticationHeaderValue CreateAuthenticationHeader(string token)
+        private static AuthenticationHeaderValue CreateAuthenticationHeader(string token)
         {
             return new AuthenticationHeaderValue("Token", $"token={token}");
         }

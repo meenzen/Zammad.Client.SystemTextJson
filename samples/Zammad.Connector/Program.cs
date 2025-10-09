@@ -11,20 +11,20 @@ using Zammad.Connector.Core.IO;
 
 namespace Zammad.Connector
 {
-    class Program
+    static class Program
     {
         private static IConfigurationRoot Configuration { get; set; }
         private static IServiceProvider ServiceProvider { get; set; }
 
         static async Task Main(string[] args)
         {
-            Configuration = CreateConfiguration(Directory.GetCurrentDirectory(), "appsettings.json");
+            Configuration = CreateConfiguration();
             ServiceProvider = CreateServiceProvider();
 
             await ServiceProvider.GetRequiredService<App>().RunAsync(args);
         }
 
-        private static IConfigurationRoot CreateConfiguration(string basePath, string path)
+        private static IConfigurationRoot CreateConfiguration()
         {
             return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

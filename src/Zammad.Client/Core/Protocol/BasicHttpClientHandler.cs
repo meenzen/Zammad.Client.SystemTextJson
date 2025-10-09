@@ -20,7 +20,7 @@ namespace Zammad.Client.Core.Protocol
             _authenticationHeader = CreateAuthenticationHeader(user, password);
         }
 
-        private AuthenticationHeaderValue CreateAuthenticationHeader(string user, string password)
+        private static AuthenticationHeaderValue CreateAuthenticationHeader(string user, string password)
         {
             return new AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(

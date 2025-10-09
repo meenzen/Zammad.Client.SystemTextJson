@@ -49,13 +49,10 @@ namespace Zammad.Connector.Core.Commands
             {
                 _logger.LogDebug("Search command with name {0}...", name);
                 var commandAttribute = CliCommandAttribute.Extract(commandType);
-                if (commandAttribute != null)
+                if (commandAttribute != null && string.Equals(commandAttribute.Name, name, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (string.Equals(commandAttribute.Name, name, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        _logger.LogDebug("Create command with name {0}...", name);
-                        return _serviceProvider.GetService(commandType);
-                    }
+                    _logger.LogDebug("Create command with name {0}...", name);
+                    return _serviceProvider.GetService(commandType);
                 }
             }
             return null;
@@ -83,7 +80,9 @@ namespace Zammad.Connector.Core.Commands
                         {
                             try
                             {
+#pragma warning disable S2219
                                 if (propertyInfo.GetType() == typeof(bool))
+#pragma warning restore S2219
                                 {
                                     propertyInfo.SetValue(command, true);
                                 }
@@ -101,7 +100,7 @@ namespace Zammad.Connector.Core.Commands
                             }
                         }
                     }
-                    if (argument.Required && isSet == false)
+                    if (argument.Required && !isSet)
                     {
                         throw new InvalidOperationException($"The parameter \"{argument.Name}\" is required.");
                     }

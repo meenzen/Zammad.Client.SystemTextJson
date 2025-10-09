@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Zammad.Client.Core
 {
+    [SuppressMessage("Roslynator", "RCS1194:Implement exception constructors")]
     public class ZammadException : Exception
     {
         public ZammadException(HttpRequestMessage request, HttpResponseMessage response)

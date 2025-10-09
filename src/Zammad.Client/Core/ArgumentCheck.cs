@@ -18,7 +18,7 @@ namespace Zammad.Client.Core
         {
             ThrowIfNull(value, paramName);
 
-            if (value.Count() == 0)
+            if (!value.Any())
             {
                 throw new ArgumentOutOfRangeException(paramName);
             }

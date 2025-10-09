@@ -8,7 +8,7 @@ namespace Zammad.Client.Services
     {
         Task<IList<Object>> GetObjectListAsync();
         Task<Object> GetObjectAsync(int id);
-        Task<Object> CreateObjectAsyc(Object @object);
+        Task<Object> CreateObjectAsync(Object @object);
         Task<Object> UpdateObjectAsync(int id, Object @object);
         Task<bool> ExecuteMigrationAsync();
     }

@@ -26,7 +26,7 @@ namespace Zammad.Client
             return GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
         }
 
-        public Task<Object> CreateObjectAsyc(Object @object)
+        public Task<Object> CreateObjectAsync(Object @object)
         {
             return PostAsync<Object>("/api/v1/object_manager_attributes", @object);
         }

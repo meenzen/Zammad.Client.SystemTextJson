@@ -66,7 +66,7 @@ namespace Zammad.Connector.Commands
                     }
                     catch(Exception e)
                     {
-                        _logger.LogError("Error by ticket {0}\r\n{1}", ticket.Id, e.Message);
+                        _logger.LogError(e, "Error by ticket {0}\r\n{1}", ticket.Id, e.Message);
                     }
                 }
 
