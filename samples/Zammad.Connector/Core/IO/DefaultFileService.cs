@@ -31,7 +31,7 @@ namespace Zammad.Connector.Core.IO
 
         public Stream OpenReadFile(string fileName)
         {
-            _logger.LogDebug("Open file for read...", fileName);
+            _logger.LogDebug("Opening file for read: {FileName}", fileName);
             return File.OpenRead(fileName);
         }
     }

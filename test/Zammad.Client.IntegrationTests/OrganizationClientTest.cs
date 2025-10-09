@@ -13,7 +13,7 @@ namespace Zammad.Client.IntegrationTests
         private static int SpringfieldElementarySchoolId { get; set; } = 0;
 
         [Fact, Order(TestOrder.OrganizationListBefore)]
-        public async void Organization_List_Before_Test()
+        public async Task Organization_List_Before_Test()
         {
             var account = TestHelper.CreateTestAccount();
             var client = account.CreateOrganizationClient();
@@ -25,7 +25,7 @@ namespace Zammad.Client.IntegrationTests
         }
 
         [Fact, Order(TestOrder.OrganizationCreate)]
-        public async void Organization_Create_Test()
+        public async Task Organization_Create_Test()
         {
             var account = TestHelper.CreateTestAccount();
             var client = account.CreateOrganizationClient();
@@ -67,7 +67,7 @@ namespace Zammad.Client.IntegrationTests
         }
 
         [Fact, Order(TestOrder.OrganizationList)]
-        public async void Organization_List_Test()
+        public async Task Organization_List_Test()
         {
             var account = TestHelper.CreateTestAccount();
             var client = account.CreateOrganizationClient();
@@ -102,7 +102,7 @@ namespace Zammad.Client.IntegrationTests
             await Task.Delay(5000); // Wait for Zammad search indexer
             var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger", 20);
 
-            Assert.Equal(1, organizationSearch.Count);
+            Assert.Single(organizationSearch);
             Assert.Equal(KrustyBurgerId, organizationSearch[0].Id);
         }
 

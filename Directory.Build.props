@@ -32,5 +32,8 @@
     <WarningsNotAsErrors>NU1900</WarningsNotAsErrors>
     <!-- Optimize Nerdbank.GitVersioning performance https://dotnet.github.io/Nerdbank.GitVersioning/docs/build-systems/msbuild.html#reducing-getbuildversion-invocations -->
     <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
+    <!-- Make sure nobody does stupid stuff -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 </Project>
