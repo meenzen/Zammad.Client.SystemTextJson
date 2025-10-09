@@ -1,3 +1,6 @@
+[![NuGet](https://img.shields.io/nuget/v/Zammad.Client.SystemTextJson.svg)](https://www.nuget.org/packages/Zammad.Client.SystemTextJson)
+[![NuGet](https://img.shields.io/nuget/dt/Zammad.Client.SystemTextJson.svg)](https://www.nuget.org/packages/Zammad.Client.SystemTextJson)
+
 # Zammad.Client.SystemTextJson
 
 A hard fork of [Zammad.Client](https://github.com/S3bt3r/Zammad.Client) with support for `System.Text.Json` instead of `Newtonsoft.Json`.
