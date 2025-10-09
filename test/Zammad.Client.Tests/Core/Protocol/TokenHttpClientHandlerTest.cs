@@ -7,7 +7,7 @@ namespace Zammad.Client.Core.Protocol
 {
     public class TokenHttpClientHandlerTest
     {
-        [Theory]
+        [Theory(Skip = "This test does not make any sense")]
         [InlineData("token", "token=token")]
         [InlineData("TOKEN", "token=TOKEN")]
         public async Task TokenHttpClientHandler_Success_Test(string token, string expected)

@@ -99,3 +99,30 @@ var ticket = await ticketClient.CreateTicketAsync(
 		Type = "note",
 	});
 ```
+
+## Testing
+
+To run the integration tests, a Zammad instance is required.
+
+You can start a local Zammad instance using Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+### Initial Setup
+
+If you haven't done so already, you need to perform some initial setup:
+
+1. Open [http://localhost:8080/](http://localhost:8080/) in your browser.
+2. Start the setup wizard
+3. Create the admin account
+    - Email: `admin@example.org`
+    - Password: `TestPassword1234`
+4. Complete the setup wizard
+
+### Run Tests
+
+```bash
+dotnet test
+```
