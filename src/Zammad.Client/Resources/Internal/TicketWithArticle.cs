@@ -1,12 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿
+using System.Text.Json.Serialization;
 using Zammad.Client.Core.Internal;
 
 namespace Zammad.Client.Resources.Internal
 {
-    [JsonObject]
+    
     public class TicketWithArticle : Ticket
     {
-        [JsonProperty("article")]
+        [JsonPropertyName("article")]
         public TicketArticle Article { get; set; }
 
         public static TicketWithArticle Combine(Ticket ticket, TicketArticle article)

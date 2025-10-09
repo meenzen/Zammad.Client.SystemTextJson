@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Zammad.Client.Resources
 {
-    [JsonObject]
+    
     public class TicketAttachment
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonProperty("filename")]
+        [JsonPropertyName("filename")]
         public string Filename { get; set; }
 
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public string Data { get; set; }
 
-        [JsonProperty("mime-type")]
+        [JsonPropertyName("mime-type")]
         public string MimeType { get; set; }
 
-        [JsonProperty("preferences")]
+        [JsonPropertyName("preferences")]
         public IDictionary<string, object> Preferences { get; set; }
 
         public static TicketAttachment CreateFromFile(string fileName, string mimeType)

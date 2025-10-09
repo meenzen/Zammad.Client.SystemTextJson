@@ -1,112 +1,113 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Zammad.Client.Resources
 {
-    [JsonObject]
+    
     public class User
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonProperty("organization_id")]
+        [JsonPropertyName("organization_id")]
         public int? OrganizationId { get; set; }
 
-        [JsonProperty("login")]
+        [JsonPropertyName("login")]
         public string Login { get; set; }
 
-        [JsonProperty("firstname")]
+        [JsonPropertyName("firstname")]
         public string FirstName { get; set; }
 
-        [JsonProperty("lastname")]
+        [JsonPropertyName("lastname")]
         public string LastName { get; set; }
 
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        [JsonProperty("image")]
+        [JsonPropertyName("image")]
         public string Image { get; set; }
 
-        [JsonProperty("image_source")]
+        [JsonPropertyName("image_source")]
         public string ImageSource { get; set; }
 
-        [JsonProperty("web")]
+        [JsonPropertyName("web")]
         public string Web { get; set; }
 
-        [JsonProperty("phone")]
+        [JsonPropertyName("phone")]
         public string Phone { get; set; }
 
-        [JsonProperty("fax")]
+        [JsonPropertyName("fax")]
         public string Fax { get; set; }
 
-        [JsonProperty("mobile")]
+        [JsonPropertyName("mobile")]
         public string Mobile { get; set; }
 
-        [JsonProperty("department")]
+        [JsonPropertyName("department")]
         public string Department { get; set; }
 
-        [JsonProperty("street")]
+        [JsonPropertyName("street")]
         public string Street { get; set; }
 
-        [JsonProperty("zip")]
+        [JsonPropertyName("zip")]
         public string Zip { get; set; }
 
-        [JsonProperty("city")]
+        [JsonPropertyName("city")]
         public string City { get; set; }
 
-        [JsonProperty("country")]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
 
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string Address { get; set; }
 
-        [JsonProperty("vip")]
+        [JsonPropertyName("vip")]
         public bool Vip { get; set; }
 
-        [JsonProperty("verified")]
+        [JsonPropertyName("verified")]
         public bool Verified { get; set; }
 
-        [JsonProperty("active")]
+        [JsonPropertyName("active")]
         public bool Active { get; set; }
 
-        [JsonProperty("note")]
+        [JsonPropertyName("note")]
         public string Note { get; set; }
 
-        [JsonProperty("last_login")]
+        [JsonPropertyName("last_login")]
         public DateTimeOffset? LastLogin { get; set; }
 
-        [JsonProperty("source")]
+        [JsonPropertyName("source")]
         public string Source { get; set; }
 
-        [JsonProperty("login_failed")]
+        [JsonPropertyName("login_failed")]
         public int LoginFailed { get; set; }
 
-        [JsonProperty("out_of_office")]
+        [JsonPropertyName("out_of_office")]
         public bool OutOfOffice { get; set; }
 
-        [JsonProperty("out_of_office_start_at")]
+        [JsonPropertyName("out_of_office_start_at")]
         public DateTimeOffset? OutOfOfficeStartAt { get; set; }
 
-        [JsonProperty("out_of_office_end_at")]
+        [JsonPropertyName("out_of_office_end_at")]
         public DateTimeOffset? OutOfOfficeEndAt { get; set; }
 
-        [JsonProperty("out_of_office_replacement_id")]
+        [JsonPropertyName("out_of_office_replacement_id")]
         public int? OutOfOfficeReplacementId { get; set; }
 
-        [JsonProperty("preferences")]
+        [JsonPropertyName("preferences")]
         public IDictionary<string, object> Preferences { get; set; }
 
-        [JsonProperty("updated_by_id")]
+        [JsonPropertyName("updated_by_id")]
         public int UpdatedById { get; set; }
 
-        [JsonProperty("created_by_id")]
+        [JsonPropertyName("created_by_id")]
         public int CreatedById { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
+        [JsonPropertyName("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
     }
 }

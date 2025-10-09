@@ -1,46 +1,46 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources
 {
-    [JsonObject]
+    
     public class Organization
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("shared")]
+        [JsonPropertyName("shared")]
         public bool Shared { get; set; }
 
-        [JsonProperty("domain")]
+        [JsonPropertyName("domain")]
         public string Domain { get; set; }
 
-        [JsonProperty("domain_assignment")]
+        [JsonPropertyName("domain_assignment")]
         public bool DomainAssignment { get; set; }
 
-        [JsonProperty("active")]
+        [JsonPropertyName("active")]
         public bool Active { get; set; }
 
-        [JsonProperty("note")]
+        [JsonPropertyName("note")]
         public string Note { get; set; }
 
-        [JsonProperty("member_ids")]
+        [JsonPropertyName("member_ids")]
         public IList<int> MemberIds { get; set; }
 
-        [JsonProperty("updated_by_id")]
+        [JsonPropertyName("updated_by_id")]
         public int UpdatedById { get; set; }
 
-        [JsonProperty("created_by_id")]
+        [JsonPropertyName("created_by_id")]
         public int CreatedById { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
+        [JsonPropertyName("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
     }
 }

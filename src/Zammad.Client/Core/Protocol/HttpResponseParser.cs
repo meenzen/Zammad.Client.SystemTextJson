@@ -3,8 +3,9 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+
 
 namespace Zammad.Client.Core.Protocol
 {
@@ -53,11 +54,8 @@ namespace Zammad.Client.Core.Protocol
 
             var content = default(TContent);
             using (var httpResponseStream = await _httpResponse.Content.ReadAsStreamAsync())
-            using (var streamReader = new StreamReader(httpResponseStream, Encoding.UTF8))
-            using (var jsonReader = new JsonTextReader(streamReader))
             {
-                var serializer = new JsonSerializer();
-                content = serializer.Deserialize<TContent>(jsonReader);
+                content = await JsonSerializer.DeserializeAsync<TContent>(httpResponseStream);
             }
             return content;
         }

@@ -3,7 +3,9 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Zammad.Client.Core.Protocol
 {
@@ -122,18 +124,11 @@ namespace Zammad.Client.Core.Protocol
                 return this;
             }
 
-            var jsonBuilder = new StringBuilder();
-            using (var stringWriter = new StringWriter(jsonBuilder))
-            using (var jsonWriter = new JsonTextWriter(stringWriter))
+            var jsonString = JsonSerializer.Serialize(json, new JsonSerializerOptions
             {
-                var serializer = new JsonSerializer
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                };
-
-                serializer.Serialize(jsonWriter, json);
-            }
-            _content = new StringContent(jsonBuilder.ToString());
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            });
+            _content = new StringContent(jsonString);
             _content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             return this;
         }

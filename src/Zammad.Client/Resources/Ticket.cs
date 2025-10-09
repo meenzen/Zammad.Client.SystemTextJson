@@ -1,121 +1,122 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Zammad.Client.Resources
 {
-    [JsonObject]
+    
     public class Ticket
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonProperty("group_id")]
+        [JsonPropertyName("group_id")]
         public int GroupId { get; set; }
 
-        [JsonProperty("priority_id")]
+        [JsonPropertyName("priority_id")]
         public int? PriorityId { get; set; }
 
-        [JsonProperty("state_id")]
+        [JsonPropertyName("state_id")]
         public int? StateId { get; set; }
 
-        [JsonProperty("organization_id")]
+        [JsonPropertyName("organization_id")]
         public int? OrganizationId { get; set; }
 
-        [JsonProperty("number")]
+        [JsonPropertyName("number")]
         public string Number { get; set; }
 
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [JsonProperty("owner_id")]
+        [JsonPropertyName("owner_id")]
         public int OwnerId { get; set; }
 
-        [JsonProperty("customer_id")]
+        [JsonPropertyName("customer_id")]
         public int CustomerId { get; set; }
 
-        [JsonProperty("note")]
+        [JsonPropertyName("note")]
         public string Note { get; set; }
 
-        [JsonProperty("first_response_at")]
+        [JsonPropertyName("first_response_at")]
         public DateTimeOffset? FirstResponseAt { get; set; }
 
-        [JsonProperty("first_response_escalation_at")]
+        [JsonPropertyName("first_response_escalation_at")]
         public DateTimeOffset? FirstResponseEscalationAt { get; set; }
 
-        [JsonProperty("first_response_in_min")]
+        [JsonPropertyName("first_response_in_min")]
         public int? FirstResponseInMin { get; set; }
 
-        [JsonProperty("first_response_diff_in_min")]
+        [JsonPropertyName("first_response_diff_in_min")]
         public int? FirstResponseDiffInMin { get; set; }
 
-        [JsonProperty("close_at")]
+        [JsonPropertyName("close_at")]
         public DateTimeOffset? CloseAt { get; set; }
 
-        [JsonProperty("close_escalation_at")]
+        [JsonPropertyName("close_escalation_at")]
         public DateTimeOffset? CloseEscalationAt { get; set; }
 
-        [JsonProperty("close_in_min")]
+        [JsonPropertyName("close_in_min")]
         public int? CloseInMin { get; set; }
 
-        [JsonProperty("close_diff_in_min")]
+        [JsonPropertyName("close_diff_in_min")]
         public int? CloseDiffInMin { get; set; }
 
-        [JsonProperty("update_escalation_at")]
+        [JsonPropertyName("update_escalation_at")]
         public DateTimeOffset? UpdateEscalationAt { get; set; }
 
-        [JsonProperty("update_in_min")]
+        [JsonPropertyName("update_in_min")]
         public int? UpdateInMin { get; set; }
 
-        [JsonProperty("update_diff_in_min")]
+        [JsonPropertyName("update_diff_in_min")]
         public int? UpdateDiffInMin { get; set; }
 
-        [JsonProperty("last_contact_at")]
+        [JsonPropertyName("last_contact_at")]
         public DateTimeOffset? LastContactAt { get; set; }
 
-        [JsonProperty("last_contact_agent_at")]
+        [JsonPropertyName("last_contact_agent_at")]
         public DateTimeOffset? LastContactAgentAt { get; set; }
 
-        [JsonProperty("last_contact_customer_at")]
+        [JsonPropertyName("last_contact_customer_at")]
         public DateTimeOffset? LastContactCustomerAt { get; set; }
 
-        [JsonProperty("last_owner_update_at")]
+        [JsonPropertyName("last_owner_update_at")]
         public DateTimeOffset? LastOwnerUpdateAt { get; set; }
 
-        [JsonProperty("create_article_type_id")]
+        [JsonPropertyName("create_article_type_id")]
         public int? CreateArticleTypeId { get; set; }
 
-        [JsonProperty("create_article_sender_id")]
+        [JsonPropertyName("create_article_sender_id")]
         public int? CreateArticleSenderId { get; set; }
 
-        [JsonProperty("article_count")]
+        [JsonPropertyName("article_count")]
         public int? ArticleCount { get; set; }
 
-        [JsonProperty("escalation_at")]
+        [JsonPropertyName("escalation_at")]
         public DateTimeOffset? EscalationAt { get; set; }
 
-        [JsonProperty("pending_time")]
+        [JsonPropertyName("pending_time")]
         public DateTimeOffset? PendingTime { get; set; }
 
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [JsonProperty("time_unit")]
+        [JsonPropertyName("time_unit")]
         public double? TimeUnit { get; set; }
 
-        [JsonProperty("preferences")]
+        [JsonPropertyName("preferences")]
         public IDictionary<string, object> Preferences { get; set; }
 
-        [JsonProperty("updated_by_id")]
+        [JsonPropertyName("updated_by_id")]
         public int? UpdatedById { get; set; }
 
-        [JsonProperty("created_by_id")]
+        [JsonPropertyName("created_by_id")]
         public int? CreatedById { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
+        [JsonPropertyName("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
     }
 }

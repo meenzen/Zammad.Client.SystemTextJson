@@ -1,88 +1,89 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Zammad.Client.Resources
 {
-    [JsonObject]
+    
     public class TicketArticle
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonProperty("ticket_id")]
+        [JsonPropertyName("ticket_id")]
         public int TicketId { get; set; }
 
-        [JsonProperty("sender_id")]
+        [JsonPropertyName("sender_id")]
         public int? SenderId { get; set; }
 
-        [JsonProperty("from")]
+        [JsonPropertyName("from")]
         public string From { get; set; }
 
-        [JsonProperty("to")]
+        [JsonPropertyName("to")]
         public string To { get; set; }
 
-        [JsonProperty("cc")]
+        [JsonPropertyName("cc")]
         public string CC { get; set; }
 
-        [JsonProperty("subject")]
+        [JsonPropertyName("subject")]
         public string Subject { get; set; }
 
-        [JsonProperty("reply_to")]
+        [JsonPropertyName("reply_to")]
         public string ReplyTo { get; set; }
 
-        [JsonProperty("message_id")]
+        [JsonPropertyName("message_id")]
         public string MessageId { get; set; }
 
-        [JsonProperty("message_id_md5")]
+        [JsonPropertyName("message_id_md5")]
         public string MessageIdMD5 { get; set; }
 
-        [JsonProperty("in_reply_to")]
+        [JsonPropertyName("in_reply_to")]
         public string InReplyTo { get; set; }
 
-        [JsonProperty("content_type")]
+        [JsonPropertyName("content_type")]
         public string ContentType { get; set; }
 
-        [JsonProperty("references")]
+        [JsonPropertyName("references")]
         public string References { get; set; }
 
-        [JsonProperty("body")]
+        [JsonPropertyName("body")]
         public string Body { get; set; }
 
-        [JsonProperty("internal")]
+        [JsonPropertyName("internal")]
         public bool Internal { get; set; }
 
-        [JsonProperty("preferences")]
+        [JsonPropertyName("preferences")]
         public IDictionary<string, object> Preferences { get; set; }
 
-        [JsonProperty("updated_by_id")]
+        [JsonPropertyName("updated_by_id")]
         public int? UpdatedById { get; set; }
 
-        [JsonProperty("created_by_id")]
+        [JsonPropertyName("created_by_id")]
         public int? CreatedById { get; set; }
 
-        [JsonProperty("origin_by_id")]
+        [JsonPropertyName("origin_by_id")]
         public int? OriginById { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
 
-        [JsonProperty("updated_at")]
+        [JsonPropertyName("updated_at")]
         public DateTimeOffset UpdatedAt { get; set; }
 
-        [JsonProperty("attachments")]
+        [JsonPropertyName("attachments")]
         public List<TicketAttachment> Attachments { get; set; }
 
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [JsonProperty("sender")]
+        [JsonPropertyName("sender")]
         public string Sender { get; set; }
 
-        [JsonProperty("created_by")]
+        [JsonPropertyName("created_by")]
         public string CreatedBy { get; set; }
 
-        [JsonProperty("updated_by")]
+        [JsonPropertyName("updated_by")]
         public string UpdatedBy { get; set; }
     }
 }
