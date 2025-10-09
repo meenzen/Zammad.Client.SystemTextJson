@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Zammad.Client.Resources.Internal;
-using Zammad.Client.Services;
 
 namespace Zammad.Client;
 

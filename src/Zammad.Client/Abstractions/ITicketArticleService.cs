@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Zammad.Client.Resources;
 
-namespace Zammad.Client.Services;
+namespace Zammad.Client.Abstractions;
 
 public interface ITicketArticleService
 {

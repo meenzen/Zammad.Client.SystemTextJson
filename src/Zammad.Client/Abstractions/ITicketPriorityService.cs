@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zammad.Client.Resources;
 
-namespace Zammad.Client.Services;
+namespace Zammad.Client.Abstractions;
 
 public interface ITicketPriorityService
 {
