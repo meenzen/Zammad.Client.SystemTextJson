@@ -6,11 +6,11 @@
     <Product>Zammad Client</Product>
     <Description>Zammad Client Library for .NET</Description>
     <Authors>Asesjix</Authors>
-    <PackageProjectUrl>https://github.com/Asesjix/Zammad-Client</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/meenzen/Zammad.Client.SystemTextJson</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Asesjix/Zammad-Client/master/LICENSE</PackageLicenseUrl>
     <PackageTags>zammad</PackageTags>
-    <RepositoryUrl>https://github.com/Asesjix/Zammad-Client</RepositoryUrl>
+    <RepositoryUrl>https://github.com/meenzen/Zammad.Client.SystemTextJson</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup>

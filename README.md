@@ -1,127 +1,38 @@
-# Zammad Client Library for .NET
-The Zammad Client Library for .NET allows you to connect your .NET application to your Zammad instance.
+# Zammad.Client.SystemTextJson
 
-## Features
-- Group
-    - List/Get/Create/Update/Delete
-- Object
-    - List/Get/Create/Update/Execute migration
-- OnlineNotification
-    - List/Get/Create/Update/Delete/Mark all as read
-- Organization
-    - List/Get/Create/Update/Delete/Search
-- Tag
-    - List/Search/Add/Remove/List Admin/Create Admin/Rename Admin/Delete Admin
-- Ticket
-    - List/Get/Create/Update/Delete/Search
-- Ticket Article
-    - List/Get/Create/ListForTicket/Get Attachment
-- Ticket Priority
-    - List/Get/Create/Update/Delete
-- Ticket State
-    - List/Get/Create/Update/Delete
-- User
-    - List/Get/Create/Update/Delete/Search/Get Me
+A hard fork of [Zammad.Client](https://github.com/S3bt3r/Zammad.Client) with support for `System.Text.Json` instead of `Newtonsoft.Json`.
 
-## Requirements
-The used target framework of Zammad Client Library for .NET is .NET Standard 2.0.
-Therefore, your application's target framework must have at least .NET Framework 4.6.1, .NET Core 2.0, or .NET Standard 2.0.
+This library provides a .NET client for interacting with the [Zammad](https://zammad.org/) helpdesk system API.
 
-[.NET Standard implementation support](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support)
-
-## Download & Install
-The Client Library ships on NuGet. You'll find the latest version and hotfixes on NuGet via the `Zammad.Client` package.
-
-### Via Git
-To get the source code of the Library via git just type:
+## Installation
 
 ```bash
-git clone https://github.com/Asesjix/Zammad-Client.git
-cd Zammad-Client
+dotnet add package Zammad.Client.SystemTextJson
 ```
 
-### Via NuGet
-To get the binaries of this library ready for use within your project you can also have them installed by [NuGet](https://www.nuget.org/packages/Zammad.Client).
+## Usage
 
-Package Manager
-```bash
-Install-Package Zammad.Client
-```
+Coming soon.
 
-.NET CLI
-```bash
-dotnet add package Zammad.Client
-```
+## Development
 
-## Dependencies
+### Running Tests
 
-### Newtonsoft Json
-The library depend on Newtonsoft Json, which can be downloaded directly or referenced by your code project through Nuget.
-
-- [Newtonsoft.Json](http://www.nuget.org/packages/Newtonsoft.Json)
-
-## Code Samples
-
-First, include the classes you need (in this case we'll include the Client and Ticket feature to demonstrate get all tickets):
-
-```csharp
-using Zammad.Client;
-using Zammad.Client.Resources;
-```
-To perform an operation you will first instantiate a *client* which allows performing actions on it.
-
-```csharp
-var account = ZammadAccount.CreateBasicAccount("https://contoso.zammad.com", "user", "password");
-var ticketClient = account.CreateTicketClient();
-```
-
-Now, to get all tickets using the client:
-
-```csharp
-var ticketList = ticketClient.GetTicketListAsync();
-```
-
-Now, to create a ticket using the client:
-
-```csharp
-var ticket = await ticketClient.CreateTicketAsync(
-	new Ticket
-	{
-		Title = "Help me!",
-		GroupId = 1,
-		CustomerId = 1,
-		OwnerId = 1,
-	},
-	new TicketArticle
-	{
-		Subject = "Help me!!!",
-		Body = "Nothing Work!",
-		Type = "note",
-	});
-```
-
-## Testing
-
-To run the integration tests, a Zammad instance is required.
-
-You can start a local Zammad instance using Docker Compose:
+Integration tests require a running Zammad instance. Start one locally with Docker Compose:
 
 ```bash
 docker compose up -d
 ```
 
-### Initial Setup
+**Initial Setup** (first time only):
 
-If you haven't done so already, you need to perform some initial setup:
-
-1. Open [http://localhost:8080/](http://localhost:8080/) in your browser.
-2. Start the setup wizard
-3. Create the admin account
+1. Open [http://localhost:8080/](http://localhost:8080/)
+2. Complete the setup wizard
+3. Create admin account with:
     - Email: `admin@example.org`
     - Password: `TestPassword1234`
-4. Complete the setup wizard
 
-### Run Tests
+Run the test suite:
 
 ```bash
 dotnet test

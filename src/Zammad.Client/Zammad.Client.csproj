@@ -1,22 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyTitle>Zammad.Client</AssemblyTitle>
-    <Version>1.0.0</Version>
+    <AssemblyTitle>Zammad.Client.SystemTextJson</AssemblyTitle>
+    <PackageId>Zammad.Client.SystemTextJson</PackageId>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Product>Zammad Client</Product>
-    <Description>Zammad Client Library for .NET</Description>
-    <Authors>Asesjix</Authors>
-    <PackageProjectUrl>https://github.com/Asesjix/Zammad-Client</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/Asesjix/Zammad-Client/master/LICENSE</PackageLicenseUrl>
+    <Description>Modern Zammad Client Library for .NET</Description>
+    <Authors>meenzen</Authors>
+    <PackageProjectUrl>https://github.com/meenzen/Zammad.Client.SystemTextJson</PackageProjectUrl>
     <PackageTags>zammad</PackageTags>
-    <RepositoryUrl>https://github.com/Asesjix/Zammad-Client</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
+    <RepositoryUrl>https://github.com/meenzen/Zammad.Client.SystemTextJson</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0;net9.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="PolySharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
   <Target
