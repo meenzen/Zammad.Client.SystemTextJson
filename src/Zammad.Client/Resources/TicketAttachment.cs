@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json.Serialization;
 
-
 namespace Zammad.Client.Resources
 {
-    
     public class TicketAttachment
     {
         [JsonPropertyName("id")]
@@ -33,7 +31,7 @@ namespace Zammad.Client.Resources
             {
                 Filename = Path.GetFileName(fileName),
                 Data = base64,
-                MimeType = mimeType
+                MimeType = mimeType,
             };
         }
     }

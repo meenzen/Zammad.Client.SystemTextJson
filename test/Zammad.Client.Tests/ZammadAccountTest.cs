@@ -107,7 +107,11 @@ namespace Zammad.Client
 
         private ZammadAccount CreateTestAccount()
         {
-            return ZammadAccount.CreateBasicAccount(TestConstants.AccountEndpoint, TestConstants.AccountUser, TestConstants.AccountPassword);
+            return ZammadAccount.CreateBasicAccount(
+                TestConstants.AccountEndpoint,
+                TestConstants.AccountUser,
+                TestConstants.AccountPassword
+            );
         }
     }
 }

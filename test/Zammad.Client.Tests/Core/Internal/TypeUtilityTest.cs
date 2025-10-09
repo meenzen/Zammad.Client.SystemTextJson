@@ -10,15 +10,9 @@ namespace Zammad.Client.Core.Internal
         [InlineData(null, null)]
         public void CopyProperties_Success_Test(string value1, string value3)
         {
-            var testBaseObject = new TypeUtilityTestBaseObject
-            {
-                Value1 = value1
-            };
+            var testBaseObject = new TypeUtilityTestBaseObject { Value1 = value1 };
 
-            var testDerivedObject = new TypeUtilityTestDerivedObject
-            {
-                Value3 = value3
-            };
+            var testDerivedObject = new TypeUtilityTestDerivedObject { Value3 = value3 };
 
             TypeUtility.CopyProperties(testBaseObject, testDerivedObject);
 
@@ -31,15 +25,9 @@ namespace Zammad.Client.Core.Internal
         [InlineData(null, null)]
         public void CopyProperties_Fail_Test(string value1, string value3)
         {
-            var testBaseObject = new TypeUtilityTestBaseObject
-            {
-                Value1 = value1
-            };
+            var testBaseObject = new TypeUtilityTestBaseObject { Value1 = value1 };
 
-            var testDerivedObject = new TypeUtilityTestDerivedObject
-            {
-                Value3 = value3
-            };
+            var testDerivedObject = new TypeUtilityTestDerivedObject { Value3 = value3 };
 
             Assert.ThrowsAny<ArgumentException>(() =>
             {
@@ -50,7 +38,6 @@ namespace Zammad.Client.Core.Internal
 
     public class TypeUtilityTestBaseObject
     {
-
         public string Value1 { get; set; }
         public string Value2 { get; }
     }

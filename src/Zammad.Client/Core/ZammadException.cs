@@ -16,18 +16,12 @@ namespace Zammad.Client.Core
             Response = response;
         }
 
-        private static string GetMessage(HttpResponseMessage response)
-        {
-            return response.ReasonPhrase;
-        }
+        private static string GetMessage(HttpResponseMessage response) => response.ReasonPhrase;
 
         public HttpRequestMessage Request { get; }
         public HttpResponseMessage Response { get; }
         public HttpStatusCode? Code => Response?.StatusCode;
 
-        public async Task<string> GetResponseContentAsStringAsync()
-        {
-            return await Response?.Content?.ReadAsStringAsync();
-        }
+        public async Task<string> GetResponseContentAsStringAsync() => await Response?.Content?.ReadAsStringAsync();
     }
 }

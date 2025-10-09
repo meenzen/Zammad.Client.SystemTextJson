@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-
 namespace Zammad.Client.Core.Protocol
 {
     public class HttpRequestBuilder
@@ -15,10 +14,7 @@ namespace Zammad.Client.Core.Protocol
         private UriBuilder _requestUriBuilder;
         private HttpContent _content;
 
-        public HttpRequestBuilder()
-        {
-            _requestUriBuilder = new UriBuilder();
-        }
+        public HttpRequestBuilder() => _requestUriBuilder = new UriBuilder();
 
         public HttpRequestBuilder UseGet()
         {
@@ -89,7 +85,7 @@ namespace Zammad.Client.Core.Protocol
 
         public HttpRequestBuilder UseQuery(string query)
         {
-            if (query == null)
+            if (query is null)
             {
                 query = string.Empty;
             }
@@ -118,16 +114,16 @@ namespace Zammad.Client.Core.Protocol
 
         public HttpRequestBuilder UseJsonContent(object json)
         {
-            if (json == null)
+            if (json is null)
             {
                 _content = null;
                 return this;
             }
 
-            var jsonString = JsonSerializer.Serialize(json, new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            });
+            var jsonString = JsonSerializer.Serialize(
+                json,
+                new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }
+            );
             _content = new StringContent(jsonString);
             _content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             return this;
@@ -139,7 +135,7 @@ namespace Zammad.Client.Core.Protocol
             {
                 Method = _method,
                 RequestUri = _requestUriBuilder.Uri,
-                Content = _content
+                Content = _content,
             };
             return httpRequest;
         }

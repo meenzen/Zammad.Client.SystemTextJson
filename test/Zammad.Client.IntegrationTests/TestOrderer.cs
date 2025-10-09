@@ -22,8 +22,7 @@ namespace Zammad.Client.IntegrationTests
         public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases)
             where TTestCase : ITestCase
         {
-            return testCases
-                .OrderBy(t => t.GetOrder());
+            return testCases.OrderBy(t => t.GetOrder());
         }
     }
 
@@ -32,13 +31,10 @@ namespace Zammad.Client.IntegrationTests
         public static int GetOrder(this ITestCase testCase)
         {
             var order = testCase
-                .TestMethod
-                .Method
-                .GetCustomAttributes(typeof(OrderAttribute).AssemblyQualifiedName)
+                .TestMethod.Method.GetCustomAttributes(typeof(OrderAttribute).AssemblyQualifiedName)
                 .LastOrDefault();
             return order != null ? order.GetNamedArgument<int>(nameof(OrderAttribute.Order)) : int.MaxValue;
         }
-
     }
 
     public static class IDictionaryExtensions
@@ -51,7 +47,7 @@ namespace Zammad.Client.IntegrationTests
                 result = new TValue();
                 dictionary.Add(key, result);
             }
-            
+
             return result;
         }
     }

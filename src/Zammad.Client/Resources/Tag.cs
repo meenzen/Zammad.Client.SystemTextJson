@@ -1,10 +1,7 @@
-﻿
-
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources
 {
-    
     public class Tag
     {
         [JsonPropertyName("id")]

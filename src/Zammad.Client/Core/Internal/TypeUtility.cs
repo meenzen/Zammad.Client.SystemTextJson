@@ -14,7 +14,9 @@ namespace Zammad.Client.Core.Internal
 
             if (!toType.IsSubclassOf(fromType))
             {
-                throw new ArgumentException($"The type of the argument \"{nameof(to)}\" must be derived from the type of the argument \"{nameof(from)}\".");
+                throw new ArgumentException(
+                    $"The type of the argument \"{nameof(to)}\" must be derived from the type of the argument \"{nameof(from)}\"."
+                );
             }
 
             foreach (var property in fromType.GetProperties())

@@ -16,27 +16,33 @@ namespace Zammad.Client
         /// <param name="user">The user who is used for authentication.</param>
         /// <param name="password">The password who is used for authentication.</param>
         /// <param name="token">The token who is used for authentication.</param>
-        public ZammadAccount(Uri endpoint, ZammadAuthentication authentication, string user, string password, string token)
+        public ZammadAccount(
+            Uri endpoint,
+            ZammadAuthentication authentication,
+            string user,
+            string password,
+            string token
+        )
         {
             ArgumentCheck.ThrowIfNull(endpoint, nameof(endpoint));
 
             switch (authentication)
             {
                 case ZammadAuthentication.Basic:
-                    {
-                        ArgumentCheck.ThrowIfNullOrEmpty(user, nameof(user));
-                        ArgumentCheck.ThrowIfNullOrEmpty(password, nameof(password));
-                        break;
-                    }
+                {
+                    ArgumentCheck.ThrowIfNullOrEmpty(user, nameof(user));
+                    ArgumentCheck.ThrowIfNullOrEmpty(password, nameof(password));
+                    break;
+                }
                 case ZammadAuthentication.Token:
-                    {
-                        ArgumentCheck.ThrowIfNullOrEmpty(token, nameof(token));
-                        break;
-                    }
+                {
+                    ArgumentCheck.ThrowIfNullOrEmpty(token, nameof(token));
+                    break;
+                }
                 default:
-                    {
-                        throw new NotSupportedException($"Authentication \"{authentication}\" is not supported.");
-                    }
+                {
+                    throw new NotSupportedException($"Authentication \"{authentication}\" is not supported.");
+                }
             }
 
             Endpoint = endpoint;
@@ -60,10 +66,8 @@ namespace Zammad.Client
         /// <param name="user">The user who is used for authentication.</param>
         /// <param name="password">The password who is used for authentication.</param>
         /// <returns>A new instance of the <see cref="ZammadAccount"/> class that uses the basic authentication method.</returns>
-        public static ZammadAccount CreateBasicAccount(string endpoint, string user, string password)
-        {
-            return CreateBasicAccount(new Uri(endpoint), user, password);
-        }
+        public static ZammadAccount CreateBasicAccount(string endpoint, string user, string password) =>
+            CreateBasicAccount(new Uri(endpoint), user, password);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ZammadAccount"/> class that uses the token authentication method.
@@ -72,10 +76,8 @@ namespace Zammad.Client
         /// <param name="user">The user who is used for authentication.</param>
         /// <param name="password">The password who is used for authentication.</param>
         /// <returns>A new instance of the <see cref="ZammadAccount"/> class that uses the basic authentication method.</returns>
-        public static ZammadAccount CreateBasicAccount(Uri endpoint, string user, string password)
-        {
-            return new ZammadAccount(endpoint, ZammadAuthentication.Basic, user, password, null);
-        }
+        public static ZammadAccount CreateBasicAccount(Uri endpoint, string user, string password) =>
+            new ZammadAccount(endpoint, ZammadAuthentication.Basic, user, password, null);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ZammadAccount"/> class that uses the token authentication method.
@@ -83,10 +85,8 @@ namespace Zammad.Client
         /// <param name="endpoint">The endpoint of the Zammad instance being used.</param>
         /// <param name="token">The token who is used for authentication.</param>
         /// <returns>A new instance of the <see cref="ZammadAccount"/> class that uses the token authentication method.</returns>
-        public static ZammadAccount CreateTokenAccount(string endpoint, string token)
-        {
-            return CreateTokenAccount(new Uri(endpoint), token);
-        }
+        public static ZammadAccount CreateTokenAccount(string endpoint, string token) =>
+            CreateTokenAccount(new Uri(endpoint), token);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ZammadAccount"/> class that uses the token authentication method.
@@ -94,10 +94,8 @@ namespace Zammad.Client
         /// <param name="endpoint">The endpoint of the Zammad instance being used.</param>
         /// <param name="token">The token who is used for authentication.</param>
         /// <returns>A new instance of the <see cref="ZammadAccount"/> class that uses the token authentication method.</returns>
-        public static ZammadAccount CreateTokenAccount(Uri endpoint, string token)
-        {
-            return new ZammadAccount(endpoint, ZammadAuthentication.Token, null, null, token);
-        }
+        public static ZammadAccount CreateTokenAccount(Uri endpoint, string token) =>
+            new ZammadAccount(endpoint, ZammadAuthentication.Token, null, null, token);
 
         /// <summary>
         /// Instructs the <see cref="ZammadAccount"/> to set the X-On-Behalf-Of header on requests.
@@ -114,63 +112,42 @@ namespace Zammad.Client
         /// Initializes a new instance of the <see cref="GroupClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="GroupClient"/> class.</returns>
-        public GroupClient CreateGroupClient()
-        {
-            return new GroupClient(this);
-        }
+        public GroupClient CreateGroupClient() => new GroupClient(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="ObjectClient"/> class.</returns>
-        public ObjectClient CreateObjectClient()
-        {
-            return new ObjectClient(this);
-        }
+        public ObjectClient CreateObjectClient() => new ObjectClient(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OnlineNotificationClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="OnlineNotificationClient"/> class.</returns>
-        public OnlineNotificationClient CreateOnlineNotificationClient()
-        {
-            return new OnlineNotificationClient(this);
-        }
+        public OnlineNotificationClient CreateOnlineNotificationClient() => new OnlineNotificationClient(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="OrganizationClient"/> class.</returns>
-        public OrganizationClient CreateOrganizationClient()
-        {
-            return new OrganizationClient(this);
-        }
+        public OrganizationClient CreateOrganizationClient() => new OrganizationClient(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TagClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="TagClient"/> class.</returns>
-        public TagClient CreateTagClient()
-        {
-            return new TagClient(this);
-        }
+        public TagClient CreateTagClient() => new TagClient(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="TicketClient"/> class.</returns>
-        public TicketClient CreateTicketClient()
-        {
-            return new TicketClient(this);
-        }
+        public TicketClient CreateTicketClient() => new TicketClient(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserClient"/> class.
         /// </summary>
         /// <returns>A new instance of the <see cref="UserClient"/> class.</returns>
-        public UserClient CreateUserClient()
-        {
-            return new UserClient(this);
-        }
+        public UserClient CreateUserClient() => new UserClient(this);
     }
 }

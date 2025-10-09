@@ -29,33 +29,39 @@ namespace Zammad.Client.IntegrationTests
         {
             var account = TestHelper.CreateTestAccount();
             var client = account.CreateOrganizationClient();
-            
-            var organization1 = await client.CreateOrganizationAsync(new Organization
-            {
-                Name = "Krusty Burger",
-                Shared = true,
-                Domain = "krustyburger.com",
-                DomainAssignment = true,
-                Active = true
-            });
 
-            var organization2 = await client.CreateOrganizationAsync(new Organization
-            {
-                Name = "Springfield Nuclear Power Plant",
-                Shared = true,
-                Domain = "nuclearpowerplant.com",
-                DomainAssignment = true,
-                Active = true
-            });
+            var organization1 = await client.CreateOrganizationAsync(
+                new Organization
+                {
+                    Name = "Krusty Burger",
+                    Shared = true,
+                    Domain = "krustyburger.com",
+                    DomainAssignment = true,
+                    Active = true,
+                }
+            );
 
-            var organization3 = await client.CreateOrganizationAsync(new Organization
-            {
-                Name = "Springfield Elementary School",
-                Shared = true,
-                Domain = "springfield-elementaryschool.com",
-                DomainAssignment = true,
-                Active = true
-            });
+            var organization2 = await client.CreateOrganizationAsync(
+                new Organization
+                {
+                    Name = "Springfield Nuclear Power Plant",
+                    Shared = true,
+                    Domain = "nuclearpowerplant.com",
+                    DomainAssignment = true,
+                    Active = true,
+                }
+            );
+
+            var organization3 = await client.CreateOrganizationAsync(
+                new Organization
+                {
+                    Name = "Springfield Elementary School",
+                    Shared = true,
+                    Domain = "springfield-elementaryschool.com",
+                    DomainAssignment = true,
+                    Active = true,
+                }
+            );
 
             Assert.NotNull(organization1);
             Assert.NotNull(organization2);
@@ -134,6 +140,5 @@ namespace Zammad.Client.IntegrationTests
             Assert.True(organization2);
             Assert.True(organization3);
         }
-
     }
 }

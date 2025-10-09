@@ -10,9 +10,7 @@ namespace Zammad.Client.Core.Protocol
         [Fact]
         public void UseGet_Success_Test()
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().Build();
 
             Assert.Equal(HttpMethod.Get, httpRequest.Method);
         }
@@ -20,9 +18,7 @@ namespace Zammad.Client.Core.Protocol
         [Fact]
         public void UsePost_Success_Test()
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UsePost()
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UsePost().Build();
 
             Assert.Equal(HttpMethod.Post, httpRequest.Method);
         }
@@ -30,9 +26,7 @@ namespace Zammad.Client.Core.Protocol
         [Fact]
         public void UsePut_Success_Test()
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UsePut()
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UsePut().Build();
 
             Assert.Equal(HttpMethod.Put, httpRequest.Method);
         }
@@ -40,9 +34,7 @@ namespace Zammad.Client.Core.Protocol
         [Fact]
         public void UseDelete_Success_Test()
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseDelete()
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseDelete().Build();
 
             Assert.Equal(HttpMethod.Delete, httpRequest.Method);
         }
@@ -54,10 +46,7 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("http://localhost:8080/zammad", "http://localhost:8080/zammad")]
         public void UseRequestUri_Success_Test(string requestUri, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .UseRequestUri(requestUri)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().UseRequestUri(requestUri).Build();
 
             Assert.Equal(expected, httpRequest.RequestUri.AbsoluteUri);
         }
@@ -71,10 +60,7 @@ namespace Zammad.Client.Core.Protocol
         {
             Assert.ThrowsAny<UriFormatException>(() =>
             {
-                var httpRequest = new HttpRequestBuilder()
-                    .UseGet()
-                    .UseRequestUri(requestUri)
-                    .Build();
+                var httpRequest = new HttpRequestBuilder().UseGet().UseRequestUri(requestUri).Build();
             });
         }
 
@@ -83,10 +69,7 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("/api/v1/groups", "/api/v1/groups")]
         public void AddPath_Success_Test(string path, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .AddPath(path)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().AddPath(path).Build();
 
             Assert.Equal(expected, httpRequest.RequestUri.AbsolutePath);
         }
@@ -96,11 +79,7 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("/api/v1/groups", "123", "/api/v1/groups/123")]
         public void AddPath_2_Success_Test(string path1, string path2, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .AddPath(path1)
-                .AddPath(path2)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().AddPath(path1).AddPath(path2).Build();
 
             Assert.Equal(expected, httpRequest.RequestUri.AbsolutePath);
         }
@@ -112,10 +91,7 @@ namespace Zammad.Client.Core.Protocol
         {
             Assert.ThrowsAny<ArgumentException>(() =>
             {
-                var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                    .AddPath(path)
-                    .Build();
+                var httpRequest = new HttpRequestBuilder().UseGet().AddPath(path).Build();
             });
         }
 
@@ -127,10 +103,7 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("?query=zammad&limit=10", "?query=zammad&limit=10")]
         public void UseQuery_Success_Test(string query, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .UseQuery(query)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().UseQuery(query).Build();
 
             Assert.Equal(expected, httpRequest.RequestUri.Query);
         }
@@ -140,10 +113,7 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("query", "", "?query=")]
         public void AddQuery_Success_Test(string key, string value, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .AddQuery(key, value)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().AddQuery(key, value).Build();
 
             Assert.Equal(expected, httpRequest.RequestUri.Query);
         }
@@ -153,11 +123,7 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("query", "zammad", "limit", "", "?query=zammad&limit=")]
         public void AddQuery_2_Success_Test(string key1, string value1, string key2, string value2, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UseGet()
-                .AddQuery(key1, value1)
-                .AddQuery(key2, value2)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UseGet().AddQuery(key1, value1).AddQuery(key2, value2).Build();
 
             Assert.Equal(expected, httpRequest.RequestUri.Query);
         }
@@ -167,20 +133,45 @@ namespace Zammad.Client.Core.Protocol
         [InlineData("zammad", "\"zammad\"")]
         public async Task UseJsonContent_Success_Test(string content, string expected)
         {
-            var httpRequest = new HttpRequestBuilder()
-                .UsePost()
-                .UseJsonContent(content)
-                .Build();
+            var httpRequest = new HttpRequestBuilder().UsePost().UseJsonContent(content).Build();
 
             var testContent = await httpRequest.Content.ReadAsStringAsync();
             Assert.Equal(expected, testContent);
         }
-        
+
         [Theory]
-        [InlineData("http://test.zammad.com", "/api/tickets", "expand=true", "zammad", "http://test.zammad.com/api/tickets?expand=true", "\"zammad\"")]
-        [InlineData("http://test.zammad.com", "/api/tickets", "", "zammad", "http://test.zammad.com/api/tickets", "\"zammad\"")]
-        [InlineData("http://test.zammad.com", "/api/tickets", "expand=true", "", "http://test.zammad.com/api/tickets?expand=true", "\"\"")]
-        public async Task Build_Post_Success_Test(string requestUri, string path, string query, string content, string expectedUri, string expectedContent)
+        [InlineData(
+            "http://test.zammad.com",
+            "/api/tickets",
+            "expand=true",
+            "zammad",
+            "http://test.zammad.com/api/tickets?expand=true",
+            "\"zammad\""
+        )]
+        [InlineData(
+            "http://test.zammad.com",
+            "/api/tickets",
+            "",
+            "zammad",
+            "http://test.zammad.com/api/tickets",
+            "\"zammad\""
+        )]
+        [InlineData(
+            "http://test.zammad.com",
+            "/api/tickets",
+            "expand=true",
+            "",
+            "http://test.zammad.com/api/tickets?expand=true",
+            "\"\""
+        )]
+        public async Task Build_Post_Success_Test(
+            string requestUri,
+            string path,
+            string query,
+            string content,
+            string expectedUri,
+            string expectedContent
+        )
         {
             var httpRequest = new HttpRequestBuilder()
                 .UsePost()
@@ -197,7 +188,12 @@ namespace Zammad.Client.Core.Protocol
         }
 
         [Theory]
-        [InlineData("http://test.zammad.com", "/api/tickets", "expand=true", "http://test.zammad.com/api/tickets?expand=true")]
+        [InlineData(
+            "http://test.zammad.com",
+            "/api/tickets",
+            "expand=true",
+            "http://test.zammad.com/api/tickets?expand=true"
+        )]
         [InlineData("http://test.zammad.com", "/api/tickets", "", "http://test.zammad.com/api/tickets")]
         public void Build_Get_Success_Test(string requestUri, string path, string query, string expectedUri)
         {
@@ -216,8 +212,7 @@ namespace Zammad.Client.Core.Protocol
         {
             Assert.ThrowsAny<ArgumentException>(() =>
             {
-                var httpRequest = new HttpRequestBuilder()
-                    .Build();
+                var httpRequest = new HttpRequestBuilder().Build();
             });
         }
     }

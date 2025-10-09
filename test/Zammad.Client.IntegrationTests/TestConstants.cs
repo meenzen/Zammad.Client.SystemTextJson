@@ -1,4 +1,3 @@
-
 namespace Zammad.Client.IntegrationTests
 {
     public class TestConstants

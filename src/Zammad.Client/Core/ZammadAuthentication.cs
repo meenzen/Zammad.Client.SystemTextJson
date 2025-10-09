@@ -3,6 +3,6 @@
     public enum ZammadAuthentication
     {
         Basic,
-        Token
+        Token,
     }
 }

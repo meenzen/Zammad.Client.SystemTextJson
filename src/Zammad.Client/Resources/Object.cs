@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-
 namespace Zammad.Client.Resources
 {
     public class Object
@@ -33,10 +32,10 @@ namespace Zammad.Client.Resources
 
         [JsonPropertyName("active")]
         public bool Active { get; set; }
-        
+
         [JsonPropertyName("screens")]
         public dynamic Screens { get; set; }
-        
+
         [JsonPropertyName("to_create")]
         public bool ToCreate { get; set; }
 

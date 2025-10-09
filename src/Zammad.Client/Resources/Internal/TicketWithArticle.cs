@@ -1,10 +1,8 @@
-﻿
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using Zammad.Client.Core.Internal;
 
 namespace Zammad.Client.Resources.Internal
 {
-    
     public class TicketWithArticle : Ticket
     {
         [JsonPropertyName("article")]

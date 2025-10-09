@@ -8,14 +8,14 @@ namespace Zammad.Client.Core.Protocol
     {
         private readonly string _onBehalfOf;
 
-        protected HttpClientHandlerBase(string onBehalfOf)
-        {
-            _onBehalfOf = onBehalfOf;
-        }
+        protected HttpClientHandlerBase(string onBehalfOf) => _onBehalfOf = onBehalfOf;
 
         protected bool UseBehalfOf => !string.IsNullOrEmpty(_onBehalfOf);
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken
+        )
         {
             if (UseBehalfOf)
             {

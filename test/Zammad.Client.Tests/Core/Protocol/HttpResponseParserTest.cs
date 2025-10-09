@@ -17,8 +17,7 @@ namespace Zammad.Client.Core.Protocol
         {
             var httpResponse = CreateTestResponse();
 
-            var httpResponseParser = new HttpResponseParser()
-                .UseHttpResponse(httpResponse);
+            var httpResponseParser = new HttpResponseParser().UseHttpResponse(httpResponse);
         }
 
         [Fact]
@@ -26,8 +25,7 @@ namespace Zammad.Client.Core.Protocol
         {
             Assert.ThrowsAny<ArgumentException>(() =>
             {
-                var httpResponseParser = new HttpResponseParser()
-                .UseHttpResponse(null);
+                var httpResponseParser = new HttpResponseParser().UseHttpResponse(null);
             });
         }
 
@@ -36,9 +34,7 @@ namespace Zammad.Client.Core.Protocol
         {
             var httpResponse = CreateTestResponse();
 
-            var success = new HttpResponseParser()
-                .UseHttpResponse(httpResponse)
-                .ParseSuccessStatus();
+            var success = new HttpResponseParser().UseHttpResponse(httpResponse).ParseSuccessStatus();
 
             Assert.True(success);
         }
@@ -48,9 +44,7 @@ namespace Zammad.Client.Core.Protocol
         {
             var httpResponse = CreateTestResponse();
 
-            var httpStatusCode = new HttpResponseParser()
-                .UseHttpResponse(httpResponse)
-                .ParseStatusCode();
+            var httpStatusCode = new HttpResponseParser().UseHttpResponse(httpResponse).ParseStatusCode();
 
             Assert.Equal(HttpStatusCode.OK, httpStatusCode);
         }
@@ -60,9 +54,7 @@ namespace Zammad.Client.Core.Protocol
         {
             var httpResponse = CreateTestResponse();
 
-            var ticket = await new HttpResponseParser()
-                .UseHttpResponse(httpResponse)
-                .ParseJsonContentAsync<Ticket>();
+            var ticket = await new HttpResponseParser().UseHttpResponse(httpResponse).ParseJsonContentAsync<Ticket>();
 
             Assert.Equal(1, ticket.Id);
             Assert.Equal(1, ticket.GroupId);
@@ -108,9 +100,11 @@ namespace Zammad.Client.Core.Protocol
         {
             var httpResponse = CreateTestResponse();
 
-            using (var ticketStream = await new HttpResponseParser()
-                .UseHttpResponse(httpResponse)
-                .ParseStreamContentAsync())
+            using (
+                var ticketStream = await new HttpResponseParser()
+                    .UseHttpResponse(httpResponse)
+                    .ParseStreamContentAsync()
+            )
             using (var reader = new StreamReader(ticketStream))
             {
                 var ticketString = await reader.ReadToEndAsync();
@@ -123,7 +117,7 @@ namespace Zammad.Client.Core.Protocol
             return new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(TestConstants.TicketSerialized, Encoding.UTF8, "application/json")
+                Content = new StringContent(TestConstants.TicketSerialized, Encoding.UTF8, "application/json"),
             };
         }
     }

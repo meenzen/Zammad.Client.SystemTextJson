@@ -20,14 +20,16 @@ namespace Zammad.Client.Core.Protocol
             _authenticationHeader = CreateAuthenticationHeader(user, password);
         }
 
-        private static AuthenticationHeaderValue CreateAuthenticationHeader(string user, string password)
-        {
-            return new AuthenticationHeaderValue("Basic",
-                Convert.ToBase64String(
-                    Encoding.GetEncoding("ISO-8859-1").GetBytes($"{user}:{password}")));
-        }
+        private static AuthenticationHeaderValue CreateAuthenticationHeader(string user, string password) =>
+            new AuthenticationHeaderValue(
+                "Basic",
+                Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{user}:{password}"))
+            );
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken
+        )
         {
             request.Headers.Authorization = _authenticationHeader;
             return base.SendAsync(request, cancellationToken);

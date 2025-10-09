@@ -17,12 +17,13 @@ namespace Zammad.Client.Core.Protocol
             _authenticationHeader = CreateAuthenticationHeader(token);
         }
 
-        private static AuthenticationHeaderValue CreateAuthenticationHeader(string token)
-        {
-            return new AuthenticationHeaderValue("Token", $"token={token}");
-        }
+        private static AuthenticationHeaderValue CreateAuthenticationHeader(string token) =>
+            new AuthenticationHeaderValue("Token", $"token={token}");
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken
+        )
         {
             request.Headers.Authorization = _authenticationHeader;
             return base.SendAsync(request, cancellationToken);

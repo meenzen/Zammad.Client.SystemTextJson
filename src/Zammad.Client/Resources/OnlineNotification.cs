@@ -1,7 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
 
-
 namespace Zammad.Client.Resources
 {
     public class OnlineNotification

@@ -10,10 +10,7 @@ namespace Zammad.Client
     public class TagClient : ZammadClient, ITagService
     {
         public TagClient(ZammadAccount account)
-            : base(account)
-        {
-
-        }
+            : base(account) { }
 
         #region ITagService
 
@@ -23,40 +20,22 @@ namespace Zammad.Client
             return tagList.Tags;
         }
 
-        public Task<IList<Tag>> SearchTagAsync(string term)
-        {
-            return GetAsync<IList<Tag>>("/api/v1/tag_search", $"term={term}");
-        }
+        public Task<IList<Tag>> SearchTagAsync(string term) =>
+            GetAsync<IList<Tag>>("/api/v1/tag_search", $"term={term}");
 
-        public Task<bool> AddTagAsync(string objectName, int objectId, string tagName)
-        {
-            return GetAsync<bool>("/api/v1/tags/add", $"object={objectName}&o_id={objectId}&item={tagName}");
-        }
+        public Task<bool> AddTagAsync(string objectName, int objectId, string tagName) =>
+            GetAsync<bool>("/api/v1/tags/add", $"object={objectName}&o_id={objectId}&item={tagName}");
 
-        public Task<bool> RemoveTagAsync(string objectName, int objectId, string tagName)
-        {
-            return GetAsync<bool>("/api/v1/tags/remove", $"object={objectName}&o_id={objectId}&item={tagName}");
-        }
+        public Task<bool> RemoveTagAsync(string objectName, int objectId, string tagName) =>
+            GetAsync<bool>("/api/v1/tags/remove", $"object={objectName}&o_id={objectId}&item={tagName}");
 
-        public Task<IList<Tag>> GetTagListAdminAsync()
-        {
-            return GetAsync<IList<Tag>>("/api/v1/tag_list");
-        }
+        public Task<IList<Tag>> GetTagListAdminAsync() => GetAsync<IList<Tag>>("/api/v1/tag_list");
 
-        public Task<bool> CreateTagAdminAsync(Tag tag)
-        {
-            return PostAsync<bool>("/api/v1/tag_list", tag);
-        }
+        public Task<bool> CreateTagAdminAsync(Tag tag) => PostAsync<bool>("/api/v1/tag_list", tag);
 
-        public Task<bool> RenameTagAdminAsync(Tag tag)
-        {
-            return PutAsync<bool>("/api/v1/tag_list", tag);
-        }
+        public Task<bool> RenameTagAdminAsync(Tag tag) => PutAsync<bool>("/api/v1/tag_list", tag);
 
-        public Task<bool> DeleteTagAdminAsync(Tag tag)
-        {
-            return DeleteAsync<bool>("/api/v1/tag_list", tag);
-        }
+        public Task<bool> DeleteTagAdminAsync(Tag tag) => DeleteAsync<bool>("/api/v1/tag_list", tag);
 
         #endregion
     }

@@ -19,14 +19,15 @@ namespace Zammad.Client.IntegrationTests
                     Title = "Help me!",
                     GroupId = 1,
                     CustomerId = 1,
-                    OwnerId = 1
+                    OwnerId = 1,
                 },
                 new TicketArticle
                 {
                     Subject = "Help me!!!",
                     Body = "Nothing Work!",
                     Type = "note",
-                });
+                }
+            );
 
             Assert.NotNull(ticket);
         }
@@ -36,7 +37,7 @@ namespace Zammad.Client.IntegrationTests
         {
             var account = TestHelper.CreateTestAccount();
             var client = account.CreateTicketClient();
-            
+
             var ticketSearch = await client.SearchTicketAsync("Zammad", 20);
             Assert.NotNull(ticketSearch);
         }

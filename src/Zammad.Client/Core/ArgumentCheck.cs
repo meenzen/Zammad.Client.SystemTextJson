@@ -23,6 +23,5 @@ namespace Zammad.Client.Core
                 throw new ArgumentOutOfRangeException(paramName);
             }
         }
-
     }
 }
