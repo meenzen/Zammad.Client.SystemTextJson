@@ -6,12 +6,22 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 
 namespace Zammad.Client;
 
 #nullable enable
+public interface IZammadClient
+    : IGroupService,
+        IObjectService,
+        IOnlineNotificationService,
+        IOrganizationService,
+        ITagService,
+        ITicketArticleService,
+        ITicketPriorityService,
+        ITicketService,
+        ITicketStateService,
+        IUserService;
 
 public sealed partial class ZammadClient : IZammadClient
 {

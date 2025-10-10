@@ -1,12 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
 #nullable enable
+
+public interface IObjectService
+{
+    Task<List<Object>> GetObjectListAsync();
+    Task<Object?> GetObjectAsync(int id);
+    Task<Object> CreateObjectAsync(Object @object);
+    Task<Object> UpdateObjectAsync(int id, Object @object);
+    Task<bool> ExecuteMigrationAsync();
+}
 
 public sealed partial class ZammadClient : IObjectService
 {

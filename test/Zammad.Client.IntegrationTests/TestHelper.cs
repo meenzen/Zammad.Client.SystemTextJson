@@ -1,7 +1,6 @@
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.Options;
-using Zammad.Client.Abstractions;
 
 namespace Zammad.Client.IntegrationTests;
 

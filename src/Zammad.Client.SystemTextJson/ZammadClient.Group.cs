@@ -1,12 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
 #nullable enable
+public interface IGroupService
+{
+    Task<List<Group>> GetGroupListAsync();
+    Task<List<Group>> GetGroupListAsync(int page, int count);
+    Task<Group?> GetGroupAsync(int id);
+    Task<Group> CreateGroupAsync(Group group);
+    Task<Group> UpdateGroupAsync(int id, Group group);
+    Task<bool> DeleteGroupAsync(int id);
+}
+
 public sealed partial class ZammadClient : IGroupService
 {
     public async Task<List<Group>> GetGroupListAsync() => await GetAsync<List<Group>>("/api/v1/groups") ?? [];

@@ -1,13 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zammad.Client.Abstractions;
-using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
 #nullable enable
+
+public interface ITagService
+{
+    Task<List<string>> GetTagListAsync(string objectName, int objectId);
+    Task<List<Tag>> SearchTagAsync(string term);
+    Task<bool> AddTagAsync(string objectName, int objectId, string tagName);
+    Task<bool> RemoveTagAsync(string objectName, int objectId, string tagName);
+    Task<List<Tag>> GetTagListAdminAsync();
+    Task<bool> CreateTagAdminAsync(Tag tag);
+    Task<bool> RenameTagAdminAsync(Tag tag);
+    Task<bool> DeleteTagAdminAsync(Tag tag);
+}
 
 public sealed partial class ZammadClient : ITagService
 {

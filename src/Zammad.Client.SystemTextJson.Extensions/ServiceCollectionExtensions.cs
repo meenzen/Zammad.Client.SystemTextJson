@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
         Action<ZammadOptions> configureOptions
     )
     {
-        collection.AddHttpClient<ZammadClient>();
+        collection.AddHttpClient<IZammadClient, ZammadClient>();
         collection.Configure(configureOptions);
         return collection;
     }

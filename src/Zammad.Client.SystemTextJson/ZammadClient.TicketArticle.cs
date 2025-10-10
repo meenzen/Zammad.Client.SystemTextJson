@@ -1,14 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
-using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
 #nullable enable
+
+public interface ITicketArticleService
+{
+    Task<List<TicketArticle>> GetTicketArticleListAsync();
+    Task<List<TicketArticle>> GetTicketArticleListAsync(int page, int count);
+    Task<List<TicketArticle>> GetTicketArticleListForTicketAsync(int ticketId);
+    Task<TicketArticle?> GetTicketArticleAsync(int id);
+    Task<TicketArticle> CreateTicketArticleAsync(TicketArticle article);
+    Task<Stream?> GetTicketArticleAttachmentAsync(int ticketId, int articleId, int id);
+}
 
 public sealed partial class ZammadClient : ITicketArticleService
 {

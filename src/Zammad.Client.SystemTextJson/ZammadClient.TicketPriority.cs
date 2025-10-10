@@ -1,14 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
-using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
 #nullable enable
+public interface ITicketPriorityService
+{
+    Task<List<TicketPriority>> GetTicketPriorityListAsync();
+    Task<List<TicketPriority>> GetTicketPriorityListAsync(int page, int count);
+    Task<TicketPriority?> GetTicketPriorityAsync(int id);
+    Task<TicketPriority> CreateTicketPriorityAsync(TicketPriority priority);
+    Task<TicketPriority> UpdateTicketPriorityAsync(int id, TicketPriority priority);
+    Task<bool> DeleteTicketPriorityAsync(int id);
+}
+
 public sealed partial class ZammadClient : ITicketPriorityService
 {
     public async Task<List<TicketPriority>> GetTicketPriorityListAsync() =>

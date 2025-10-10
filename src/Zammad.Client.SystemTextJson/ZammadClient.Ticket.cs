@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Zammad.Client.Resources.Internal;
@@ -9,6 +7,18 @@ using Zammad.Client.Resources.Internal;
 namespace Zammad.Client;
 
 #nullable enable
+public interface ITicketService
+{
+    Task<List<Ticket>> GetTicketListAsync();
+    Task<List<Ticket>> GetTicketListAsync(int page, int count);
+    Task<List<Ticket>> SearchTicketAsync(string query, int limit);
+    Task<List<Ticket>> SearchTicketAsync(string query, int limit, string sortBy, string orderBy);
+    Task<Ticket?> GetTicketAsync(int id);
+    Task<Ticket> CreateTicketAsync(Ticket ticket, TicketArticle article);
+    Task<Ticket> UpdateTicketAsync(int id, Ticket ticket);
+    Task<bool> DeleteTicketAsync(int id);
+}
+
 public sealed partial class ZammadClient : ITicketService
 {
     public async Task<List<Ticket>> GetTicketListAsync() => await GetAsync<List<Ticket>>("/api/v1/tickets") ?? [];
