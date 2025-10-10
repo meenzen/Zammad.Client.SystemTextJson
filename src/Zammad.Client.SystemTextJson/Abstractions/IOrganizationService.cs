@@ -6,10 +6,10 @@ namespace Zammad.Client.Abstractions;
 
 public interface IOrganizationService
 {
-    Task<IList<Organization>> GetOrganizationListAsync();
-    Task<IList<Organization>> GetOrganizationListAsync(int page, int count);
-    Task<IList<Organization>> SearchOrganizationAsync(string query, int limit);
-    Task<IList<Organization>> SearchOrganizationAsync(string query, int limit, string sortBy, string orderBy);
+    Task<List<Organization>> GetOrganizationListAsync();
+    Task<List<Organization>> GetOrganizationListAsync(int page, int count);
+    Task<List<Organization>> SearchOrganizationAsync(string query, int limit);
+    Task<List<Organization>> SearchOrganizationAsync(string query, int limit, string sortBy, string orderBy);
     Task<Organization> GetOrganizationAsync(int id);
     Task<Organization> CreateOrganizationAsync(Organization organization);
     Task<Organization> UpdateOrganizationAsync(int id, Organization organization);

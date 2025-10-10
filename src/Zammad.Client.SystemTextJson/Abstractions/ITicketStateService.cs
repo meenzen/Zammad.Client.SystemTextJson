@@ -6,8 +6,8 @@ namespace Zammad.Client.Abstractions;
 
 public interface ITicketStateService
 {
-    Task<IList<TicketState>> GetTicketStateListAsync();
-    Task<IList<TicketState>> GetTicketStateListAsync(int page, int count);
+    Task<List<TicketState>> GetTicketStateListAsync();
+    Task<List<TicketState>> GetTicketStateListAsync(int page, int count);
     Task<TicketState> GetTicketStateAsync(int id);
     Task<TicketState> CreateTicketStateAsync(TicketState state);
     Task<TicketState> UpdateTicketStateAsync(int id, TicketState state);

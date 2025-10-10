@@ -16,16 +16,16 @@ public sealed partial class ZammadClient
 {
     #region ITicketService
 
-    public Task<IList<Ticket>> GetTicketListAsync() => GetAsync<IList<Ticket>>("/api/v1/tickets");
+    public Task<List<Ticket>> GetTicketListAsync() => GetAsync<List<Ticket>>("/api/v1/tickets");
 
-    public Task<IList<Ticket>> GetTicketListAsync(int page, int count) =>
-        GetAsync<IList<Ticket>>("/api/v1/tickets", $"page={page}&per_page={count}");
+    public Task<List<Ticket>> GetTicketListAsync(int page, int count) =>
+        GetAsync<List<Ticket>>("/api/v1/tickets", $"page={page}&per_page={count}");
 
-    public Task<IList<Ticket>> SearchTicketAsync(string query, int limit) =>
-        GetAsync<IList<Ticket>>("/api/v1/tickets/search", $"query={query}&limit={limit}&expand=true");
+    public Task<List<Ticket>> SearchTicketAsync(string query, int limit) =>
+        GetAsync<List<Ticket>>("/api/v1/tickets/search", $"query={query}&limit={limit}&expand=true");
 
-    public Task<IList<Ticket>> SearchTicketAsync(string query, int limit, string sortBy, string orderBy) =>
-        GetAsync<IList<Ticket>>(
+    public Task<List<Ticket>> SearchTicketAsync(string query, int limit, string sortBy, string orderBy) =>
+        GetAsync<List<Ticket>>(
             "/api/v1/tickets/search",
             $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
         );
@@ -43,14 +43,14 @@ public sealed partial class ZammadClient
 
     #region ITicketArticleService
 
-    public Task<IList<TicketArticle>> GetTicketArticleListAsync() =>
-        GetAsync<IList<TicketArticle>>("/api/v1/ticket_articles");
+    public Task<List<TicketArticle>> GetTicketArticleListAsync() =>
+        GetAsync<List<TicketArticle>>("/api/v1/ticket_articles");
 
-    public Task<IList<TicketArticle>> GetTicketArticleListAsync(int page, int count) =>
-        GetAsync<IList<TicketArticle>>("/api/v1/ticket_articles", $"page={page}&per_page={count}");
+    public Task<List<TicketArticle>> GetTicketArticleListAsync(int page, int count) =>
+        GetAsync<List<TicketArticle>>("/api/v1/ticket_articles", $"page={page}&per_page={count}");
 
-    public Task<IList<TicketArticle>> GetTicketArticleListForTicketAsync(int ticketId) =>
-        GetAsync<IList<TicketArticle>>($"/api/v1/ticket_articles/by_ticket/{ticketId}");
+    public Task<List<TicketArticle>> GetTicketArticleListForTicketAsync(int ticketId) =>
+        GetAsync<List<TicketArticle>>($"/api/v1/ticket_articles/by_ticket/{ticketId}");
 
     public Task<TicketArticle> GetTicketArticleAsync(int id) =>
         GetAsync<TicketArticle>($"/api/v1/ticket_articles/{id}");
@@ -65,11 +65,11 @@ public sealed partial class ZammadClient
 
     #region ITicketPriorityService
 
-    public Task<IList<TicketPriority>> GetTicketPriorityListAsync() =>
-        GetAsync<IList<TicketPriority>>("/api/v1/ticket_priorities");
+    public Task<List<TicketPriority>> GetTicketPriorityListAsync() =>
+        GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities");
 
-    public Task<IList<TicketPriority>> GetTicketPriorityListAsync(int page, int count) =>
-        GetAsync<IList<TicketPriority>>("/api/v1/ticket_priorities", $"page={page}&per_page={count}");
+    public Task<List<TicketPriority>> GetTicketPriorityListAsync(int page, int count) =>
+        GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities", $"page={page}&per_page={count}");
 
     public Task<TicketPriority> GetTicketPriorityAsync(int id) =>
         GetAsync<TicketPriority>($"/api/v1/ticket_priorities/{id}");
@@ -86,10 +86,10 @@ public sealed partial class ZammadClient
 
     #region ITicketStateService
 
-    public Task<IList<TicketState>> GetTicketStateListAsync() => GetAsync<IList<TicketState>>("/api/v1/ticket_states");
+    public Task<List<TicketState>> GetTicketStateListAsync() => GetAsync<List<TicketState>>("/api/v1/ticket_states");
 
-    public Task<IList<TicketState>> GetTicketStateListAsync(int page, int count) =>
-        GetAsync<IList<TicketState>>("/api/v1/ticket_states", $"page={page}&per_page={count}");
+    public Task<List<TicketState>> GetTicketStateListAsync(int page, int count) =>
+        GetAsync<List<TicketState>>("/api/v1/ticket_states", $"page={page}&per_page={count}");
 
     public Task<TicketState> GetTicketStateAsync(int id) => GetAsync<TicketState>($"/api/v1/ticket_states/{id}");
 

@@ -8,17 +8,16 @@ namespace Zammad.Client;
 
 public sealed partial class ZammadClient : IOrganizationService
 {
-    public Task<IList<Organization>> GetOrganizationListAsync() =>
-        GetAsync<IList<Organization>>("/api/v1/organizations");
+    public Task<List<Organization>> GetOrganizationListAsync() => GetAsync<List<Organization>>("/api/v1/organizations");
 
-    public Task<IList<Organization>> GetOrganizationListAsync(int page, int count) =>
-        GetAsync<IList<Organization>>("/api/v1/organizations", $"page={page}&per_page={count}");
+    public Task<List<Organization>> GetOrganizationListAsync(int page, int count) =>
+        GetAsync<List<Organization>>("/api/v1/organizations", $"page={page}&per_page={count}");
 
-    public Task<IList<Organization>> SearchOrganizationAsync(string query, int limit) =>
-        GetAsync<IList<Organization>>("/api/v1/organizations/search", $"query={query}&limit={limit}&expand=true");
+    public Task<List<Organization>> SearchOrganizationAsync(string query, int limit) =>
+        GetAsync<List<Organization>>("/api/v1/organizations/search", $"query={query}&limit={limit}&expand=true");
 
-    public Task<IList<Organization>> SearchOrganizationAsync(string query, int limit, string sortBy, string orderBy) =>
-        GetAsync<IList<Organization>>(
+    public Task<List<Organization>> SearchOrganizationAsync(string query, int limit, string sortBy, string orderBy) =>
+        GetAsync<List<Organization>>(
             "/api/v1/organizations/search",
             $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
         );

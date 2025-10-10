@@ -34,7 +34,7 @@ public class Group
     public string Note { get; set; }
 
     [JsonPropertyName("user_ids")]
-    public IList<int> UserIds { get; set; }
+    public List<int> UserIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public int UpdatedById { get; set; }

@@ -7,9 +7,9 @@ namespace Zammad.Client.Abstractions;
 
 public interface ITicketArticleService
 {
-    Task<IList<TicketArticle>> GetTicketArticleListAsync();
-    Task<IList<TicketArticle>> GetTicketArticleListAsync(int page, int count);
-    Task<IList<TicketArticle>> GetTicketArticleListForTicketAsync(int ticketId);
+    Task<List<TicketArticle>> GetTicketArticleListAsync();
+    Task<List<TicketArticle>> GetTicketArticleListAsync(int page, int count);
+    Task<List<TicketArticle>> GetTicketArticleListForTicketAsync(int ticketId);
     Task<TicketArticle> GetTicketArticleAsync(int id);
     Task<TicketArticle> CreateTicketArticleAsync(TicketArticle article);
     Task<Stream> GetTicketArticleAttachmentAsync(int ticketId, int articleId, int id);

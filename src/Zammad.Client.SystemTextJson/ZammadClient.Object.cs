@@ -8,7 +8,7 @@ namespace Zammad.Client;
 
 public sealed partial class ZammadClient : IObjectService
 {
-    public Task<IList<Object>> GetObjectListAsync() => GetAsync<IList<Object>>("/api/v1/object_manager_attributes");
+    public Task<List<Object>> GetObjectListAsync() => GetAsync<List<Object>>("/api/v1/object_manager_attributes");
 
     public Task<Object> GetObjectAsync(int id) => GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
 

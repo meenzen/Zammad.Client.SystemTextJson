@@ -33,7 +33,7 @@ public class Organization
     public string Note { get; set; } = string.Empty;
 
     [JsonPropertyName("member_ids")]
-    public IList<int>? MemberIds { get; set; }
+    public List<int>? MemberIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public int? UpdatedById { get; set; }

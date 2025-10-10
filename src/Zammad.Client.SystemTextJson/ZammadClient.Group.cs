@@ -8,10 +8,10 @@ namespace Zammad.Client;
 
 public sealed partial class ZammadClient : IGroupService
 {
-    public Task<IList<Group>> GetGroupListAsync() => GetAsync<IList<Group>>("/api/v1/groups");
+    public Task<List<Group>> GetGroupListAsync() => GetAsync<List<Group>>("/api/v1/groups");
 
-    public Task<IList<Group>> GetGroupListAsync(int page, int count) =>
-        GetAsync<IList<Group>>("/api/v1/groups", $"page={page}&per_page={count}");
+    public Task<List<Group>> GetGroupListAsync(int page, int count) =>
+        GetAsync<List<Group>>("/api/v1/groups", $"page={page}&per_page={count}");
 
     public Task<Group> GetGroupAsync(int id) => GetAsync<Group>($"/api/v1/groups/{id}");
 

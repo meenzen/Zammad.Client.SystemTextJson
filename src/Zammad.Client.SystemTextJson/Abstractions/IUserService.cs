@@ -7,10 +7,10 @@ namespace Zammad.Client.Abstractions;
 public interface IUserService
 {
     Task<User> GetUserMeAsync();
-    Task<IList<User>> GetUserListAsync();
-    Task<IList<User>> GetUserListAsync(int page, int count);
-    Task<IList<User>> SearchUserAsync(string query, int limit);
-    Task<IList<User>> SearchUserAsync(string query, int limit, string sortBy, string orderBy);
+    Task<List<User>> GetUserListAsync();
+    Task<List<User>> GetUserListAsync(int page, int count);
+    Task<List<User>> SearchUserAsync(string query, int limit);
+    Task<List<User>> SearchUserAsync(string query, int limit, string sortBy, string orderBy);
     Task<User> GetUserAsync(int id);
     Task<User> CreateUserAsync(User user);
     Task<User> UpdateUserAsync(int id, User user);

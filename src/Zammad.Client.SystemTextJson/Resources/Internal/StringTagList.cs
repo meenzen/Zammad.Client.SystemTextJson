@@ -6,5 +6,5 @@ namespace Zammad.Client.Resources.Internal;
 public class StringTagList
 {
     [JsonPropertyName("tags")]
-    public IList<string> Tags { get; set; } = new List<string>();
+    public List<string> Tags { get; set; } = new List<string>();
 }

@@ -8,11 +8,11 @@ namespace Zammad.Client;
 
 public sealed partial class ZammadClient : IOnlineNotificationService
 {
-    public Task<IList<OnlineNotification>> GetOnlineNotificationListAsync() =>
-        GetAsync<IList<OnlineNotification>>("/api/v1/online_notifications");
+    public Task<List<OnlineNotification>> GetOnlineNotificationListAsync() =>
+        GetAsync<List<OnlineNotification>>("/api/v1/online_notifications");
 
-    public Task<IList<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count) =>
-        GetAsync<IList<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}");
+    public Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count) =>
+        GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}");
 
     public Task<OnlineNotification> GetOnlineNotificationAsync(int id) =>
         GetAsync<OnlineNotification>($"/api/v1/online_notifications/{id}");

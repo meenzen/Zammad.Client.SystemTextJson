@@ -9,13 +9,13 @@ namespace Zammad.Client;
 
 public sealed partial class ZammadClient : ITagService
 {
-    public async Task<IList<string>> GetTagListAsync(string objectName, int objectId)
+    public async Task<List<string>> GetTagListAsync(string objectName, int objectId)
     {
         var tagList = await GetAsync<StringTagList>("/api/v1/tags", $"object={objectName}&o_id={objectId}");
         return tagList.Tags;
     }
 
-    public Task<IList<Tag>> SearchTagAsync(string term) => GetAsync<IList<Tag>>("/api/v1/tag_search", $"term={term}");
+    public Task<List<Tag>> SearchTagAsync(string term) => GetAsync<List<Tag>>("/api/v1/tag_search", $"term={term}");
 
     public Task<bool> AddTagAsync(string objectName, int objectId, string tagName) =>
         GetAsync<bool>("/api/v1/tags/add", $"object={objectName}&o_id={objectId}&item={tagName}");
@@ -23,7 +23,7 @@ public sealed partial class ZammadClient : ITagService
     public Task<bool> RemoveTagAsync(string objectName, int objectId, string tagName) =>
         GetAsync<bool>("/api/v1/tags/remove", $"object={objectName}&o_id={objectId}&item={tagName}");
 
-    public Task<IList<Tag>> GetTagListAdminAsync() => GetAsync<IList<Tag>>("/api/v1/tag_list");
+    public Task<List<Tag>> GetTagListAdminAsync() => GetAsync<List<Tag>>("/api/v1/tag_list");
 
     public Task<bool> CreateTagAdminAsync(Tag tag) => PostAsync<bool>("/api/v1/tag_list", tag);
 

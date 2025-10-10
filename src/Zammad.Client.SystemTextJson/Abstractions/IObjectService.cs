@@ -6,7 +6,7 @@ namespace Zammad.Client.Abstractions;
 
 public interface IObjectService
 {
-    Task<IList<Object>> GetObjectListAsync();
+    Task<List<Object>> GetObjectListAsync();
     Task<Object> GetObjectAsync(int id);
     Task<Object> CreateObjectAsync(Object @object);
     Task<Object> UpdateObjectAsync(int id, Object @object);

@@ -6,8 +6,8 @@ namespace Zammad.Client.Abstractions;
 
 public interface ITicketPriorityService
 {
-    Task<IList<TicketPriority>> GetTicketPriorityListAsync();
-    Task<IList<TicketPriority>> GetTicketPriorityListAsync(int page, int count);
+    Task<List<TicketPriority>> GetTicketPriorityListAsync();
+    Task<List<TicketPriority>> GetTicketPriorityListAsync(int page, int count);
     Task<TicketPriority> GetTicketPriorityAsync(int id);
     Task<TicketPriority> CreateTicketPriorityAsync(TicketPriority priority);
     Task<TicketPriority> UpdateTicketPriorityAsync(int id, TicketPriority priority);
