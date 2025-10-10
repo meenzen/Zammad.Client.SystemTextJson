@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Zammad.Client.IntegrationTests;
 
-[TestCaseOrderer("Zammad.Client.IntegrationTests.TestOrderer", "Zammad.Client.IntegrationTests")]
+[TestCaseOrderer(typeof(TestOrderer))]
 public class TagClientTest
 {
     [Fact, Order(TestOrder.TagGetTagList)]

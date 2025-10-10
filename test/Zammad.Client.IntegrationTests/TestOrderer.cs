@@ -1,39 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit.Abstractions;
 using Xunit.Sdk;
+using Xunit.v3;
 
 namespace Zammad.Client.IntegrationTests;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-public class OrderAttribute : Attribute
+public class OrderAttribute(int order) : Attribute
 {
-    public OrderAttribute(int order)
-    {
-        Order = order;
-    }
-
-    public int Order { get; }
+    public int Order { get; } = order;
 }
 
 public class TestOrderer : ITestCaseOrderer
 {
-    public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases)
-        where TTestCase : ITestCase
-    {
-        return testCases.OrderBy(t => t.GetOrder());
-    }
+    public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases)
+        where TTestCase : notnull, ITestCase => testCases.OrderBy(t => t.GetOrder()).ToList();
 }
 
 public static class ITestCaseExtensions
 {
     public static int GetOrder(this ITestCase testCase)
     {
-        var order = testCase
-            .TestMethod.Method.GetCustomAttributes(typeof(OrderAttribute).AssemblyQualifiedName)
-            .LastOrDefault();
-        return order != null ? order.GetNamedArgument<int>(nameof(OrderAttribute.Order)) : int.MaxValue;
+        var fullName = testCase.TestClassName;
+        if (fullName is null)
+        {
+            return int.MaxValue;
+        }
+
+        // get order attribute from class
+        var type = Type.GetType(fullName);
+        if (type is null)
+        {
+            throw new InvalidOperationException($"Type '{fullName}' not found.");
+        }
+
+        var method = type.GetMethod(testCase.TestMethod!.MethodName);
+        if (method is null)
+        {
+            throw new InvalidOperationException(
+                $"Method '{testCase.TestMethod.MethodName}' not found in type '{fullName}'."
+            );
+        }
+
+        var orderAttribute =
+            method.GetCustomAttributes(typeof(OrderAttribute), false).FirstOrDefault() as OrderAttribute;
+        return orderAttribute?.Order ?? int.MaxValue;
     }
 }
 

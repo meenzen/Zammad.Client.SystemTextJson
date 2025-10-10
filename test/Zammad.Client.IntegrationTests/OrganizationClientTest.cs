@@ -4,7 +4,7 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
-[TestCaseOrderer("Zammad.Client.IntegrationTests.TestOrderer", "Zammad.Client.IntegrationTests")]
+[TestCaseOrderer(typeof(TestOrderer))]
 public class OrganizationClientTest
 {
     private static int NotFromTestOrganizationCount { get; set; } = 0;
@@ -100,7 +100,7 @@ public class OrganizationClientTest
     {
         var client = TestHelper.Client;
 
-        await Task.Delay(5000); // Wait for Zammad search indexer
+        await Task.Delay(5000, TestContext.Current.CancellationToken); // Wait for Zammad search indexer
         var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger", 20);
 
         Assert.Single(organizationSearch);

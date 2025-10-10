@@ -4,7 +4,7 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
-[TestCaseOrderer("Zammad.Client.IntegrationTests.TestOrderer", "Zammad.Client.IntegrationTests")]
+[TestCaseOrderer(typeof(TestOrderer))]
 public class TicketClientTest
 {
     [Fact, Order(TestOrder.TicketCreate)]
