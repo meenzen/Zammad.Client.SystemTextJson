@@ -24,6 +24,9 @@
     <InternalsVisibleTo Include="Zammad.Client.Tests" />
     <InternalsVisibleTo Include="Zammad.Client.IntegrationTests" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Net.Http.Json" />
+  </ItemGroup>
   <Target
     Name="Husky"
     BeforeTargets="Restore;CollectPackageReferences"

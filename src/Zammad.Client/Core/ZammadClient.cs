@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Zammad.Client.Core.Protocol;
 
@@ -12,8 +13,6 @@ public abstract class ZammadClient
     protected ZammadClient(ZammadAccount account) =>
         _account = account ?? throw new ArgumentNullException(nameof(account));
 
-    protected static HttpRequestBuilder NewRequest() => new HttpRequestBuilder();
-
     protected async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequest)
     {
         using (var httpClient = CreateHttpClient())
@@ -23,6 +22,7 @@ public abstract class ZammadClient
             {
                 throw new ZammadException(httpRequest, httpResponse);
             }
+
             return httpResponse;
         }
     }
@@ -44,7 +44,13 @@ public abstract class ZammadClient
 
     protected async Task<TResult> GetAsync<TResult>(string path, string query = null)
     {
-        var httpRequest = NewRequest().UseGet().UseRequestUri(_account.Endpoint).AddPath(path).UseQuery(query).Build();
+        var builder = new UriBuilder(new Uri(_account.Endpoint, path));
+        if (query is not null)
+        {
+            builder.Query = query;
+        }
+
+        var httpRequest = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
 
         var httpResponse = await SendAsync(httpRequest);
 
@@ -55,12 +61,11 @@ public abstract class ZammadClient
 
     protected async Task<TResult> PostAsync<TResult>(string path, object content = null)
     {
-        var httpRequest = new HttpRequestBuilder()
-            .UsePost()
-            .UseRequestUri(_account.Endpoint)
-            .AddPath(path)
-            .UseJsonContent(content)
-            .Build();
+        var httpRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(_account.Endpoint, path));
+        if (content is not null)
+        {
+            httpRequest.Content = JsonContent.Create(content, options: Serialization.Options);
+        }
 
         var httpResponse = await SendAsync(httpRequest);
 
@@ -71,12 +76,11 @@ public abstract class ZammadClient
 
     protected async Task<TResult> PutAsync<TResult>(string path, object content = null)
     {
-        var httpRequest = new HttpRequestBuilder()
-            .UsePut()
-            .UseRequestUri(_account.Endpoint)
-            .AddPath(path)
-            .UseJsonContent(content)
-            .Build();
+        var httpRequest = new HttpRequestMessage(HttpMethod.Put, new Uri(_account.Endpoint, path));
+        if (content is not null)
+        {
+            httpRequest.Content = JsonContent.Create(content, options: Serialization.Options);
+        }
 
         var httpResponse = await SendAsync(httpRequest);
 
@@ -87,12 +91,11 @@ public abstract class ZammadClient
 
     protected async Task<TResult> DeleteAsync<TResult>(string path, object content = null)
     {
-        var httpRequest = new HttpRequestBuilder()
-            .UseDelete()
-            .UseRequestUri(_account.Endpoint)
-            .AddPath(path)
-            .UseJsonContent(content)
-            .Build();
+        var httpRequest = new HttpRequestMessage(HttpMethod.Delete, new Uri(_account.Endpoint, path));
+        if (content is not null)
+        {
+            httpRequest.Content = JsonContent.Create(content, options: Serialization.Options);
+        }
 
         var httpResponse = await SendAsync(httpRequest);
 
