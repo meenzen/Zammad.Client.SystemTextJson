@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Zammad.Client.Core.Protocol;
 
+#nullable enable
+
 public class BasicHttpClientHandler : HttpClientHandlerBase
 {
     private readonly AuthenticationHeaderValue _authenticationHeader;
@@ -14,8 +16,15 @@ public class BasicHttpClientHandler : HttpClientHandlerBase
     public BasicHttpClientHandler(string user, string password, string onBehalfOf)
         : base(onBehalfOf)
     {
-        ArgumentCheck.ThrowIfNullOrEmpty(user, nameof(user));
-        ArgumentCheck.ThrowIfNullOrEmpty(password, nameof(password));
+        if (string.IsNullOrEmpty(user))
+        {
+            throw new ArgumentOutOfRangeException(nameof(user));
+        }
+
+        if (string.IsNullOrEmpty(password))
+        {
+            throw new ArgumentOutOfRangeException(nameof(password));
+        }
 
         _authenticationHeader = CreateAuthenticationHeader(user, password);
     }

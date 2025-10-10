@@ -1,9 +1,12 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Zammad.Client.Core.Protocol;
+
+#nullable enable
 
 public class TokenHttpClientHandler : HttpClientHandlerBase
 {
@@ -12,7 +15,10 @@ public class TokenHttpClientHandler : HttpClientHandlerBase
     public TokenHttpClientHandler(string token, string onBehalfOf)
         : base(onBehalfOf)
     {
-        ArgumentCheck.ThrowIfNullOrEmpty(token, nameof(token));
+        if (string.IsNullOrEmpty(token))
+        {
+            throw new ArgumentOutOfRangeException(nameof(token));
+        }
 
         _authenticationHeader = CreateAuthenticationHeader(token);
     }

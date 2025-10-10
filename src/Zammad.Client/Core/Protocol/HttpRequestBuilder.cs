@@ -44,7 +44,10 @@ public class HttpRequestBuilder
 
     public HttpRequestBuilder UseRequestUri(string requestUri)
     {
-        ArgumentCheck.ThrowIfNullOrEmpty(requestUri, nameof(requestUri));
+        if (string.IsNullOrEmpty(requestUri))
+        {
+            throw new ArgumentOutOfRangeException(nameof(requestUri));
+        }
 
         return UseRequestUri(new Uri(requestUri));
     }

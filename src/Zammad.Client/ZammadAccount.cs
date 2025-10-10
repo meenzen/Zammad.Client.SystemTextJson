@@ -3,6 +3,8 @@ using Zammad.Client.Core;
 
 namespace Zammad.Client;
 
+#nullable enable
+
 /// <summary>
 /// Represents a Zammad account with which clients can be created for Zammad resources.
 /// </summary>
@@ -16,27 +18,42 @@ public class ZammadAccount
     /// <param name="user">The user who is used for authentication.</param>
     /// <param name="password">The password who is used for authentication.</param>
     /// <param name="token">The token who is used for authentication.</param>
-    public ZammadAccount(Uri endpoint, ZammadAuthentication authentication, string user, string password, string token)
+    public ZammadAccount(
+        Uri endpoint,
+        ZammadAuthentication authentication,
+        string? user,
+        string? password,
+        string? token
+    )
     {
-        ArgumentCheck.ThrowIfNull(endpoint, nameof(endpoint));
+        if (endpoint is null)
+        {
+            throw new ArgumentNullException(nameof(endpoint));
+        }
 
         switch (authentication)
         {
             case ZammadAuthentication.Basic:
-            {
-                ArgumentCheck.ThrowIfNullOrEmpty(user, nameof(user));
-                ArgumentCheck.ThrowIfNullOrEmpty(password, nameof(password));
+                if (string.IsNullOrEmpty(user))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(user));
+                }
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(password));
+                }
+
                 break;
-            }
             case ZammadAuthentication.Token:
-            {
-                ArgumentCheck.ThrowIfNullOrEmpty(token, nameof(token));
+                if (string.IsNullOrEmpty(token))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(token));
+                }
+
                 break;
-            }
             default:
-            {
                 throw new NotSupportedException($"Authentication \"{authentication}\" is not supported.");
-            }
         }
 
         Endpoint = endpoint;
@@ -48,10 +65,10 @@ public class ZammadAccount
 
     public Uri Endpoint { get; }
     public ZammadAuthentication Authentication { get; }
-    public string User { get; }
-    public string Password { get; }
-    public string Token { get; }
-    public string OnBehalfOf { get; private set; }
+    public string? User { get; }
+    public string? Password { get; }
+    public string? Token { get; }
+    public string? OnBehalfOf { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ZammadAccount"/> class that uses the basic authentication method.
