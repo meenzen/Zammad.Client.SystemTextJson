@@ -6,13 +6,8 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-public class ObjectClient : ZammadClient, IObjectService
+public sealed partial class ZammadClient : IObjectService
 {
-    public ObjectClient(ZammadAccount account)
-        : base(account) { }
-
-    #region IObjectService
-
     public Task<IList<Object>> GetObjectListAsync() => GetAsync<IList<Object>>("/api/v1/object_manager_attributes");
 
     public Task<Object> GetObjectAsync(int id) => GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
@@ -25,6 +20,4 @@ public class ObjectClient : ZammadClient, IObjectService
 
     public Task<bool> ExecuteMigrationAsync() =>
         PostAsync<bool>("/api/v1/object_manager_attributes_execute_migrations");
-
-    #endregion
 }

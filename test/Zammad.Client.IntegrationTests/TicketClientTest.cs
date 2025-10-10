@@ -10,8 +10,7 @@ public class TicketClientTest
     [Fact, Order(TestOrder.TicketCreate)]
     public async Task Ticket_Create_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateTicketClient();
+        var client = TestHelper.Client;
 
         var ticket = await client.CreateTicketAsync(
             new Ticket
@@ -35,8 +34,7 @@ public class TicketClientTest
     [Fact, Order(TestOrder.TicketSearch)]
     public async Task Ticket_Search_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateTicketClient();
+        var client = TestHelper.Client;
 
         var ticketSearch = await client.SearchTicketAsync("Zammad", 20);
         Assert.NotNull(ticketSearch);

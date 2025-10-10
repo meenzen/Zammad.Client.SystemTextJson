@@ -6,13 +6,8 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-public class OnlineNotificationClient : ZammadClient, IOnlineNotificationService
+public sealed partial class ZammadClient : IOnlineNotificationService
 {
-    public OnlineNotificationClient(ZammadAccount account)
-        : base(account) { }
-
-    #region IOnlineNotificationService
-
     public Task<IList<OnlineNotification>> GetOnlineNotificationListAsync() =>
         GetAsync<IList<OnlineNotification>>("/api/v1/online_notifications");
 
@@ -31,6 +26,4 @@ public class OnlineNotificationClient : ZammadClient, IOnlineNotificationService
     public Task<bool> DeleteOnlineNotificationAsync(int id) => DeleteAsync<bool>($"/api/v1/online_notifications/{id}");
 
     public Task<bool> MarkAllAsReadAsync() => PostAsync<bool>("/api/v1/online_notifications/mark_all_as_read");
-
-    #endregion
 }

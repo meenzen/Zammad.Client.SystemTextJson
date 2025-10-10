@@ -15,8 +15,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationListBefore)]
     public async Task Organization_List_Before_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         var organizationList = await client.GetOrganizationListAsync(1, 100);
 
@@ -27,8 +26,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationCreate)]
     public async Task Organization_Create_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         var organization1 = await client.CreateOrganizationAsync(
             new Organization
@@ -75,8 +73,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationList)]
     public async Task Organization_List_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         var organizationList = await client.GetOrganizationListAsync(0, 100);
 
@@ -86,8 +83,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationDetail)]
     public async Task Organization_Detail_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         var organization = await client.GetOrganizationAsync(KrustyBurgerId);
 
@@ -102,8 +98,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationSearch)]
     public async Task Organization_Search_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         await Task.Delay(5000); // Wait for Zammad search indexer
         var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger", 20);
@@ -115,8 +110,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationUpdate)]
     public async Task Organization_Update_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         var organization1 = await client.GetOrganizationAsync(SpringfieldElementarySchoolId);
         organization1.Domain = "springfieldelementaryschool.com";
@@ -129,8 +123,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationDelete)]
     public async Task Organization_Delete_Test()
     {
-        var account = TestHelper.CreateTestAccount();
-        var client = account.CreateOrganizationClient();
+        var client = TestHelper.Client;
 
         var organization1 = await client.DeleteOrganizationAsync(KrustyBurgerId);
         var organization2 = await client.DeleteOrganizationAsync(SpringfieldNuclearPowerPlantId);

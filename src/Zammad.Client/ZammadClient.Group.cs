@@ -6,13 +6,8 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-public class GroupClient : ZammadClient, IGroupService
+public sealed partial class ZammadClient : IGroupService
 {
-    public GroupClient(ZammadAccount account)
-        : base(account) { }
-
-    #region IGroupService
-
     public Task<IList<Group>> GetGroupListAsync() => GetAsync<IList<Group>>("/api/v1/groups");
 
     public Task<IList<Group>> GetGroupListAsync(int page, int count) =>
@@ -25,6 +20,4 @@ public class GroupClient : ZammadClient, IGroupService
     public Task<Group> UpdateGroupAsync(int id, Group group) => PutAsync<Group>($"/api/v1/groups/{id}", group);
 
     public Task<bool> DeleteGroupAsync(int id) => DeleteAsync<bool>($"/api/v1/groups/{id}");
-
-    #endregion
 }

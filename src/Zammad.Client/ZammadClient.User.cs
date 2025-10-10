@@ -6,13 +6,8 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-public class UserClient : ZammadClient, IUserService
+public sealed partial class ZammadClient : IUserService
 {
-    public UserClient(ZammadAccount account)
-        : base(account) { }
-
-    #region IUserService
-
     public Task<User> GetUserMeAsync() => GetAsync<User>("/api/v1/users/me");
 
     public Task<IList<User>> GetUserListAsync() => GetAsync<IList<User>>("/api/v1/users");
@@ -36,6 +31,4 @@ public class UserClient : ZammadClient, IUserService
     public Task<User> UpdateUserAsync(int id, User user) => PutAsync<User>($"/api/v1/users/{id}", user);
 
     public Task<bool> DeleteUserAsync(int id) => DeleteAsync<bool>($"/api/v1/users/{id}");
-
-    #endregion
 }

@@ -6,13 +6,8 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-public class OrganizationClient : ZammadClient, IOrganizationService
+public sealed partial class ZammadClient : IOrganizationService
 {
-    public OrganizationClient(ZammadAccount account)
-        : base(account) { }
-
-    #region IOrganizationService
-
     public Task<IList<Organization>> GetOrganizationListAsync() =>
         GetAsync<IList<Organization>>("/api/v1/organizations");
 
@@ -37,6 +32,4 @@ public class OrganizationClient : ZammadClient, IOrganizationService
         PutAsync<Organization>($"/api/v1/organizations/{id}", organization);
 
     public Task<bool> DeleteOrganizationAsync(int id) => DeleteAsync<bool>($"/api/v1/organizations/{id}");
-
-    #endregion
 }

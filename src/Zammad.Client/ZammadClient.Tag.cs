@@ -7,13 +7,8 @@ using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
-public class TagClient : ZammadClient, ITagService
+public sealed partial class ZammadClient : ITagService
 {
-    public TagClient(ZammadAccount account)
-        : base(account) { }
-
-    #region ITagService
-
     public async Task<IList<string>> GetTagListAsync(string objectName, int objectId)
     {
         var tagList = await GetAsync<StringTagList>("/api/v1/tags", $"object={objectName}&o_id={objectId}");
@@ -35,6 +30,4 @@ public class TagClient : ZammadClient, ITagService
     public Task<bool> RenameTagAdminAsync(Tag tag) => PutAsync<bool>("/api/v1/tag_list", tag);
 
     public Task<bool> DeleteTagAdminAsync(Tag tag) => DeleteAsync<bool>("/api/v1/tag_list", tag);
-
-    #endregion
 }

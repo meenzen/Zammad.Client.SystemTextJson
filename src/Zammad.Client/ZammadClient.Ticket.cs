@@ -8,16 +8,12 @@ using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
-public class TicketClient
-    : ZammadClient,
-        ITicketService,
+public sealed partial class ZammadClient
+    : ITicketService,
         ITicketArticleService,
         ITicketPriorityService,
         ITicketStateService
 {
-    public TicketClient(ZammadAccount account)
-        : base(account) { }
-
     #region ITicketService
 
     public Task<IList<Ticket>> GetTicketListAsync() => GetAsync<IList<Ticket>>("/api/v1/tickets");
