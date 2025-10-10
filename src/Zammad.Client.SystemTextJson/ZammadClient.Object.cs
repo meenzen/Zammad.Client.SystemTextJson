@@ -5,8 +5,6 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-#nullable enable
-
 public interface IObjectService
 {
     Task<List<Object>> GetObjectListAsync();

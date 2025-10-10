@@ -5,8 +5,6 @@ using System.Net.Http;
 
 namespace Zammad.Client.Core;
 
-#nullable enable
-
 [SuppressMessage("Roslynator", "RCS1194:Implement exception constructors")]
 public class ZammadException(HttpRequestMessage request, HttpResponseMessage response)
     : Exception(response.ReasonPhrase)

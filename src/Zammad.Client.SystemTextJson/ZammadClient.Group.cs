@@ -5,7 +5,6 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
-#nullable enable
 public interface IGroupService
 {
     Task<List<Group>> GetGroupListAsync();

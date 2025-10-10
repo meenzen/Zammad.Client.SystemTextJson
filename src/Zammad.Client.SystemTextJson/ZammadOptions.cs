@@ -6,8 +6,6 @@ using System.Text;
 
 namespace Zammad.Client;
 
-#nullable enable
-
 public sealed class ZammadOptions : IValidatableObject
 {
     /// <summary>

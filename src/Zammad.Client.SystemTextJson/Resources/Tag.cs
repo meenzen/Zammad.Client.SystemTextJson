@@ -2,7 +2,6 @@
 
 namespace Zammad.Client.Resources;
 
-#nullable enable
 public class Tag
 {
     [JsonPropertyName("id")]

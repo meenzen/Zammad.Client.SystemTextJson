@@ -6,7 +6,6 @@ using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
-#nullable enable
 public interface ITicketService
 {
     Task<List<Ticket>> GetTicketListAsync();

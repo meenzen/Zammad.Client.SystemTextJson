@@ -5,8 +5,6 @@ using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
-#nullable enable
-
 public interface ITagService
 {
     Task<List<string>> GetTagListAsync(string objectName, int objectId);

@@ -3,8 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources.Internal;
 
-#nullable enable
-
 internal class StringTagList
 {
     [JsonPropertyName("tags")]

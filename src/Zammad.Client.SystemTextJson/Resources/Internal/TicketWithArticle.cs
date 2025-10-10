@@ -3,8 +3,6 @@ using Riok.Mapperly.Abstractions;
 
 namespace Zammad.Client.Resources.Internal;
 
-#nullable enable
-
 internal class TicketWithArticle : Ticket
 {
     [JsonPropertyName("article")]

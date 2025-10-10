@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace Zammad.Client.Core;
 
-#nullable enable
-
 internal static class HttpResponseParser
 {
     internal static async Task<TResult?> ParseAsync<TResult>(this HttpResponseMessage httpResponse)

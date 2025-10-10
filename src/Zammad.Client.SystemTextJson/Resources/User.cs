@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-#nullable enable
 public class User
 {
     [JsonPropertyName("id")]

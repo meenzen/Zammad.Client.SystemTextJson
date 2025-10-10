@@ -10,7 +10,6 @@ using Zammad.Client.Core;
 
 namespace Zammad.Client;
 
-#nullable enable
 public interface IZammadClient
     : IGroupService,
         IObjectService,

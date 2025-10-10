@@ -5,7 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-#nullable enable
 public class TicketAttachment
 {
     [JsonPropertyName("id")]

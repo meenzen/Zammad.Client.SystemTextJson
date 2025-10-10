@@ -4,8 +4,6 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-#nullable enable
-
 public class Organization
 {
     [JsonPropertyName("id")]
