@@ -2,12 +2,21 @@
 
 namespace Zammad.Client.Core.Internal;
 
+#nullable enable
+
 public static class TypeUtility
 {
     public static void CopyProperties<T>(T from, T to)
     {
-        ArgumentCheck.ThrowIfNull(from, nameof(from));
-        ArgumentCheck.ThrowIfNull(to, nameof(to));
+        if (from is null)
+        {
+            throw new ArgumentNullException(nameof(from));
+        }
+
+        if (to is null)
+        {
+            throw new ArgumentNullException(nameof(to));
+        }
 
         var fromType = from.GetType();
         var toType = to.GetType();
@@ -21,13 +30,15 @@ public static class TypeUtility
 
         foreach (var property in fromType.GetProperties())
         {
-            if (property.CanRead)
+            if (!property.CanRead)
             {
-                var value = property.GetValue(from);
-                if (property.CanWrite)
-                {
-                    property.SetValue(to, value);
-                }
+                continue;
+            }
+
+            var value = property.GetValue(from);
+            if (property.CanWrite)
+            {
+                property.SetValue(to, value);
             }
         }
     }

@@ -8,11 +8,13 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Core.Protocol;
 
+#nullable enable
+
 public class HttpRequestBuilder
 {
-    private HttpMethod _method;
+    private HttpMethod? _method;
     private UriBuilder _requestUriBuilder;
-    private HttpContent _content;
+    private HttpContent? _content;
 
     public HttpRequestBuilder() => _requestUriBuilder = new UriBuilder();
 
@@ -49,7 +51,10 @@ public class HttpRequestBuilder
 
     public HttpRequestBuilder UseRequestUri(Uri requestUri)
     {
-        ArgumentCheck.ThrowIfNull(requestUri, nameof(requestUri));
+        if (requestUri is null)
+        {
+            throw new ArgumentNullException(nameof(requestUri));
+        }
 
         _requestUriBuilder = new UriBuilder(requestUri);
         return this;
@@ -57,7 +62,10 @@ public class HttpRequestBuilder
 
     public HttpRequestBuilder AddPath(string path)
     {
-        ArgumentCheck.ThrowIfNullOrEmpty(path, nameof(path));
+        if (string.IsNullOrEmpty(path))
+        {
+            throw new ArgumentOutOfRangeException(nameof(path));
+        }
 
         var pathBuilder = new StringBuilder(_requestUriBuilder.Path);
         if (pathBuilder.Length == 0)
@@ -69,34 +77,39 @@ public class HttpRequestBuilder
         }
         else
         {
-            if (pathBuilder[pathBuilder.Length - 1] == '/' && path[0] == '/')
+            if (pathBuilder[^1] == '/' && path[0] == '/')
             {
                 pathBuilder.Remove(pathBuilder.Length - 1, 1);
             }
-            else if (pathBuilder[pathBuilder.Length - 1] != '/' && path[0] != '/')
+            else if (pathBuilder[^1] != '/' && path[0] != '/')
             {
                 pathBuilder.Append('/');
             }
         }
+
         pathBuilder.Append(path);
         _requestUriBuilder.Path = pathBuilder.ToString();
         return this;
     }
 
-    public HttpRequestBuilder UseQuery(string query)
+    public HttpRequestBuilder UseQuery(string? query)
     {
-        if (query is null)
-        {
-            query = string.Empty;
-        }
+        query ??= string.Empty;
         _requestUriBuilder.Query = query;
         return this;
     }
 
     public HttpRequestBuilder AddQuery(string key, string value)
     {
-        ArgumentCheck.ThrowIfNullOrEmpty(key, nameof(key));
-        ArgumentCheck.ThrowIfNull(value, nameof(value));
+        if (string.IsNullOrEmpty(key))
+        {
+            throw new ArgumentOutOfRangeException(nameof(key));
+        }
+
+        if (string.IsNullOrEmpty(value))
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
 
         var queryBuilder = new StringBuilder(_requestUriBuilder.Query);
         if (queryBuilder.Length == 0)
@@ -107,12 +120,13 @@ public class HttpRequestBuilder
         {
             queryBuilder.Append('&');
         }
+
         queryBuilder.AppendFormat("{0}={1}", key, Uri.EscapeDataString(value));
         _requestUriBuilder.Query = queryBuilder.ToString();
         return this;
     }
 
-    public HttpRequestBuilder UseJsonContent(object json)
+    public HttpRequestBuilder UseJsonContent(object? json)
     {
         if (json is null)
         {
@@ -131,6 +145,11 @@ public class HttpRequestBuilder
 
     public HttpRequestMessage Build()
     {
+        if (_method is null)
+        {
+            throw new InvalidOperationException("The HTTP method is not specified.");
+        }
+
         var httpRequest = new HttpRequestMessage
         {
             Method = _method,

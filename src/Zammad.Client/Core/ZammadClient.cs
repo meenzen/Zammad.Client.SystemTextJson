@@ -42,16 +42,13 @@ public abstract class ZammadClient
         }
     }
 
-    protected static HttpResponseParser NewParser(HttpResponseMessage httpResponse) =>
-        new HttpResponseParser().UseHttpResponse(httpResponse);
-
     protected async Task<TResult> GetAsync<TResult>(string path, string query = null)
     {
         var httpRequest = NewRequest().UseGet().UseRequestUri(_account.Endpoint).AddPath(path).UseQuery(query).Build();
 
         var httpResponse = await SendAsync(httpRequest);
 
-        var result = await NewParser(httpResponse).ParseAsync<TResult>();
+        var result = await httpResponse.ParseAsync<TResult>();
 
         return result;
     }
@@ -67,7 +64,7 @@ public abstract class ZammadClient
 
         var httpResponse = await SendAsync(httpRequest);
 
-        var result = await NewParser(httpResponse).ParseAsync<TResult>();
+        var result = await httpResponse.ParseAsync<TResult>();
 
         return result;
     }
@@ -83,7 +80,7 @@ public abstract class ZammadClient
 
         var httpResponse = await SendAsync(httpRequest);
 
-        var result = await NewParser(httpResponse).ParseAsync<TResult>();
+        var result = await httpResponse.ParseAsync<TResult>();
 
         return result;
     }
@@ -99,7 +96,7 @@ public abstract class ZammadClient
 
         var httpResponse = await SendAsync(httpRequest);
 
-        var result = await NewParser(httpResponse).ParseAsync<TResult>();
+        var result = await httpResponse.ParseAsync<TResult>();
 
         return result;
     }

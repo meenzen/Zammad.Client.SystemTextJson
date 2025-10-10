@@ -13,38 +13,21 @@ namespace Zammad.Client.Core.Protocol;
 public class HttpResponseParserTest
 {
     [Fact]
-    public void UseHttpResponse_Success_Test()
+    public async Task ParseSuccessStatus_Success_Test()
     {
         var httpResponse = CreateTestResponse();
 
-        var httpResponseParser = new HttpResponseParser().UseHttpResponse(httpResponse);
-    }
-
-    [Fact]
-    public void UseHttpResponse_Fail_Test()
-    {
-        Assert.ThrowsAny<ArgumentException>(() =>
-        {
-            var httpResponseParser = new HttpResponseParser().UseHttpResponse(null);
-        });
-    }
-
-    [Fact]
-    public void ParseSuccessStatus_Success_Test()
-    {
-        var httpResponse = CreateTestResponse();
-
-        var success = new HttpResponseParser().UseHttpResponse(httpResponse).ParseSuccessStatus();
+        var success = await httpResponse.ParseAsync<bool>();
 
         Assert.True(success);
     }
 
     [Fact]
-    public void ParseStatusCode_Success_Test()
+    public async Task ParseStatusCode_Success_Test()
     {
         var httpResponse = CreateTestResponse();
 
-        var httpStatusCode = new HttpResponseParser().UseHttpResponse(httpResponse).ParseStatusCode();
+        var httpStatusCode = await httpResponse.ParseAsync<HttpStatusCode>();
 
         Assert.Equal(HttpStatusCode.OK, httpStatusCode);
     }
@@ -54,7 +37,7 @@ public class HttpResponseParserTest
     {
         var httpResponse = CreateTestResponse();
 
-        var ticket = await new HttpResponseParser().UseHttpResponse(httpResponse).ParseJsonContentAsync<Ticket>();
+        var ticket = await httpResponse.ParseAsync<Ticket>();
 
         Assert.Equal(1, ticket.Id);
         Assert.Equal(1, ticket.GroupId);
@@ -99,15 +82,10 @@ public class HttpResponseParserTest
     public async Task ParseStreamContentAsync_Success_TestAsync()
     {
         var httpResponse = CreateTestResponse();
-
-        using (
-            var ticketStream = await new HttpResponseParser().UseHttpResponse(httpResponse).ParseStreamContentAsync()
-        )
-        using (var reader = new StreamReader(ticketStream))
-        {
-            var ticketString = await reader.ReadToEndAsync();
-            Assert.Equal(TestConstants.TicketSerialized, ticketString);
-        }
+        using var ticketStream = await httpResponse.ParseAsync<Stream>();
+        using var reader = new StreamReader(ticketStream);
+        var ticketString = await reader.ReadToEndAsync();
+        Assert.Equal(TestConstants.TicketSerialized, ticketString);
     }
 
     private HttpResponseMessage CreateTestResponse()

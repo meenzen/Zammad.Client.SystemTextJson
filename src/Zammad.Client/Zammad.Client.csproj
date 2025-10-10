@@ -19,6 +19,10 @@
     </PackageReference>
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Zammad.Client.Tests" />
+    <InternalsVisibleTo Include="Zammad.Client.IntegrationTests" />
+  </ItemGroup>
   <Target
     Name="Husky"
     BeforeTargets="Restore;CollectPackageReferences"

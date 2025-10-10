@@ -4,9 +4,11 @@ using System.Linq;
 
 namespace Zammad.Client.Core;
 
+#nullable enable
+
 internal static class ArgumentCheck
 {
-    internal static void ThrowIfNull(object value, string paramName)
+    internal static void ThrowIfNull(object? value, string paramName)
     {
         if (value is null)
         {
