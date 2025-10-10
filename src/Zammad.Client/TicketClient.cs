@@ -37,7 +37,7 @@ public class TicketClient
     public Task<Ticket> GetTicketAsync(int id) => GetAsync<Ticket>($"/api/v1/tickets/{id}");
 
     public Task<Ticket> CreateTicketAsync(Ticket ticket, TicketArticle article) =>
-        PostAsync<Ticket>("/api/v1/tickets", TicketWithArticle.Combine(ticket, article));
+        PostAsync<Ticket>("/api/v1/tickets", ticket.Combine(article));
 
     public Task<Ticket> UpdateTicketAsync(int id, Ticket ticket) => PutAsync<Ticket>($"/api/v1/tickets/{id}", ticket);
 

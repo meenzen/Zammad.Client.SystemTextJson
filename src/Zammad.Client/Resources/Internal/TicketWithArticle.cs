@@ -1,18 +1,18 @@
 ﻿using System.Text.Json.Serialization;
-using Zammad.Client.Core.Internal;
+using Riok.Mapperly.Abstractions;
 
 namespace Zammad.Client.Resources.Internal;
+
+#nullable enable
 
 public class TicketWithArticle : Ticket
 {
     [JsonPropertyName("article")]
-    public TicketArticle Article { get; set; }
+    public required TicketArticle Article { get; set; }
+}
 
-    public static TicketWithArticle Combine(Ticket ticket, TicketArticle article)
-    {
-        var combined = new TicketWithArticle();
-        TypeUtility.CopyProperties(ticket, combined);
-        combined.Article = article;
-        return combined;
-    }
+[Mapper]
+public static partial class TicketWithArticleExtensions
+{
+    public static partial TicketWithArticle Combine(this Ticket ticket, TicketArticle article);
 }
