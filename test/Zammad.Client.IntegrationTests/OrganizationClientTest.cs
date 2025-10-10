@@ -18,7 +18,7 @@ public class OrganizationClientTest
         var account = TestHelper.CreateTestAccount();
         var client = account.CreateOrganizationClient();
 
-        var organizationList = await client.GetOrganizationListAsync(0, 100);
+        var organizationList = await client.GetOrganizationListAsync(1, 100);
 
         Assert.NotNull(organizationList);
         NotFromTestOrganizationCount = organizationList.Count;
