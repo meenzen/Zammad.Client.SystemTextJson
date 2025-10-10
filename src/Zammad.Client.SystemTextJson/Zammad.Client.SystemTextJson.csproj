@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyTitle>Zammad.Client.SystemTextJson</AssemblyTitle>
     <PackageId>Zammad.Client.SystemTextJson</PackageId>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Description>Modern Zammad Client Library for .NET</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Zammad.Client</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />

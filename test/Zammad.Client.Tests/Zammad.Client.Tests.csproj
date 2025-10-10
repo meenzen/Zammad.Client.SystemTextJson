@@ -18,6 +18,6 @@
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Zammad.Client\Zammad.Client.csproj" />
+    <ProjectReference Include="..\..\src\Zammad.Client.SystemTextJson\Zammad.Client.SystemTextJson.csproj" />
   </ItemGroup>
 </Project>

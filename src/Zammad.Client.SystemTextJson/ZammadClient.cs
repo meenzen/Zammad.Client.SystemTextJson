@@ -45,8 +45,6 @@ public sealed partial class ZammadClient : IZammadClient
             );
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
         }
-
-        // todo: authentication
     }
 
     private async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequest)

@@ -6,12 +6,13 @@
     <PackageId>Zammad.Client.SystemTextJson.Extensions</PackageId>
     <PackageDescription>Extensions for Zammad.Client.SystemTextJson</PackageDescription>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Zammad.Client.Extensions</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zammad.Client\Zammad.Client.csproj" />
+    <ProjectReference Include="..\Zammad.Client.SystemTextJson\Zammad.Client.SystemTextJson.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" />

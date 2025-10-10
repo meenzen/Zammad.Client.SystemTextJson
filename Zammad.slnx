@@ -10,9 +10,9 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Zammad.Client/Zammad.Client.csproj" />
     <Project Path="src/Zammad.Client.SystemTextJson.Extensions/Zammad.Client.SystemTextJson.Extensions.csproj" />
     <Project Path="src/Zammad.Example/Zammad.Example.csproj" />
+    <Project Path="src\Zammad.Client.SystemTextJson\Zammad.Client.SystemTextJson.csproj" />
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/Zammad.Client.IntegrationTests/Zammad.Client.IntegrationTests.csproj" />

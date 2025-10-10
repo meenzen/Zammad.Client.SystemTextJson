@@ -1,4 +1,4 @@
-using Zammad.Client.SystemTextJson.Extensions;
+using Zammad.Client.Extensions;
 using Zammad.Example;
 
 var builder = Host.CreateApplicationBuilder(args);

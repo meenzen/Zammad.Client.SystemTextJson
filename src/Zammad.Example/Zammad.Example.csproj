@@ -10,6 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zammad.Client.SystemTextJson.Extensions\Zammad.Client.SystemTextJson.Extensions.csproj" />
-    <ProjectReference Include="..\Zammad.Client\Zammad.Client.csproj" />
+    <ProjectReference Include="..\Zammad.Client.SystemTextJson\Zammad.Client.SystemTextJson.csproj" />
   </ItemGroup>
 </Project>

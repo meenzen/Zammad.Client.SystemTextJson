@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zammad.Client.SystemTextJson.Extensions;
+namespace Zammad.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {
