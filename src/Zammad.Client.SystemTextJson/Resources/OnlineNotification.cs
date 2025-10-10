@@ -3,32 +3,33 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
+#nullable enable
 public class OnlineNotification
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
     [JsonPropertyName("o_id")]
-    public int ObjectId { get; set; }
+    public int? ObjectId { get; set; }
 
     [JsonPropertyName("object")]
-    public string Object { get; set; }
+    public string? Object { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public string? Type { get; set; }
 
     [JsonPropertyName("seen")]
-    public bool Seen { get; set; }
+    public bool? Seen { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int UpdatedById { get; set; }
+    public int? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int CreatedById { get; set; }
+    public int? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 }

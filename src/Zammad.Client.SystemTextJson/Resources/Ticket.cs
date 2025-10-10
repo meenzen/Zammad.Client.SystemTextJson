@@ -4,13 +4,14 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
+#nullable enable
 public class Ticket
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
     [JsonPropertyName("group_id")]
-    public int GroupId { get; set; }
+    public int? GroupId { get; set; }
 
     [JsonPropertyName("priority_id")]
     public int? PriorityId { get; set; }
@@ -22,19 +23,19 @@ public class Ticket
     public int? OrganizationId { get; set; }
 
     [JsonPropertyName("number")]
-    public string Number { get; set; }
+    public string? Number { get; set; }
 
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [JsonPropertyName("owner_id")]
-    public int OwnerId { get; set; }
+    public int? OwnerId { get; set; }
 
     [JsonPropertyName("customer_id")]
-    public int CustomerId { get; set; }
+    public int? CustomerId { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; }
+    public string? Note { get; set; }
 
     [JsonPropertyName("first_response_at")]
     public DateTimeOffset? FirstResponseAt { get; set; }
@@ -97,13 +98,13 @@ public class Ticket
     public DateTimeOffset? PendingTime { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public string? Type { get; set; }
 
     [JsonPropertyName("time_unit")]
     public double? TimeUnit { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object> Preferences { get; set; }
+    public IDictionary<string, object>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public int? UpdatedById { get; set; }
@@ -112,8 +113,8 @@ public class Ticket
     public int? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 }

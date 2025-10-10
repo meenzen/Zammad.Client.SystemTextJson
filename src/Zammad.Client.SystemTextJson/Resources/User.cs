@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
+#nullable enable
 public class User
 {
     [JsonPropertyName("id")]
@@ -13,76 +14,76 @@ public class User
     public int? OrganizationId { get; set; }
 
     [JsonPropertyName("login")]
-    public string Login { get; set; }
+    public string? Login { get; set; }
 
     [JsonPropertyName("firstname")]
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
 
     [JsonPropertyName("lastname")]
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
 
     [JsonPropertyName("email")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [JsonPropertyName("image")]
-    public string Image { get; set; }
+    public string? Image { get; set; }
 
     [JsonPropertyName("image_source")]
-    public string ImageSource { get; set; }
+    public string? ImageSource { get; set; }
 
     [JsonPropertyName("web")]
-    public string Web { get; set; }
+    public string? Web { get; set; }
 
     [JsonPropertyName("phone")]
-    public string Phone { get; set; }
+    public string? Phone { get; set; }
 
     [JsonPropertyName("fax")]
-    public string Fax { get; set; }
+    public string? Fax { get; set; }
 
     [JsonPropertyName("mobile")]
-    public string Mobile { get; set; }
+    public string? Mobile { get; set; }
 
     [JsonPropertyName("department")]
-    public string Department { get; set; }
+    public string? Department { get; set; }
 
     [JsonPropertyName("street")]
-    public string Street { get; set; }
+    public string? Street { get; set; }
 
     [JsonPropertyName("zip")]
-    public string Zip { get; set; }
+    public string? Zip { get; set; }
 
     [JsonPropertyName("city")]
-    public string City { get; set; }
+    public string? City { get; set; }
 
     [JsonPropertyName("country")]
-    public string Country { get; set; }
+    public string? Country { get; set; }
 
     [JsonPropertyName("address")]
-    public string Address { get; set; }
+    public string? Address { get; set; }
 
     [JsonPropertyName("vip")]
-    public bool Vip { get; set; }
+    public bool? Vip { get; set; }
 
     [JsonPropertyName("verified")]
-    public bool Verified { get; set; }
+    public bool? Verified { get; set; }
 
     [JsonPropertyName("active")]
-    public bool Active { get; set; }
+    public bool? Active { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; }
+    public string? Note { get; set; }
 
     [JsonPropertyName("last_login")]
     public DateTimeOffset? LastLogin { get; set; }
 
     [JsonPropertyName("source")]
-    public string Source { get; set; }
+    public string? Source { get; set; }
 
     [JsonPropertyName("login_failed")]
-    public int LoginFailed { get; set; }
+    public int? LoginFailed { get; set; }
 
     [JsonPropertyName("out_of_office")]
-    public bool OutOfOffice { get; set; }
+    public bool? OutOfOffice { get; set; }
 
     [JsonPropertyName("out_of_office_start_at")]
     public DateTimeOffset? OutOfOfficeStartAt { get; set; }
@@ -94,17 +95,17 @@ public class User
     public int? OutOfOfficeReplacementId { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object> Preferences { get; set; }
+    public IDictionary<string, object>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int UpdatedById { get; set; }
+    public int? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int CreatedById { get; set; }
+    public int? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 }

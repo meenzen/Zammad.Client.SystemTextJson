@@ -3,44 +3,45 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
+#nullable enable
 public class TicketState
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
     [JsonPropertyName("state_type_id")]
-    public int StateTypeId { get; set; }
+    public int? StateTypeId { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("next_state_id")]
     public int? NextStateId { get; set; }
 
     [JsonPropertyName("ignore_escalation")]
-    public bool IgnoreEscalation { get; set; }
+    public bool? IgnoreEscalation { get; set; }
 
     [JsonPropertyName("default_create")]
-    public bool DefaultCreate { get; set; }
+    public bool? DefaultCreate { get; set; }
 
     [JsonPropertyName("default_follow_up")]
-    public bool DefaultFollowUp { get; set; }
+    public bool? DefaultFollowUp { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; }
+    public string? Note { get; set; }
 
     [JsonPropertyName("active")]
-    public bool Active { get; set; }
+    public bool? Active { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int CreatedById { get; set; }
+    public int? CreatedById { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int UpdatedById { get; set; }
+    public int? UpdatedById { get; set; }
 
     [JsonPropertyName("created_at")]
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 }

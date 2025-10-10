@@ -5,22 +5,23 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
+#nullable enable
 public class TicketAttachment
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
     [JsonPropertyName("filename")]
-    public string Filename { get; set; }
+    public required string Filename { get; set; }
 
     [JsonPropertyName("data")]
-    public string Data { get; set; }
+    public required string Data { get; set; }
 
     [JsonPropertyName("mime-type")]
-    public string MimeType { get; set; }
+    public required string MimeType { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object> Preferences { get; set; }
+    public IDictionary<string, object>? Preferences { get; set; }
 
     public static TicketAttachment CreateFromFile(string fileName, string mimeType)
     {
