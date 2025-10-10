@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Zammad.Client.Abstractions;
 using Zammad.Client.Core;
-using Zammad.Client.Core.Protocol;
 
 namespace Zammad.Client;
 

@@ -1,5 +1,6 @@
 namespace Zammad.Client.Abstractions;
 
+#nullable enable
 public interface IZammadClient
     : IGroupService,
         IObjectService,

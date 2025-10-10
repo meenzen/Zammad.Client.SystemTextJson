@@ -4,6 +4,7 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client.Abstractions;
 
+#nullable enable
 public interface ITagService
 {
     Task<List<string>> GetTagListAsync(string objectName, int objectId);

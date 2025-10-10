@@ -6,18 +6,21 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
+#nullable enable
 public sealed partial class ZammadClient : IGroupService
 {
-    public Task<List<Group>> GetGroupListAsync() => GetAsync<List<Group>>("/api/v1/groups");
+    public async Task<List<Group>> GetGroupListAsync() => await GetAsync<List<Group>>("/api/v1/groups") ?? [];
 
-    public Task<List<Group>> GetGroupListAsync(int page, int count) =>
-        GetAsync<List<Group>>("/api/v1/groups", $"page={page}&per_page={count}");
+    public async Task<List<Group>> GetGroupListAsync(int page, int count) =>
+        await GetAsync<List<Group>>("/api/v1/groups", $"page={page}&per_page={count}") ?? [];
 
-    public Task<Group> GetGroupAsync(int id) => GetAsync<Group>($"/api/v1/groups/{id}");
+    public async Task<Group?> GetGroupAsync(int id) => await GetAsync<Group>($"/api/v1/groups/{id}");
 
-    public Task<Group> CreateGroupAsync(Group group) => PostAsync<Group>("/api/v1/groups", group);
+    public async Task<Group> CreateGroupAsync(Group group) =>
+        await PostAsync<Group>("/api/v1/groups", group) ?? throw LogicException.UnexpectedNullResult;
 
-    public Task<Group> UpdateGroupAsync(int id, Group group) => PutAsync<Group>($"/api/v1/groups/{id}", group);
+    public async Task<Group> UpdateGroupAsync(int id, Group group) =>
+        await PutAsync<Group>($"/api/v1/groups/{id}", group) ?? throw LogicException.UnexpectedNullResult;
 
-    public Task<bool> DeleteGroupAsync(int id) => DeleteAsync<bool>($"/api/v1/groups/{id}");
+    public async Task<bool> DeleteGroupAsync(int id) => await DeleteAsync<bool>($"/api/v1/groups/{id}");
 }

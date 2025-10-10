@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Zammad.Client.Core.Protocol;
+namespace Zammad.Client.Core;
 
 #nullable enable
 

@@ -6,18 +6,24 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
+#nullable enable
+
 public sealed partial class ZammadClient : IObjectService
 {
-    public Task<List<Object>> GetObjectListAsync() => GetAsync<List<Object>>("/api/v1/object_manager_attributes");
+    public async Task<List<Object>> GetObjectListAsync() =>
+        await GetAsync<List<Object>>("/api/v1/object_manager_attributes") ?? [];
 
-    public Task<Object> GetObjectAsync(int id) => GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
+    public async Task<Object?> GetObjectAsync(int id) =>
+        await GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
 
-    public Task<Object> CreateObjectAsync(Object @object) =>
-        PostAsync<Object>("/api/v1/object_manager_attributes", @object);
+    public async Task<Object> CreateObjectAsync(Object @object) =>
+        await PostAsync<Object>("/api/v1/object_manager_attributes", @object)
+        ?? throw LogicException.UnexpectedNullResult;
 
-    public Task<Object> UpdateObjectAsync(int id, Object @object) =>
-        PutAsync<Object>($"/api/v1/object_manager_attributes/{id}", @object);
+    public async Task<Object> UpdateObjectAsync(int id, Object @object) =>
+        await PutAsync<Object>($"/api/v1/object_manager_attributes/{id}", @object)
+        ?? throw LogicException.UnexpectedNullResult;
 
-    public Task<bool> ExecuteMigrationAsync() =>
-        PostAsync<bool>("/api/v1/object_manager_attributes_execute_migrations");
+    public async Task<bool> ExecuteMigrationAsync() =>
+        await PostAsync<bool>("/api/v1/object_manager_attributes_execute_migrations");
 }

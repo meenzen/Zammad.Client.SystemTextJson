@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client;
 
+#nullable enable
 internal static class Serialization
 {
     internal static readonly JsonSerializerOptions Options = new()

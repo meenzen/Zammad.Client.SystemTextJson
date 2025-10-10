@@ -4,11 +4,12 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client.Abstractions;
 
+#nullable enable
 public interface IOnlineNotificationService
 {
     Task<List<OnlineNotification>> GetOnlineNotificationListAsync();
     Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count);
-    Task<OnlineNotification> GetOnlineNotificationAsync(int id);
+    Task<OnlineNotification?> GetOnlineNotificationAsync(int id);
     Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification);
     Task<OnlineNotification> UpdateOnlineNotificationAsync(int id, OnlineNotification notification);
     Task<bool> DeleteOnlineNotificationAsync(int id);

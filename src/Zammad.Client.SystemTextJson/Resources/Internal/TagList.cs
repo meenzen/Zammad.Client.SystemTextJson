@@ -3,8 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources.Internal;
 
-public class TagList
+#nullable enable
+
+internal class TagList
 {
     [JsonPropertyName("tags")]
-    public List<Tag> Tags { get; set; } = new List<Tag>();
+    internal List<Tag> Tags { get; set; } = [];
 }

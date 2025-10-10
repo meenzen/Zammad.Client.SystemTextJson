@@ -6,24 +6,29 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
+#nullable enable
 public sealed partial class ZammadClient : IOnlineNotificationService
 {
-    public Task<List<OnlineNotification>> GetOnlineNotificationListAsync() =>
-        GetAsync<List<OnlineNotification>>("/api/v1/online_notifications");
+    public async Task<List<OnlineNotification>> GetOnlineNotificationListAsync() =>
+        await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications") ?? [];
 
-    public Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count) =>
-        GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}");
+    public async Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count) =>
+        await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}") ?? [];
 
-    public Task<OnlineNotification> GetOnlineNotificationAsync(int id) =>
-        GetAsync<OnlineNotification>($"/api/v1/online_notifications/{id}");
+    public async Task<OnlineNotification?> GetOnlineNotificationAsync(int id) =>
+        await GetAsync<OnlineNotification>($"/api/v1/online_notifications/{id}");
 
-    public Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification) =>
-        PostAsync<OnlineNotification>("/api/v1/online_notifications", notification);
+    public async Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification) =>
+        await PostAsync<OnlineNotification>("/api/v1/online_notifications", notification)
+        ?? throw LogicException.UnexpectedNullResult;
 
-    public Task<OnlineNotification> UpdateOnlineNotificationAsync(int id, OnlineNotification notification) =>
-        PutAsync<OnlineNotification>($"/api/v1/online_notifications/{id}", notification);
+    public async Task<OnlineNotification> UpdateOnlineNotificationAsync(int id, OnlineNotification notification) =>
+        await PutAsync<OnlineNotification>($"/api/v1/online_notifications/{id}", notification)
+        ?? throw LogicException.UnexpectedNullResult;
 
-    public Task<bool> DeleteOnlineNotificationAsync(int id) => DeleteAsync<bool>($"/api/v1/online_notifications/{id}");
+    public async Task<bool> DeleteOnlineNotificationAsync(int id) =>
+        await DeleteAsync<bool>($"/api/v1/online_notifications/{id}");
 
-    public Task<bool> MarkAllAsReadAsync() => PostAsync<bool>("/api/v1/online_notifications/mark_all_as_read");
+    public async Task<bool> MarkAllAsReadAsync() =>
+        await PostAsync<bool>("/api/v1/online_notifications/mark_all_as_read");
 }
