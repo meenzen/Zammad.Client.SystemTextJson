@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Xunit;
 using Zammad.Client.Resources;
@@ -7,6 +8,7 @@ namespace Zammad.Client.IntegrationTests;
 [TestCaseOrderer(typeof(TestOrderer))]
 public class OrganizationClientTest
 {
+    private static string randomName = Guid.NewGuid().ToString("N").Substring(0, 8);
     private static int NotFromTestOrganizationCount { get; set; } = 0;
     private static int KrustyBurgerId { get; set; } = 0;
     private static int SpringfieldNuclearPowerPlantId { get; set; } = 0;
@@ -31,7 +33,7 @@ public class OrganizationClientTest
         var organization1 = await client.CreateOrganizationAsync(
             new Organization
             {
-                Name = "Krusty Burger",
+                Name = "Krusty Burger" + randomName,
                 Shared = true,
                 Domain = "krustyburger.com",
                 DomainAssignment = true,
@@ -42,7 +44,7 @@ public class OrganizationClientTest
         var organization2 = await client.CreateOrganizationAsync(
             new Organization
             {
-                Name = "Springfield Nuclear Power Plant",
+                Name = "Springfield Nuclear Power Plant" + randomName,
                 Shared = true,
                 Domain = "nuclearpowerplant.com",
                 DomainAssignment = true,
@@ -53,7 +55,7 @@ public class OrganizationClientTest
         var organization3 = await client.CreateOrganizationAsync(
             new Organization
             {
-                Name = "Springfield Elementary School",
+                Name = "Springfield Elementary School" + randomName,
                 Shared = true,
                 Domain = "springfield-elementaryschool.com",
                 DomainAssignment = true,
@@ -75,7 +77,7 @@ public class OrganizationClientTest
     {
         var client = TestHelper.Client;
 
-        var organizationList = await client.GetOrganizationListAsync(0, 100);
+        var organizationList = await client.GetOrganizationListAsync(1, 100);
 
         Assert.Equal(NotFromTestOrganizationCount + 3, organizationList.Count);
     }
@@ -88,7 +90,7 @@ public class OrganizationClientTest
         var organization = await client.GetOrganizationAsync(KrustyBurgerId);
 
         Assert.Equal(KrustyBurgerId, organization.Id);
-        Assert.Equal("Krusty Burger", organization.Name);
+        Assert.StartsWith("Krusty Burger", organization.Name);
         Assert.True(organization.Shared);
         Assert.Equal("krustyburger.com", organization.Domain);
         Assert.True(organization.DomainAssignment);
@@ -101,7 +103,7 @@ public class OrganizationClientTest
         var client = TestHelper.Client;
 
         await Task.Delay(5000, TestContext.Current.CancellationToken); // Wait for Zammad search indexer
-        var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger", 20);
+        var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger" + randomName, 20);
 
         Assert.Single(organizationSearch);
         Assert.Equal(KrustyBurgerId, organizationSearch[0].Id);
