@@ -17,27 +17,3 @@ dotnet add package Zammad.Client.SystemTextJson
 ## Usage
 
 Coming soon.
-
-## Development
-
-### Running Tests
-
-Integration tests require a running Zammad instance. Start one locally with Docker Compose:
-
-```bash
-docker compose up -d
-```
-
-**Initial Setup** (first time only):
-
-1. Open [http://localhost:8080/](http://localhost:8080/)
-2. Complete the setup wizard
-3. Create admin account with:
-    - Email: `admin@example.org`
-    - Password: `TestPassword1234`
-
-Run the test suite:
-
-```bash
-dotnet test
-```
