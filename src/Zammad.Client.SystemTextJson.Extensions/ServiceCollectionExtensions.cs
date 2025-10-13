@@ -6,19 +6,22 @@ namespace Zammad.Client.Extensions;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddZammadClient(
-        this IServiceCollection collection,
+        this IServiceCollection services,
         Action<ZammadOptions> configureOptions
     )
     {
-        collection.AddHttpClient<IZammadClient, ZammadClient>();
-        collection.Configure(configureOptions);
-        return collection;
+        services.AddServices();
+        services.Configure(configureOptions);
+        return services;
     }
 
-    public static IServiceCollection AddZammadClient(this IServiceCollection collection, IConfigurationSection config)
+    public static IServiceCollection AddZammadClient(this IServiceCollection services, IConfigurationSection config)
     {
-        collection.AddHttpClient<ZammadClient>();
-        collection.Configure<ZammadOptions>(config);
-        return collection;
+        services.AddServices();
+        services.Configure<ZammadOptions>(config);
+        return services;
     }
+
+    private static void AddServices(this IServiceCollection services) =>
+        services.AddHttpClient<IZammadClient, ZammadClient>();
 }
