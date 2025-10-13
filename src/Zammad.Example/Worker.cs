@@ -1,17 +1,17 @@
+using Zammad.Client;
+
 namespace Zammad.Example;
 
-public class Worker(ILogger<Worker> logger) : BackgroundService
+public class Worker(ILogger<Worker> logger, IZammadClient client) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            if (logger.IsEnabled(LogLevel.Information))
-            {
-                logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
-            }
-
-            await Task.Delay(1000, stoppingToken);
-        }
+        var user = await client.GetUserMeAsync();
+        logger.LogInformation(
+            "Signed in as {FirstName} {LastName} ({Email})",
+            user.FirstName,
+            user.LastName,
+            user.Email
+        );
     }
 }
