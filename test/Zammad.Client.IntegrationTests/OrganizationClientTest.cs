@@ -1,12 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
 [TestCaseOrderer(typeof(TestOrderer))]
-public class OrganizationClientTest
+public class OrganizationClientTest(ZammadStackFixture zammadStack)
 {
     private static string randomName = Guid.NewGuid().ToString("N").Substring(0, 8);
     private static int NotFromTestOrganizationCount { get; set; } = 0;
@@ -17,7 +18,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationListBefore)]
     public async Task Organization_List_Before_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var organizationList = await client.GetOrganizationListAsync(1, 100);
 
@@ -28,7 +29,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationCreate)]
     public async Task Organization_Create_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var organization1 = await client.CreateOrganizationAsync(
             new Organization
@@ -75,7 +76,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationList)]
     public async Task Organization_List_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var organizationList = await client.GetOrganizationListAsync(1, 100);
 
@@ -85,7 +86,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationDetail)]
     public async Task Organization_Detail_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var organization = await client.GetOrganizationAsync(KrustyBurgerId);
 
@@ -100,7 +101,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationSearch)]
     public async Task Organization_Search_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         await Task.Delay(5000, TestContext.Current.CancellationToken); // Wait for Zammad search indexer
         var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger" + randomName, 20);
@@ -112,7 +113,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationUpdate)]
     public async Task Organization_Update_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var organization1 = await client.GetOrganizationAsync(SpringfieldElementarySchoolId);
         organization1.Domain = "springfieldelementaryschool.com";
@@ -125,7 +126,7 @@ public class OrganizationClientTest
     [Fact, Order(TestOrder.OrganizationDelete)]
     public async Task Organization_Delete_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var organization1 = await client.DeleteOrganizationAsync(KrustyBurgerId);
         var organization2 = await client.DeleteOrganizationAsync(SpringfieldNuclearPowerPlantId);

@@ -7,7 +7,7 @@ namespace Zammad.Client.IntegrationTests;
 
 public class ZammadFixtureTests(ZammadStackFixture zammadStack)
 {
-    [Fact]
+    [Fact(Skip = "Manual test for debugging")]
     public async Task Stack()
     {
         var url = await zammadStack.GetPublicUriAsync();

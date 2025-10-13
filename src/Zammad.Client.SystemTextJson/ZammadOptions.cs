@@ -11,7 +11,7 @@ public sealed class ZammadOptions : IValidatableObject
     /// <summary>
     /// The base URL of the Zammad instance.
     /// </summary>
-    /// <example>https://zammad.example.com/</example>
+    /// <example>https://zammad.example.org/</example>
     public Uri? BaseUrl { get; set; }
 
     /// <summary>

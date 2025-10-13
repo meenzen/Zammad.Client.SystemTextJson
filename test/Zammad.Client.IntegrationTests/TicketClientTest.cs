@@ -1,16 +1,17 @@
 ﻿using System.Threading.Tasks;
 using Xunit;
+using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
 [TestCaseOrderer(typeof(TestOrderer))]
-public class TicketClientTest
+public class TicketClientTest(ZammadStackFixture zammadStack)
 {
     [Fact, Order(TestOrder.TicketCreate)]
     public async Task Ticket_Create_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var ticket = await client.CreateTicketAsync(
             new Ticket
@@ -34,7 +35,7 @@ public class TicketClientTest
     [Fact, Order(TestOrder.TicketSearch)]
     public async Task Ticket_Search_Test()
     {
-        var client = TestHelper.Client;
+        var client = await zammadStack.GetClientAsync();
 
         var ticketSearch = await client.SearchTicketAsync("Zammad", 20);
         Assert.NotNull(ticketSearch);

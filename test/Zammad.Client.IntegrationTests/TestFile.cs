@@ -12,4 +12,11 @@ public static class TestFile
         var fullPath = Path.Combine(directoryPath, file);
         return await File.ReadAllTextAsync(fullPath);
     }
+
+    public static string GetAbsolutePath(string file, [CallerFilePath] string filePath = "")
+    {
+        var directoryPath = Path.GetDirectoryName(filePath)!;
+        var fullPath = Path.Combine(directoryPath, file);
+        return fullPath;
+    }
 }

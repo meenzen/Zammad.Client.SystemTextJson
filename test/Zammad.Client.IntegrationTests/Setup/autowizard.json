@@ -1,17 +1,17 @@
 {
   "Users": [
     {
-      "login": "admin@example.com",
+      "login": "admin@example.org",
       "firstname": "Test Admin",
       "lastname": "Agent",
-      "email": "admin@example.com",
-      "password": "test"
+      "email": "admin@example.org",
+      "password": "TestPassword1234"
     },
     {
-      "login": "agent1@example.com",
+      "login": "agent1@example.org",
       "firstname": "Agent 1",
       "lastname": "Test",
-      "email": "agent1@example.com",
+      "email": "agent1@example.org",
       "password": "test",
       "roles": ["Agent"]
     }
@@ -19,11 +19,11 @@
   "Groups": [
     {
       "name": "some group1",
-      "users": ["admin@example.com", "agent1@example.com"]
+      "users": ["admin@example.org", "agent1@example.org"]
     },
     {
       "name": "Users",
-      "users": ["admin@example.com", "agent1@example.com"],
+      "users": ["admin@example.org", "agent1@example.org"],
       "signature": "default",
       "email_address_id": 1
     }
@@ -38,7 +38,7 @@
         "inbound": {
           "adapter": "imap",
           "options": {
-            "host": "mx1.example.com",
+            "host": "mx1.example.org",
             "user": "not_existing",
             "password": "not_existing",
             "ssl": "ssl"
@@ -65,6 +65,10 @@
     },
     {
       "name": "developer_mode",
+      "value": true
+    },
+    {
+      "name": "system_init_done",
       "value": true
     }
   ],
