@@ -11,9 +11,9 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
 {
     private static string randomName = Guid.NewGuid().ToString("N").Substring(0, 8);
     private static int NotFromTestOrganizationCount { get; set; } = 0;
-    private static int KrustyBurgerId { get; set; } = 0;
-    private static int SpringfieldNuclearPowerPlantId { get; set; } = 0;
-    private static int SpringfieldElementarySchoolId { get; set; } = 0;
+    private static OrganizationId KrustyBurgerId { get; set; } = OrganizationId.Empty;
+    private static OrganizationId SpringfieldNuclearPowerPlantId { get; set; } = OrganizationId.Empty;
+    private static OrganizationId SpringfieldElementarySchoolId { get; set; } = OrganizationId.Empty;
 
     [Fact, Order(TestOrder.OrganizationListBefore)]
     public async Task Organization_List_Before_Test()

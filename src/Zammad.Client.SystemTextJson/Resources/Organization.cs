@@ -7,7 +7,7 @@ namespace Zammad.Client.Resources;
 public class Organization
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public OrganizationId Id { get; set; }
 
     [JsonPropertyName("name")]
     public required string Name { get; set; }
@@ -34,10 +34,10 @@ public class Organization
     public List<int>? MemberIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

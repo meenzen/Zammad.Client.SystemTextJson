@@ -7,13 +7,13 @@ namespace Zammad.Client.Resources;
 public class TicketArticle
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public ArticleId Id { get; set; }
 
     [JsonPropertyName("ticket_id")]
-    public int? TicketId { get; set; }
+    public TicketId? TicketId { get; set; }
 
     [JsonPropertyName("sender_id")]
-    public int? SenderId { get; set; }
+    public UserId? SenderId { get; set; }
 
     [JsonPropertyName("from")]
     public string? From { get; set; }
@@ -55,13 +55,13 @@ public class TicketArticle
     public IDictionary<string, object>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("origin_by_id")]
-    public int? OriginById { get; set; }
+    public UserId? OriginById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

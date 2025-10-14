@@ -7,10 +7,10 @@ namespace Zammad.Client.Resources;
 public class Object
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public ObjectId Id { get; set; }
 
     [JsonPropertyName("object_lookup_id")]
-    public int? ObjectLookupId { get; set; }
+    public ObjectLookupId? ObjectLookupId { get; set; }
 
     [JsonPropertyName("name")]
     public required string Name { get; set; }
@@ -52,10 +52,10 @@ public class Object
     public int? Position { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

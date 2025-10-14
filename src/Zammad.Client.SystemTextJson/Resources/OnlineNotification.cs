@@ -6,10 +6,10 @@ namespace Zammad.Client.Resources;
 public class OnlineNotification
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public NotificationId Id { get; set; }
 
     [JsonPropertyName("o_id")]
-    public int? ObjectId { get; set; }
+    public ObjectId? ObjectId { get; set; }
 
     [JsonPropertyName("object")]
     public string? Object { get; set; }
@@ -21,10 +21,10 @@ public class OnlineNotification
     public bool? Seen { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

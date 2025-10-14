@@ -7,13 +7,13 @@ namespace Zammad.Client.Resources;
 public class Group
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public GroupId Id { get; set; }
 
     [JsonPropertyName("signature_id")]
-    public int? SignatureId { get; set; }
+    public SignatureId? SignatureId { get; set; }
 
     [JsonPropertyName("email_address_id")]
-    public int? EmailAddressId { get; set; }
+    public EmailAddressId? EmailAddressId { get; set; }
 
     [JsonPropertyName("name")]
     public required string Name { get; set; }
@@ -37,10 +37,10 @@ public class Group
     public List<int>? UserIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

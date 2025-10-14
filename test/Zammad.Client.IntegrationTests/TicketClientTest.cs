@@ -17,9 +17,9 @@ public class TicketClientTest(ZammadStackFixture zammadStack)
             new Ticket
             {
                 Title = "Help me!",
-                GroupId = 1,
-                CustomerId = 1,
-                OwnerId = 1,
+                GroupId = new GroupId(1),
+                CustomerId = new UserId(1),
+                OwnerId = new UserId(1),
             },
             new TicketArticle
             {

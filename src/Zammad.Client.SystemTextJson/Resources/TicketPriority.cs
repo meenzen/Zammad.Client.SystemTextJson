@@ -6,7 +6,7 @@ namespace Zammad.Client.Resources;
 public class TicketPriority
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public PriorityId Id { get; set; }
 
     [JsonPropertyName("name")]
     public string? Name { get; set; }
@@ -21,10 +21,10 @@ public class TicketPriority
     public bool? Active { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

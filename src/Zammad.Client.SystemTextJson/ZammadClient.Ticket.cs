@@ -12,10 +12,10 @@ public interface ITicketService
     Task<List<Ticket>> GetTicketListAsync(int page, int count);
     Task<List<Ticket>> SearchTicketAsync(string query, int limit);
     Task<List<Ticket>> SearchTicketAsync(string query, int limit, string sortBy, string orderBy);
-    Task<Ticket?> GetTicketAsync(int id);
+    Task<Ticket?> GetTicketAsync(TicketId id);
     Task<Ticket> CreateTicketAsync(Ticket ticket, TicketArticle article);
-    Task<Ticket> UpdateTicketAsync(int id, Ticket ticket);
-    Task<bool> DeleteTicketAsync(int id);
+    Task<Ticket> UpdateTicketAsync(TicketId id, Ticket ticket);
+    Task<bool> DeleteTicketAsync(TicketId id);
 }
 
 public sealed partial class ZammadClient : ITicketService
@@ -34,14 +34,14 @@ public sealed partial class ZammadClient : ITicketService
             $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
         ) ?? [];
 
-    public async Task<Ticket?> GetTicketAsync(int id) => await GetAsync<Ticket>($"/api/v1/tickets/{id}");
+    public async Task<Ticket?> GetTicketAsync(TicketId id) => await GetAsync<Ticket>($"/api/v1/tickets/{id}");
 
     public async Task<Ticket> CreateTicketAsync(Ticket ticket, TicketArticle article) =>
         await PostAsync<Ticket>("/api/v1/tickets", ticket.Combine(article))
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<Ticket> UpdateTicketAsync(int id, Ticket ticket) =>
+    public async Task<Ticket> UpdateTicketAsync(TicketId id, Ticket ticket) =>
         await PutAsync<Ticket>($"/api/v1/tickets/{id}", ticket) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteTicketAsync(int id) => await DeleteAsync<bool>($"/api/v1/tickets/{id}");
+    public async Task<bool> DeleteTicketAsync(TicketId id) => await DeleteAsync<bool>($"/api/v1/tickets/{id}");
 }

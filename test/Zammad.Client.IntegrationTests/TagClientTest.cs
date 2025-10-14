@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xunit;
 using Zammad.Client.IntegrationTests.Setup;
+using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
@@ -12,7 +13,7 @@ public class TagClientTest(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var tagList = await client.GetTagListAsync("Ticket", 1);
+        var tagList = await client.GetTagListAsync("Ticket", new ObjectId(1));
         Assert.NotNull(tagList);
     }
 }

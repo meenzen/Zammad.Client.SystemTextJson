@@ -7,10 +7,10 @@ namespace Zammad.Client.Resources;
 public class User
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public UserId Id { get; set; }
 
     [JsonPropertyName("organization_id")]
-    public int? OrganizationId { get; set; }
+    public OrganizationId? OrganizationId { get; set; }
 
     [JsonPropertyName("login")]
     public string? Login { get; set; }
@@ -91,16 +91,16 @@ public class User
     public DateTimeOffset? OutOfOfficeEndAt { get; set; }
 
     [JsonPropertyName("out_of_office_replacement_id")]
-    public int? OutOfOfficeReplacementId { get; set; }
+    public UserId? OutOfOfficeReplacementId { get; set; }
 
     [JsonPropertyName("preferences")]
     public IDictionary<string, object>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

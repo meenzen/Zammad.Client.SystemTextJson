@@ -8,9 +8,9 @@ namespace Zammad.Client;
 public interface IObjectService
 {
     Task<List<Object>> GetObjectListAsync();
-    Task<Object?> GetObjectAsync(int id);
+    Task<Object?> GetObjectAsync(ObjectId id);
     Task<Object> CreateObjectAsync(Object @object);
-    Task<Object> UpdateObjectAsync(int id, Object @object);
+    Task<Object> UpdateObjectAsync(ObjectId id, Object @object);
     Task<bool> ExecuteMigrationAsync();
 }
 
@@ -19,14 +19,14 @@ public sealed partial class ZammadClient : IObjectService
     public async Task<List<Object>> GetObjectListAsync() =>
         await GetAsync<List<Object>>("/api/v1/object_manager_attributes") ?? [];
 
-    public async Task<Object?> GetObjectAsync(int id) =>
+    public async Task<Object?> GetObjectAsync(ObjectId id) =>
         await GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
 
     public async Task<Object> CreateObjectAsync(Object @object) =>
         await PostAsync<Object>("/api/v1/object_manager_attributes", @object)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<Object> UpdateObjectAsync(int id, Object @object) =>
+    public async Task<Object> UpdateObjectAsync(ObjectId id, Object @object) =>
         await PutAsync<Object>($"/api/v1/object_manager_attributes/{id}", @object)
         ?? throw LogicException.UnexpectedNullResult;
 

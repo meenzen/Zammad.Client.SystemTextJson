@@ -7,19 +7,19 @@ namespace Zammad.Client.Resources;
 public class Ticket
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public TicketId Id { get; set; }
 
     [JsonPropertyName("group_id")]
-    public int? GroupId { get; set; }
+    public GroupId? GroupId { get; set; }
 
     [JsonPropertyName("priority_id")]
-    public int? PriorityId { get; set; }
+    public PriorityId? PriorityId { get; set; }
 
     [JsonPropertyName("state_id")]
-    public int? StateId { get; set; }
+    public StateId? StateId { get; set; }
 
     [JsonPropertyName("organization_id")]
-    public int? OrganizationId { get; set; }
+    public OrganizationId? OrganizationId { get; set; }
 
     [JsonPropertyName("number")]
     public string? Number { get; set; }
@@ -28,10 +28,10 @@ public class Ticket
     public string? Title { get; set; }
 
     [JsonPropertyName("owner_id")]
-    public int? OwnerId { get; set; }
+    public UserId? OwnerId { get; set; }
 
     [JsonPropertyName("customer_id")]
-    public int? CustomerId { get; set; }
+    public UserId? CustomerId { get; set; }
 
     [JsonPropertyName("note")]
     public string? Note { get; set; }
@@ -82,10 +82,10 @@ public class Ticket
     public DateTimeOffset? LastOwnerUpdateAt { get; set; }
 
     [JsonPropertyName("create_article_type_id")]
-    public int? CreateArticleTypeId { get; set; }
+    public ArticleTypeId? CreateArticleTypeId { get; set; }
 
     [JsonPropertyName("create_article_sender_id")]
-    public int? CreateArticleSenderId { get; set; }
+    public UserId? CreateArticleSenderId { get; set; }
 
     [JsonPropertyName("article_count")]
     public int? ArticleCount { get; set; }
@@ -106,10 +106,10 @@ public class Ticket
     public IDictionary<string, object>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }

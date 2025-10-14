@@ -5,7 +5,7 @@ namespace Zammad.Client.Resources;
 public class Tag
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public TagId Id { get; set; }
 
     [JsonPropertyName("name")]
     public required string Name { get; set; }

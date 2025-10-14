@@ -9,10 +9,10 @@ public interface IOnlineNotificationService
 {
     Task<List<OnlineNotification>> GetOnlineNotificationListAsync();
     Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count);
-    Task<OnlineNotification?> GetOnlineNotificationAsync(int id);
+    Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id);
     Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification);
-    Task<OnlineNotification> UpdateOnlineNotificationAsync(int id, OnlineNotification notification);
-    Task<bool> DeleteOnlineNotificationAsync(int id);
+    Task<OnlineNotification> UpdateOnlineNotificationAsync(NotificationId id, OnlineNotification notification);
+    Task<bool> DeleteOnlineNotificationAsync(NotificationId id);
     Task<bool> MarkAllAsReadAsync();
 }
 
@@ -24,18 +24,21 @@ public sealed partial class ZammadClient : IOnlineNotificationService
     public async Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count) =>
         await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}") ?? [];
 
-    public async Task<OnlineNotification?> GetOnlineNotificationAsync(int id) =>
+    public async Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id) =>
         await GetAsync<OnlineNotification>($"/api/v1/online_notifications/{id}");
 
     public async Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification) =>
         await PostAsync<OnlineNotification>("/api/v1/online_notifications", notification)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<OnlineNotification> UpdateOnlineNotificationAsync(int id, OnlineNotification notification) =>
+    public async Task<OnlineNotification> UpdateOnlineNotificationAsync(
+        NotificationId id,
+        OnlineNotification notification
+    ) =>
         await PutAsync<OnlineNotification>($"/api/v1/online_notifications/{id}", notification)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteOnlineNotificationAsync(int id) =>
+    public async Task<bool> DeleteOnlineNotificationAsync(NotificationId id) =>
         await DeleteAsync<bool>($"/api/v1/online_notifications/{id}");
 
     public async Task<bool> MarkAllAsReadAsync() =>

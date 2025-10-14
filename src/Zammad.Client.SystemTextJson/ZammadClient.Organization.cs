@@ -11,10 +11,10 @@ public interface IOrganizationService
     Task<List<Organization>> GetOrganizationListAsync(int page, int count);
     Task<List<Organization>> SearchOrganizationAsync(string query, int limit);
     Task<List<Organization>> SearchOrganizationAsync(string query, int limit, string sortBy, string orderBy);
-    Task<Organization?> GetOrganizationAsync(int id);
+    Task<Organization?> GetOrganizationAsync(OrganizationId id);
     Task<Organization> CreateOrganizationAsync(Organization organization);
-    Task<Organization> UpdateOrganizationAsync(int id, Organization organization);
-    Task<bool> DeleteOrganizationAsync(int id);
+    Task<Organization> UpdateOrganizationAsync(OrganizationId id, Organization organization);
+    Task<bool> DeleteOrganizationAsync(OrganizationId id);
 }
 
 public sealed partial class ZammadClient : IOrganizationService
@@ -40,16 +40,17 @@ public sealed partial class ZammadClient : IOrganizationService
             $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
         ) ?? [];
 
-    public async Task<Organization?> GetOrganizationAsync(int id) =>
+    public async Task<Organization?> GetOrganizationAsync(OrganizationId id) =>
         await GetAsync<Organization>($"/api/v1/organizations/{id}");
 
     public async Task<Organization> CreateOrganizationAsync(Organization organization) =>
         await PostAsync<Organization>("/api/v1/organizations", organization)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<Organization> UpdateOrganizationAsync(int id, Organization organization) =>
+    public async Task<Organization> UpdateOrganizationAsync(OrganizationId id, Organization organization) =>
         await PutAsync<Organization>($"/api/v1/organizations/{id}", organization)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteOrganizationAsync(int id) => await DeleteAsync<bool>($"/api/v1/organizations/{id}");
+    public async Task<bool> DeleteOrganizationAsync(OrganizationId id) =>
+        await DeleteAsync<bool>($"/api/v1/organizations/{id}");
 }

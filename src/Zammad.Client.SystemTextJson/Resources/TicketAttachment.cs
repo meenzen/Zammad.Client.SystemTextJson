@@ -8,7 +8,7 @@ namespace Zammad.Client.Resources;
 public class TicketAttachment
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public AttachmentId Id { get; set; }
 
     [JsonPropertyName("filename")]
     public required string Filename { get; set; }

@@ -12,10 +12,10 @@ public interface IUserService
     Task<List<User>> GetUserListAsync(int page, int count);
     Task<List<User>> SearchUserAsync(string query, int limit);
     Task<List<User>> SearchUserAsync(string query, int limit, string sortBy, string orderBy);
-    Task<User?> GetUserAsync(int id);
+    Task<User?> GetUserAsync(UserId id);
     Task<User> CreateUserAsync(User user);
-    Task<User> UpdateUserAsync(int id, User user);
-    Task<bool> DeleteUserAsync(int id);
+    Task<User> UpdateUserAsync(UserId id, User user);
+    Task<bool> DeleteUserAsync(UserId id);
 }
 
 public sealed partial class ZammadClient : IUserService
@@ -37,13 +37,13 @@ public sealed partial class ZammadClient : IUserService
             $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
         ) ?? [];
 
-    public async Task<User?> GetUserAsync(int id) => await GetAsync<User>($"/api/v1/users/{id}");
+    public async Task<User?> GetUserAsync(UserId id) => await GetAsync<User>($"/api/v1/users/{id}");
 
     public async Task<User> CreateUserAsync(User user) =>
         await PostAsync<User>("/api/v1/users", user) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<User> UpdateUserAsync(int id, User user) =>
+    public async Task<User> UpdateUserAsync(UserId id, User user) =>
         await PutAsync<User>($"/api/v1/users/{id}", user) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteUserAsync(int id) => await DeleteAsync<bool>($"/api/v1/users/{id}");
+    public async Task<bool> DeleteUserAsync(UserId id) => await DeleteAsync<bool>($"/api/v1/users/{id}");
 }

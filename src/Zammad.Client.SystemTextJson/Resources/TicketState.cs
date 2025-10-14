@@ -6,16 +6,16 @@ namespace Zammad.Client.Resources;
 public class TicketState
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public StateId Id { get; set; }
 
     [JsonPropertyName("state_type_id")]
-    public int? StateTypeId { get; set; }
+    public StateTypeId? StateTypeId { get; set; }
 
     [JsonPropertyName("name")]
     public string? Name { get; set; }
 
     [JsonPropertyName("next_state_id")]
-    public int? NextStateId { get; set; }
+    public StateId? NextStateId { get; set; }
 
     [JsonPropertyName("ignore_escalation")]
     public bool? IgnoreEscalation { get; set; }
@@ -33,10 +33,10 @@ public class TicketState
     public bool? Active { get; set; }
 
     [JsonPropertyName("created_by_id")]
-    public int? CreatedById { get; set; }
+    public UserId? CreatedById { get; set; }
 
     [JsonPropertyName("updated_by_id")]
-    public int? UpdatedById { get; set; }
+    public UserId? UpdatedById { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTimeOffset? CreatedAt { get; set; }
