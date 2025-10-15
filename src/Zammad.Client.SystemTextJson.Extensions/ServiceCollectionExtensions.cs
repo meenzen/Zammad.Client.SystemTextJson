@@ -5,23 +5,21 @@ namespace Zammad.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddZammadClient(
+    public static IHttpClientBuilder AddZammadClient(
         this IServiceCollection services,
         Action<ZammadOptions> configureOptions
     )
     {
-        services.AddServices();
         services.Configure(configureOptions);
-        return services;
+        return services.AddHttpClient();
     }
 
-    public static IServiceCollection AddZammadClient(this IServiceCollection services, IConfigurationSection config)
+    public static IHttpClientBuilder AddZammadClient(this IServiceCollection services, IConfigurationSection config)
     {
-        services.AddServices();
         services.Configure<ZammadOptions>(config);
-        return services;
+        return services.AddHttpClient();
     }
 
-    private static void AddServices(this IServiceCollection services) =>
+    private static IHttpClientBuilder AddHttpClient(this IServiceCollection services) =>
         services.AddHttpClient<IZammadClient, ZammadClient>();
 }

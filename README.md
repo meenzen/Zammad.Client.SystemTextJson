@@ -72,6 +72,22 @@ public class MyService(IZammadClient client)
 }
 ```
 
+### HttpClient Customization
+
+The `AddZammadClient` method returns an `IHttpClientBuilder`, allowing further customization of the underlying
+`HttpClient`. For example, to add a resilience handler:
+
+```bash
+dotnet add package Microsoft.Extensions.Http.Resilience
+```
+
+```csharp
+builder.Services.AddZammadClient(builder.Configuration.GetSection("Zammad"))
+    .AddStandardResilienceHandler();
+```
+
+This configuration will automatically handle transipent errors, making your application more robust.
+
 ## Contributing
 
 Pull requests are welcome. Please use [Conventional Commits](https://www.conventionalcommits.org/) to keep
@@ -86,4 +102,5 @@ Please consider adding tests for any new features or bug fixes.
 
 ## License
 
-Distributed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/). See `LICENSE` for more information.
+Distributed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/). See `LICENSE` for more
+information.
