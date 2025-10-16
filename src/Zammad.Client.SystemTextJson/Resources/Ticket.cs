@@ -69,6 +69,9 @@ public class Ticket
     [JsonPropertyName("update_diff_in_min")]
     public int? UpdateDiffInMin { get; set; }
 
+    [JsonPropertyName("last_close_at")]
+    public DateTimeOffset? LastCloseAt { get; set; }
+
     [JsonPropertyName("last_contact_at")]
     public DateTimeOffset? LastContactAt { get; set; }
 
