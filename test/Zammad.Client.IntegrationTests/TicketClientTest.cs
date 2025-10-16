@@ -37,7 +37,7 @@ public class TicketClientTest(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var ticketSearch = await client.SearchTicketAsync("Zammad", 20);
+        var ticketSearch = await client.SearchTicketsAsync("Zammad", 20);
         Assert.NotNull(ticketSearch);
     }
 }

@@ -7,8 +7,8 @@ namespace Zammad.Client;
 
 public interface IGroupService
 {
-    Task<List<Group>> GetGroupListAsync();
-    Task<List<Group>> GetGroupListAsync(int page, int count);
+    Task<List<Group>> ListGroupsAsync();
+    Task<List<Group>> ListGroupsAsync(int page, int count);
     Task<Group?> GetGroupAsync(GroupId id);
     Task<Group> CreateGroupAsync(Group group);
     Task<Group> UpdateGroupAsync(GroupId id, Group group);
@@ -17,9 +17,9 @@ public interface IGroupService
 
 public sealed partial class ZammadClient : IGroupService
 {
-    public async Task<List<Group>> GetGroupListAsync() => await GetAsync<List<Group>>("/api/v1/groups") ?? [];
+    public async Task<List<Group>> ListGroupsAsync() => await GetAsync<List<Group>>("/api/v1/groups") ?? [];
 
-    public async Task<List<Group>> GetGroupListAsync(int page, int count) =>
+    public async Task<List<Group>> ListGroupsAsync(int page, int count) =>
         await GetAsync<List<Group>>("/api/v1/groups", $"page={page}&per_page={count}") ?? [];
 
     public async Task<Group?> GetGroupAsync(GroupId id) => await GetAsync<Group>($"/api/v1/groups/{id}");

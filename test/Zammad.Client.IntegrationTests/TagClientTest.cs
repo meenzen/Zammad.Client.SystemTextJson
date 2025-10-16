@@ -13,7 +13,7 @@ public class TagClientTest(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var tagList = await client.GetTagListAsync("Ticket", new ObjectId(1));
+        var tagList = await client.ListTagsAsync("Ticket", new ObjectId(1));
         Assert.NotNull(tagList);
     }
 }

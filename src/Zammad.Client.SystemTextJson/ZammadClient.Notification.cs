@@ -7,8 +7,8 @@ namespace Zammad.Client;
 
 public interface IOnlineNotificationService
 {
-    Task<List<OnlineNotification>> GetOnlineNotificationListAsync();
-    Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count);
+    Task<List<OnlineNotification>> ListOnlineNotificationsAsync();
+    Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count);
     Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id);
     Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification);
     Task<OnlineNotification> UpdateOnlineNotificationAsync(NotificationId id, OnlineNotification notification);
@@ -18,10 +18,10 @@ public interface IOnlineNotificationService
 
 public sealed partial class ZammadClient : IOnlineNotificationService
 {
-    public async Task<List<OnlineNotification>> GetOnlineNotificationListAsync() =>
+    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync() =>
         await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications") ?? [];
 
-    public async Task<List<OnlineNotification>> GetOnlineNotificationListAsync(int page, int count) =>
+    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count) =>
         await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}") ?? [];
 
     public async Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id) =>

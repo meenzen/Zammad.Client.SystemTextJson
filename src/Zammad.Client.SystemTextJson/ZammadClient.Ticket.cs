@@ -8,10 +8,10 @@ namespace Zammad.Client;
 
 public interface ITicketService
 {
-    Task<List<Ticket>> GetTicketListAsync();
-    Task<List<Ticket>> GetTicketListAsync(int page, int count);
-    Task<List<Ticket>> SearchTicketAsync(string query, int limit);
-    Task<List<Ticket>> SearchTicketAsync(string query, int limit, string sortBy, string orderBy);
+    Task<List<Ticket>> ListTicketsAsync();
+    Task<List<Ticket>> ListTicketsAsync(int page, int count);
+    Task<List<Ticket>> SearchTicketsAsync(string query, int limit);
+    Task<List<Ticket>> SearchTicketsAsync(string query, int limit, string sortBy, string orderBy);
     Task<Ticket?> GetTicketAsync(TicketId id);
     Task<Ticket> CreateTicketAsync(Ticket ticket, TicketArticle article);
     Task<Ticket> UpdateTicketAsync(TicketId id, Ticket ticket);
@@ -20,15 +20,15 @@ public interface ITicketService
 
 public sealed partial class ZammadClient : ITicketService
 {
-    public async Task<List<Ticket>> GetTicketListAsync() => await GetAsync<List<Ticket>>("/api/v1/tickets") ?? [];
+    public async Task<List<Ticket>> ListTicketsAsync() => await GetAsync<List<Ticket>>("/api/v1/tickets") ?? [];
 
-    public async Task<List<Ticket>> GetTicketListAsync(int page, int count) =>
+    public async Task<List<Ticket>> ListTicketsAsync(int page, int count) =>
         await GetAsync<List<Ticket>>("/api/v1/tickets", $"page={page}&per_page={count}") ?? [];
 
-    public async Task<List<Ticket>> SearchTicketAsync(string query, int limit) =>
+    public async Task<List<Ticket>> SearchTicketsAsync(string query, int limit) =>
         await GetAsync<List<Ticket>>("/api/v1/tickets/search", $"query={query}&limit={limit}&expand=true") ?? [];
 
-    public async Task<List<Ticket>> SearchTicketAsync(string query, int limit, string sortBy, string orderBy) =>
+    public async Task<List<Ticket>> SearchTicketsAsync(string query, int limit, string sortBy, string orderBy) =>
         await GetAsync<List<Ticket>>(
             "/api/v1/tickets/search",
             $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"

@@ -20,7 +20,7 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var organizationList = await client.GetOrganizationListAsync(1, 100);
+        var organizationList = await client.ListOrganizationsAsync(1, 100);
 
         Assert.NotNull(organizationList);
         NotFromTestOrganizationCount = organizationList.Count;
@@ -78,7 +78,7 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var organizationList = await client.GetOrganizationListAsync(1, 100);
+        var organizationList = await client.ListOrganizationsAsync(1, 100);
 
         Assert.Equal(NotFromTestOrganizationCount + 3, organizationList.Count);
     }
@@ -104,7 +104,7 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
         var client = await zammadStack.GetClientAsync();
 
         await Task.Delay(5000, TestContext.Current.CancellationToken); // Wait for Zammad search indexer
-        var organizationSearch = await client.SearchOrganizationAsync("Krusty Burger" + randomName, 20);
+        var organizationSearch = await client.SearchOrganizationsAsync("Krusty Burger" + randomName, 20);
 
         Assert.Single(organizationSearch);
         Assert.Equal(KrustyBurgerId, organizationSearch[0].Id);

@@ -7,8 +7,8 @@ namespace Zammad.Client;
 
 public interface ITicketStateService
 {
-    Task<List<TicketState>> GetTicketStateListAsync();
-    Task<List<TicketState>> GetTicketStateListAsync(int page, int count);
+    Task<List<TicketState>> ListTicketStatesAsync();
+    Task<List<TicketState>> ListTicketStatesAsync(int page, int count);
     Task<TicketState?> GetTicketStateAsync(StateId id);
     Task<TicketState> CreateTicketStateAsync(TicketState state);
     Task<TicketState> UpdateTicketStateAsync(StateId id, TicketState state);
@@ -17,10 +17,10 @@ public interface ITicketStateService
 
 public sealed partial class ZammadClient : ITicketStateService
 {
-    public async Task<List<TicketState>> GetTicketStateListAsync() =>
+    public async Task<List<TicketState>> ListTicketStatesAsync() =>
         await GetAsync<List<TicketState>>("/api/v1/ticket_states") ?? [];
 
-    public async Task<List<TicketState>> GetTicketStateListAsync(int page, int count) =>
+    public async Task<List<TicketState>> ListTicketStatesAsync(int page, int count) =>
         await GetAsync<List<TicketState>>("/api/v1/ticket_states", $"page={page}&per_page={count}") ?? [];
 
     public async Task<TicketState?> GetTicketStateAsync(StateId id) =>

@@ -8,9 +8,9 @@ namespace Zammad.Client;
 
 public interface ITicketArticleService
 {
-    Task<List<TicketArticle>> GetTicketArticleListAsync();
-    Task<List<TicketArticle>> GetTicketArticleListAsync(int page, int count);
-    Task<List<TicketArticle>> GetTicketArticleListForTicketAsync(TicketId id);
+    Task<List<TicketArticle>> ListTicketArticlesAsync();
+    Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count);
+    Task<List<TicketArticle>> ListTicketArticlesAsync(TicketId id);
     Task<TicketArticle?> GetTicketArticleAsync(ArticleId id);
     Task<TicketArticle> CreateTicketArticleAsync(TicketArticle article);
     Task<Stream?> GetTicketArticleAttachmentAsync(TicketId ticketId, ArticleId articleId, AttachmentId id);
@@ -18,13 +18,13 @@ public interface ITicketArticleService
 
 public sealed partial class ZammadClient : ITicketArticleService
 {
-    public async Task<List<TicketArticle>> GetTicketArticleListAsync() =>
+    public async Task<List<TicketArticle>> ListTicketArticlesAsync() =>
         await GetAsync<List<TicketArticle>>("/api/v1/ticket_articles") ?? [];
 
-    public async Task<List<TicketArticle>> GetTicketArticleListAsync(int page, int count) =>
+    public async Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count) =>
         await GetAsync<List<TicketArticle>>("/api/v1/ticket_articles", $"page={page}&per_page={count}") ?? [];
 
-    public async Task<List<TicketArticle>> GetTicketArticleListForTicketAsync(TicketId id) =>
+    public async Task<List<TicketArticle>> ListTicketArticlesAsync(TicketId id) =>
         await GetAsync<List<TicketArticle>>($"/api/v1/ticket_articles/by_ticket/{id}") ?? [];
 
     public async Task<TicketArticle?> GetTicketArticleAsync(ArticleId id) =>

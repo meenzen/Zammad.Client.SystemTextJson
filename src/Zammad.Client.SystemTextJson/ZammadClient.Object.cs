@@ -7,7 +7,7 @@ namespace Zammad.Client;
 
 public interface IObjectService
 {
-    Task<List<Object>> GetObjectListAsync();
+    Task<List<Object>> ListObjectsAsync();
     Task<Object?> GetObjectAsync(ObjectId id);
     Task<Object> CreateObjectAsync(Object @object);
     Task<Object> UpdateObjectAsync(ObjectId id, Object @object);
@@ -16,7 +16,7 @@ public interface IObjectService
 
 public sealed partial class ZammadClient : IObjectService
 {
-    public async Task<List<Object>> GetObjectListAsync() =>
+    public async Task<List<Object>> ListObjectsAsync() =>
         await GetAsync<List<Object>>("/api/v1/object_manager_attributes") ?? [];
 
     public async Task<Object?> GetObjectAsync(ObjectId id) =>

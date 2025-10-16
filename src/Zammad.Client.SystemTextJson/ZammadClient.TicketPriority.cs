@@ -7,8 +7,8 @@ namespace Zammad.Client;
 
 public interface ITicketPriorityService
 {
-    Task<List<TicketPriority>> GetTicketPriorityListAsync();
-    Task<List<TicketPriority>> GetTicketPriorityListAsync(int page, int count);
+    Task<List<TicketPriority>> ListTicketPrioritiesAsync();
+    Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count);
     Task<TicketPriority?> GetTicketPriorityAsync(PriorityId id);
     Task<TicketPriority> CreateTicketPriorityAsync(TicketPriority priority);
     Task<TicketPriority> UpdateTicketPriorityAsync(PriorityId id, TicketPriority priority);
@@ -17,10 +17,10 @@ public interface ITicketPriorityService
 
 public sealed partial class ZammadClient : ITicketPriorityService
 {
-    public async Task<List<TicketPriority>> GetTicketPriorityListAsync() =>
+    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync() =>
         await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities") ?? [];
 
-    public async Task<List<TicketPriority>> GetTicketPriorityListAsync(int page, int count) =>
+    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count) =>
         await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities", $"page={page}&per_page={count}") ?? [];
 
     public async Task<TicketPriority?> GetTicketPriorityAsync(PriorityId id) =>
