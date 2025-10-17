@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
@@ -8,7 +10,12 @@ namespace Zammad.Client;
 public interface IGroupService
 {
     Task<List<Group>> ListGroupsAsync();
+
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     Task<List<Group>> ListGroupsAsync(int page, int count);
+
+    Task<List<Group>> ListGroupsAsync(Pagination? pagination);
     Task<Group?> GetGroupAsync(GroupId id);
     Task<Group> CreateGroupAsync(Group group);
     Task<Group> UpdateGroupAsync(GroupId id, Group group);
@@ -17,18 +24,29 @@ public interface IGroupService
 
 public sealed partial class ZammadClient : IGroupService
 {
-    public async Task<List<Group>> ListGroupsAsync() => await GetAsync<List<Group>>("/api/v1/groups") ?? [];
+    private const string GroupsEndpoint = "/api/v1/groups";
 
+    public async Task<List<Group>> ListGroupsAsync() => await GetAsync<List<Group>>(GroupsEndpoint) ?? [];
+
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     public async Task<List<Group>> ListGroupsAsync(int page, int count) =>
-        await GetAsync<List<Group>>("/api/v1/groups", $"page={page}&per_page={count}") ?? [];
+        await ListGroupsAsync(new Pagination { Page = page, PerPage = count });
 
-    public async Task<Group?> GetGroupAsync(GroupId id) => await GetAsync<Group>($"/api/v1/groups/{id}");
+    public async Task<List<Group>> ListGroupsAsync(Pagination? pagination)
+    {
+        var builder = new QueryBuilder();
+        builder.AddPagination(pagination);
+        return await GetAsync<List<Group>>(GroupsEndpoint, builder.ToString()) ?? [];
+    }
+
+    public async Task<Group?> GetGroupAsync(GroupId id) => await GetAsync<Group>($"{GroupsEndpoint}/{id}");
 
     public async Task<Group> CreateGroupAsync(Group group) =>
-        await PostAsync<Group>("/api/v1/groups", group) ?? throw LogicException.UnexpectedNullResult;
+        await PostAsync<Group>(GroupsEndpoint, group) ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<Group> UpdateGroupAsync(GroupId id, Group group) =>
-        await PutAsync<Group>($"/api/v1/groups/{id}", group) ?? throw LogicException.UnexpectedNullResult;
+        await PutAsync<Group>($"{GroupsEndpoint}/{id}", group) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteGroupAsync(GroupId id) => await DeleteAsync<bool>($"/api/v1/groups/{id}");
+    public async Task<bool> DeleteGroupAsync(GroupId id) => await DeleteAsync<bool>($"{GroupsEndpoint}/{id}");
 }
