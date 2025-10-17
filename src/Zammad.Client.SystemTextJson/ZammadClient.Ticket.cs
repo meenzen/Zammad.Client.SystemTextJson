@@ -41,6 +41,8 @@ public sealed partial class ZammadClient : ITicketService
 
     public async Task<List<Ticket>> ListTicketsAsync() => await GetAsync<List<Ticket>>(TicketsEndpoint) ?? [];
 
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     public async Task<List<Ticket>> ListTicketsAsync(int page, int count) =>
         await ListTicketsAsync(new Pagination { Page = page, PerPage = count });
 
@@ -51,6 +53,8 @@ public sealed partial class ZammadClient : ITicketService
         return await GetAsync<List<Ticket>>(TicketsEndpoint, builder.ToString()) ?? [];
     }
 
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     public async Task<List<Ticket>> SearchTicketsAsync(string query, int limit)
     {
         var builder = new QueryBuilder();
@@ -60,6 +64,8 @@ public sealed partial class ZammadClient : ITicketService
         return await GetAsync<List<Ticket>>(TicketsSearchEndpoint, builder.ToString()) ?? [];
     }
 
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     public async Task<List<Ticket>> SearchTicketsAsync(string query, int limit, string sortBy, string orderBy)
     {
         var builder = new QueryBuilder();
