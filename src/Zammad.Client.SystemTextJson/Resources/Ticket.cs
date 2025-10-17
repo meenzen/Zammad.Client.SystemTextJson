@@ -119,4 +119,79 @@ public class Ticket
 
     [JsonPropertyName("updated_at")]
     public DateTimeOffset? UpdatedAt { get; set; }
+
+    [JsonPropertyName("checklist_id")]
+    public ChecklistId? ChecklistId { get; set; }
+
+    [JsonPropertyName("problem_description")]
+    public string? ProblemDescription { get; set; }
+
+    [JsonPropertyName("action_performed")]
+    public string? ActionPerformed { get; set; }
+
+    [JsonPropertyName("software_version")]
+    public int? SoftwareVersion { get; set; }
+
+    [JsonPropertyName("trouble_area")]
+    public string? TroubleArea { get; set; }
+
+    [JsonPropertyName("activity")]
+    public string? Activity { get; set; }
+
+    [JsonPropertyName("origin")]
+    public string? Origin { get; set; }
+
+    [JsonPropertyName("status_set_on")]
+    public DateTimeOffset? StatusSetOn { get; set; }
+
+    [JsonPropertyName("closed_on")]
+    public DateTimeOffset? ClosedOn { get; set; }
+
+    [JsonPropertyName("claim")]
+    public bool Claim { get; set; }
+
+    [JsonPropertyName("referencing_checklist_ids")]
+    public List<ChecklistId>? ReferencingChecklistIds { get; set; }
+
+    [JsonPropertyName("article_ids")]
+    public List<ArticleId>? ArticleIds { get; set; }
+
+    [JsonPropertyName("ticket_time_accounting_ids")]
+    public List<TimeAccountingId>? TicketTimeAccountingIds { get; set; }
+
+    [JsonPropertyName("referencing_checklists")]
+    public object[]? ReferencingChecklists { get; set; }
+
+    [JsonPropertyName("group")]
+    public string? Group { get; set; }
+
+    [JsonPropertyName("organization")]
+    public string? Organization { get; set; }
+
+    [JsonPropertyName("ticket_time_accounting")]
+    public object[]? TicketTimeAccounting { get; set; }
+
+    [JsonPropertyName("state")]
+    public string? State { get; set; }
+
+    [JsonPropertyName("priority")]
+    public string? Priority { get; set; }
+
+    [JsonPropertyName("owner")]
+    public string? Owner { get; set; }
+
+    [JsonPropertyName("customer")]
+    public string? Customer { get; set; }
+
+    [JsonPropertyName("created_by")]
+    public string? CreatedBy { get; set; }
+
+    [JsonPropertyName("updated_by")]
+    public string? UpdatedBy { get; set; }
+
+    [JsonPropertyName("create_article_type")]
+    public string? CreateArticleType { get; set; }
+
+    [JsonPropertyName("create_article_sender")]
+    public string? CreateArticleSender { get; set; }
 }

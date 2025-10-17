@@ -27,6 +27,7 @@ public class DeserializationTests
 {
     [Theory]
     [InlineData(typeof(Ticket), "ticket.json")]
+    [InlineData(typeof(Ticket), "ticket1.json")]
     [InlineData(typeof(List<Ticket>), "tickets.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {

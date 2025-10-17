@@ -51,3 +51,9 @@ public partial struct EmailAddressId;
 
 [StronglyTypedId]
 public partial struct SignatureId;
+
+[StronglyTypedId]
+public partial struct ChecklistId;
+
+[StronglyTypedId]
+public partial struct TimeAccountingId;
