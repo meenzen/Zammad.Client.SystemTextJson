@@ -10,6 +10,7 @@ using Testcontainers.Elasticsearch;
 using Testcontainers.PostgreSql;
 using Testcontainers.Redis;
 using Xunit;
+using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
 
 [assembly: AssemblyFixture(typeof(ZammadStackFixture))]

@@ -4,7 +4,7 @@ using System.Linq;
 using Xunit.Sdk;
 using Xunit.v3;
 
-namespace Zammad.Client.IntegrationTests;
+namespace Zammad.Client.IntegrationTests.Infrastructure;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 public class OrderAttribute(int order) : Attribute

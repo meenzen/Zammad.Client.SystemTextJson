@@ -1,4 +1,4 @@
-﻿namespace Zammad.Client.IntegrationTests;
+﻿namespace Zammad.Client.IntegrationTests.Infrastructure;
 
 public class TestOrder
 {
