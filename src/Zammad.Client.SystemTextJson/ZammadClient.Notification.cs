@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
@@ -8,7 +10,12 @@ namespace Zammad.Client;
 public interface IOnlineNotificationService
 {
     Task<List<OnlineNotification>> ListOnlineNotificationsAsync();
+
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count);
+
+    Task<List<OnlineNotification>> ListOnlineNotificationsAsync(Pagination? pagination);
     Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id);
     Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification);
     Task<OnlineNotification> UpdateOnlineNotificationAsync(NotificationId id, OnlineNotification notification);
@@ -23,11 +30,15 @@ public sealed partial class ZammadClient : IOnlineNotificationService
     public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync() =>
         await GetAsync<List<OnlineNotification>>(OnlineNotificationsEndpoint) ?? [];
 
-    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count)
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
+    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count) =>
+        await ListOnlineNotificationsAsync(new Pagination { Page = page, PerPage = count });
+
+    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(Pagination? pagination)
     {
         var builder = new QueryBuilder();
-        builder.Add("page", page);
-        builder.Add("per_page", count);
+        builder.AddPagination(pagination);
         return await GetAsync<List<OnlineNotification>>(OnlineNotificationsEndpoint, builder.ToString()) ?? [];
     }
 

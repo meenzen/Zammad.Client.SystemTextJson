@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Xunit;
+using Zammad.Client.Core;
 using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
@@ -20,7 +21,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var organizationList = await client.ListOrganizationsAsync(1, 100);
+        var organizationList = await client.ListOrganizationsAsync(new Pagination { Page = 1, PerPage = 100 });
 
         Assert.NotNull(organizationList);
         NotFromTestOrganizationCount = organizationList.Count;
@@ -78,7 +79,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var organizationList = await client.ListOrganizationsAsync(1, 100);
+        var organizationList = await client.ListOrganizationsAsync(new Pagination { Page = 1, PerPage = 100 });
 
         Assert.Equal(NotFromTestOrganizationCount + 3, organizationList.Count);
     }
@@ -104,7 +105,13 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
         var client = await zammadStack.GetClientAsync();
 
         await Task.Delay(TestSetup.IndexerDelay, TestContext.Current.CancellationToken);
-        var organizationSearch = await client.SearchOrganizationsAsync("Krusty Burger" + RandomName, 20);
+        var organizationSearch = await client.SearchOrganizationsAsync(
+            new SearchQuery
+            {
+                Query = "Krusty Burger" + RandomName,
+                Pagination = new Pagination { PerPage = 20 },
+            }
+        );
 
         Assert.Single(organizationSearch);
         Assert.Equal(KrustyBurgerId, organizationSearch[0].Id);
