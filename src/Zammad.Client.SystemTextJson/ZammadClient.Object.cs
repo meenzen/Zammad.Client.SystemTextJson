@@ -16,20 +16,21 @@ public interface IObjectService
 
 public sealed partial class ZammadClient : IObjectService
 {
+    private const string ObjectManagerAttributesEndpoint = "/api/v1/object_manager_attributes";
+
     public async Task<List<Object>> ListObjectsAsync() =>
-        await GetAsync<List<Object>>("/api/v1/object_manager_attributes") ?? [];
+        await GetAsync<List<Object>>(ObjectManagerAttributesEndpoint) ?? [];
 
     public async Task<Object?> GetObjectAsync(ObjectId id) =>
-        await GetAsync<Object>($"/api/v1/object_manager_attributes/{id}");
+        await GetAsync<Object>($"{ObjectManagerAttributesEndpoint}/{id}");
 
     public async Task<Object> CreateObjectAsync(Object @object) =>
-        await PostAsync<Object>("/api/v1/object_manager_attributes", @object)
-        ?? throw LogicException.UnexpectedNullResult;
+        await PostAsync<Object>(ObjectManagerAttributesEndpoint, @object) ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<Object> UpdateObjectAsync(ObjectId id, Object @object) =>
-        await PutAsync<Object>($"/api/v1/object_manager_attributes/{id}", @object)
+        await PutAsync<Object>($"{ObjectManagerAttributesEndpoint}/{id}", @object)
         ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<bool> ExecuteMigrationAsync() =>
-        await PostAsync<bool>("/api/v1/object_manager_attributes_execute_migrations");
+        await PostAsync<bool>($"{ObjectManagerAttributesEndpoint}_execute_migrations");
 }
