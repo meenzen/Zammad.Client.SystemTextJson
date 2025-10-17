@@ -1,15 +1,15 @@
-using System;
 using System.Threading.Tasks;
 using Xunit;
+using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
 [TestCaseOrderer(typeof(TestOrderer))]
-public class OrganizationClientTest(ZammadStackFixture zammadStack)
+public class OrganizationTests(ZammadStackFixture zammadStack)
 {
-    private static string randomName = Guid.NewGuid().ToString("N").Substring(0, 8);
+    private static readonly string RandomName = TestSetup.RandomString();
     private static int NotFromTestOrganizationCount { get; set; } = 0;
     private static OrganizationId KrustyBurgerId { get; set; } = OrganizationId.Empty;
     private static OrganizationId SpringfieldNuclearPowerPlantId { get; set; } = OrganizationId.Empty;
@@ -34,7 +34,7 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
         var organization1 = await client.CreateOrganizationAsync(
             new Organization
             {
-                Name = "Krusty Burger" + randomName,
+                Name = "Krusty Burger" + RandomName,
                 Shared = true,
                 Domain = "krustyburger.com",
                 DomainAssignment = true,
@@ -45,7 +45,7 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
         var organization2 = await client.CreateOrganizationAsync(
             new Organization
             {
-                Name = "Springfield Nuclear Power Plant" + randomName,
+                Name = "Springfield Nuclear Power Plant" + RandomName,
                 Shared = true,
                 Domain = "nuclearpowerplant.com",
                 DomainAssignment = true,
@@ -56,7 +56,7 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
         var organization3 = await client.CreateOrganizationAsync(
             new Organization
             {
-                Name = "Springfield Elementary School" + randomName,
+                Name = "Springfield Elementary School" + RandomName,
                 Shared = true,
                 Domain = "springfield-elementaryschool.com",
                 DomainAssignment = true,
@@ -103,8 +103,8 @@ public class OrganizationClientTest(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        await Task.Delay(5000, TestContext.Current.CancellationToken); // Wait for Zammad search indexer
-        var organizationSearch = await client.SearchOrganizationsAsync("Krusty Burger" + randomName, 20);
+        await Task.Delay(TestSetup.IndexerDelay, TestContext.Current.CancellationToken);
+        var organizationSearch = await client.SearchOrganizationsAsync("Krusty Burger" + RandomName, 20);
 
         Assert.Single(organizationSearch);
         Assert.Equal(KrustyBurgerId, organizationSearch[0].Id);

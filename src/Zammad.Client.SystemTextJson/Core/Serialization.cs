@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Zammad.Client;
+namespace Zammad.Client.Core;
 
 internal static class Serialization
 {

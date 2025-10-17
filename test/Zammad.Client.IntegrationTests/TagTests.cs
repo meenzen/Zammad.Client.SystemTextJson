@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Xunit;
+using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
 [TestCaseOrderer(typeof(TestOrderer))]
-public class TagClientTest(ZammadStackFixture zammadStack)
+public class TagTests(ZammadStackFixture zammadStack)
 {
     [Fact, Order(TestOrder.TagGetTagList)]
     public async Task Tag_TagGetTagList_Test()
