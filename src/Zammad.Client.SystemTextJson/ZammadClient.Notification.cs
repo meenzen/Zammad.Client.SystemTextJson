@@ -21,8 +21,13 @@ public sealed partial class ZammadClient : IOnlineNotificationService
     public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync() =>
         await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications") ?? [];
 
-    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count) =>
-        await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", $"page={page}&per_page={count}") ?? [];
+    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("page", page);
+        builder.Add("per_page", count);
+        return await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", builder.ToString()) ?? [];
+    }
 
     public async Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id) =>
         await GetAsync<OnlineNotification>($"/api/v1/online_notifications/{id}");

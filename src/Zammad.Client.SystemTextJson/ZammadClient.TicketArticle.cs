@@ -21,8 +21,13 @@ public sealed partial class ZammadClient : ITicketArticleService
     public async Task<List<TicketArticle>> ListTicketArticlesAsync() =>
         await GetAsync<List<TicketArticle>>("/api/v1/ticket_articles") ?? [];
 
-    public async Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count) =>
-        await GetAsync<List<TicketArticle>>("/api/v1/ticket_articles", $"page={page}&per_page={count}") ?? [];
+    public async Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("page", page);
+        builder.Add("per_page", count);
+        return await GetAsync<List<TicketArticle>>("/api/v1/ticket_articles", builder.ToString()) ?? [];
+    }
 
     public async Task<List<TicketArticle>> ListTicketArticlesAsync(TicketId id) =>
         await GetAsync<List<TicketArticle>>($"/api/v1/ticket_articles/by_ticket/{id}") ?? [];

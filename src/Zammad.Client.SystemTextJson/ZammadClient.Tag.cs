@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Zammad.Client.Resources.Internal;
 
@@ -21,18 +22,37 @@ public sealed partial class ZammadClient : ITagService
 {
     public async Task<List<string>> ListTagsAsync(string objectName, ObjectId objectId)
     {
-        var tagList = await GetAsync<StringTagList>("/api/v1/tags", $"object={objectName}&o_id={objectId}");
+        var builder = new QueryBuilder();
+        builder.Add("object", objectName);
+        builder.Add("o_id", objectId.ToString());
+        var tagList = await GetAsync<StringTagList>("/api/v1/tags", builder.ToString());
         return tagList?.Tags ?? [];
     }
 
-    public async Task<List<Tag>> SearchTagsAsync(string term) =>
-        await GetAsync<List<Tag>>("/api/v1/tag_search", $"term={term}") ?? [];
+    public async Task<List<Tag>> SearchTagsAsync(string term)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("term", term);
+        return await GetAsync<List<Tag>>("/api/v1/tag_search", builder.ToString()) ?? [];
+    }
 
-    public async Task<bool> AddTagAsync(string objectName, ObjectId objectId, string tagName) =>
-        await GetAsync<bool>("/api/v1/tags/add", $"object={objectName}&o_id={objectId}&item={tagName}");
+    public async Task<bool> AddTagAsync(string objectName, ObjectId objectId, string tagName)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("object", objectName);
+        builder.Add("o_id", objectId.ToString());
+        builder.Add("item", tagName);
+        return await GetAsync<bool>("/api/v1/tags/add", builder.ToString());
+    }
 
-    public async Task<bool> RemoveTagAsync(string objectName, ObjectId objectId, string tagName) =>
-        await GetAsync<bool>("/api/v1/tags/remove", $"object={objectName}&o_id={objectId}&item={tagName}");
+    public async Task<bool> RemoveTagAsync(string objectName, ObjectId objectId, string tagName)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("object", objectName);
+        builder.Add("o_id", objectId.ToString());
+        builder.Add("item", tagName);
+        return await GetAsync<bool>("/api/v1/tags/remove", builder.ToString());
+    }
 
     public async Task<List<Tag>> ListTagsAdminAsync() => await GetAsync<List<Tag>>("/api/v1/tag_list") ?? [];
 
