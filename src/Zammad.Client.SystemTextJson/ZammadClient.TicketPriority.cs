@@ -20,8 +20,13 @@ public sealed partial class ZammadClient : ITicketPriorityService
     public async Task<List<TicketPriority>> ListTicketPrioritiesAsync() =>
         await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities") ?? [];
 
-    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count) =>
-        await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities", $"page={page}&per_page={count}") ?? [];
+    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("page", page);
+        builder.Add("per_page", count);
+        return await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities", builder.ToString()) ?? [];
+    }
 
     public async Task<TicketPriority?> GetTicketPriorityAsync(PriorityId id) =>
         await GetAsync<TicketPriority>($"/api/v1/ticket_priorities/{id}");

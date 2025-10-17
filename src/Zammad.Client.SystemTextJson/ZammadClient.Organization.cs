@@ -22,23 +22,38 @@ public sealed partial class ZammadClient : IOrganizationService
     public async Task<List<Organization>> ListOrganizationsAsync() =>
         await GetAsync<List<Organization>>("/api/v1/organizations") ?? [];
 
-    public async Task<List<Organization>> ListOrganizationsAsync(int page, int count) =>
-        await GetAsync<List<Organization>>("/api/v1/organizations", $"page={page}&per_page={count}") ?? [];
+    public async Task<List<Organization>> ListOrganizationsAsync(int page, int count)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("page", page);
+        builder.Add("per_page", count);
+        return await GetAsync<List<Organization>>("/api/v1/organizations", builder.ToString()) ?? [];
+    }
 
-    public async Task<List<Organization>> SearchOrganizationsAsync(string query, int limit) =>
-        await GetAsync<List<Organization>>("/api/v1/organizations/search", $"query={query}&limit={limit}&expand=true")
-        ?? [];
+    public async Task<List<Organization>> SearchOrganizationsAsync(string query, int limit)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("query", query);
+        builder.Add("limit", limit);
+        builder.Add("expand", true);
+        return await GetAsync<List<Organization>>("/api/v1/organizations/search", builder.ToString()) ?? [];
+    }
 
     public async Task<List<Organization>> SearchOrganizationsAsync(
         string query,
         int limit,
         string sortBy,
         string orderBy
-    ) =>
-        await GetAsync<List<Organization>>(
-            "/api/v1/organizations/search",
-            $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
-        ) ?? [];
+    )
+    {
+        var builder = new QueryBuilder();
+        builder.Add("query", query);
+        builder.Add("limit", limit);
+        builder.Add("expand", true);
+        builder.Add("sort_by", sortBy);
+        builder.Add("order_by", orderBy);
+        return await GetAsync<List<Organization>>("/api/v1/organizations/search", builder.ToString()) ?? [];
+    }
 
     public async Task<Organization?> GetOrganizationAsync(OrganizationId id) =>
         await GetAsync<Organization>($"/api/v1/organizations/{id}");

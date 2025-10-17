@@ -25,17 +25,33 @@ public sealed partial class ZammadClient : IUserService
 
     public async Task<List<User>> ListUsersAsync() => await GetAsync<List<User>>("/api/v1/users") ?? [];
 
-    public async Task<List<User>> ListUsersAsync(int page, int count) =>
-        await GetAsync<List<User>>("/api/v1/users", $"page={page}&per_page={count}") ?? [];
+    public async Task<List<User>> ListUsersAsync(int page, int count)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("page", page);
+        builder.Add("per_page", count);
+        return await GetAsync<List<User>>("/api/v1/users", builder.ToString()) ?? [];
+    }
 
-    public async Task<List<User>> SearchUsersAsync(string query, int limit) =>
-        await GetAsync<List<User>>("/api/v1/users/search", $"query={query}&limit={limit}&expand=true") ?? [];
+    public async Task<List<User>> SearchUsersAsync(string query, int limit)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("query", query);
+        builder.Add("limit", limit);
+        builder.Add("expand", true);
+        return await GetAsync<List<User>>("/api/v1/users/search", builder.ToString()) ?? [];
+    }
 
-    public async Task<List<User>> SearchUsersAsync(string query, int limit, string sortBy, string orderBy) =>
-        await GetAsync<List<User>>(
-            "/api/v1/users/search",
-            $"query={query}&limit={limit}&expand=true&sort_by={sortBy}&order_by={orderBy}"
-        ) ?? [];
+    public async Task<List<User>> SearchUsersAsync(string query, int limit, string sortBy, string orderBy)
+    {
+        var builder = new QueryBuilder();
+        builder.Add("query", query);
+        builder.Add("limit", limit);
+        builder.Add("expand", true);
+        builder.Add("sort_by", sortBy);
+        builder.Add("order_by", orderBy);
+        return await GetAsync<List<User>>("/api/v1/users/search", builder.ToString()) ?? [];
+    }
 
     public async Task<User?> GetUserAsync(UserId id) => await GetAsync<User>($"/api/v1/users/{id}");
 
