@@ -4,7 +4,8 @@ This document provides guidelines for GitHub Copilot when working on this reposi
 
 ## Project Overview
 
-This is a .NET client library for interacting with the Zammad helpdesk system API. It uses `System.Text.Json` for JSON serialization instead of `Newtonsoft.Json`.
+This is a .NET client library for interacting with the Zammad helpdesk system API. It uses `System.Text.Json` for JSON
+serialization instead of `Newtonsoft.Json`.
 
 ## Development Environment
 
@@ -17,10 +18,11 @@ This is a .NET client library for interacting with the Zammad helpdesk system AP
 ```bash
 dotnet restore
 dotnet build
-dotnet test --filter "FullyQualifiedName!~IntegrationTests"
+dotnet test test/Zammad.Client.Tests
 ```
 
-**Note**: Integration tests take a long time to run. During development, build the project and run only the unit tests to validate changes. The filter above excludes integration tests.
+**Note**: Integration tests take a long time to run. During development, build the project and run only the unit tests
+to validate changes. The command above only runs the unit test project.
 
 ## Code Style and Formatting
 
