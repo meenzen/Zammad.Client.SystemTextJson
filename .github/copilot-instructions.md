@@ -17,8 +17,10 @@ This is a .NET client library for interacting with the Zammad helpdesk system AP
 ```bash
 dotnet restore
 dotnet build
-dotnet test
+dotnet test --filter "FullyQualifiedName!~IntegrationTests"
 ```
+
+**Note**: Integration tests take a long time to run. During development, build the project and run only the unit tests to validate changes. The filter above excludes integration tests.
 
 ## Code Style and Formatting
 
@@ -76,7 +78,7 @@ All analyzer warnings must be fixed before code can be merged.
 ### Test Patterns
 - Follow existing test naming conventions: `MethodName_Scenario_ExpectedBehavior`
 - Use theory tests with `[Theory]` and `[InlineData]` for parameterized tests
-- Integration tests require a running Zammad instance
+- Integration tests automatically start required services as docker containers using **Testcontainers for .NET**
 
 ### Test Coverage
 - Tests should cover new functionality
@@ -99,7 +101,7 @@ All analyzer warnings must be fixed before code can be merged.
 ### Commit Messages
 - Use **Conventional Commits** format: `type(scope): description`
 - Common types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-- Use emoji prefixes when appropriate (✨ for features, 🐛 for fixes, 📝 for docs)
+- **Do not** use emoji prefixes in commit messages
 
 ### Pre-commit Hooks
 - Husky is configured for pre-commit hooks
