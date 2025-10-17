@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
@@ -8,9 +10,22 @@ namespace Zammad.Client;
 public interface IOrganizationService
 {
     Task<List<Organization>> ListOrganizationsAsync();
+
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     Task<List<Organization>> ListOrganizationsAsync(int page, int count);
+
+    Task<List<Organization>> ListOrganizationsAsync(Pagination? pagination);
+
+    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     Task<List<Organization>> SearchOrganizationsAsync(string query, int limit);
+
+    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     Task<List<Organization>> SearchOrganizationsAsync(string query, int limit, string sortBy, string orderBy);
+
+    Task<List<Organization>> SearchOrganizationsAsync(SearchQuery query);
     Task<Organization?> GetOrganizationAsync(OrganizationId id);
     Task<Organization> CreateOrganizationAsync(Organization organization);
     Task<Organization> UpdateOrganizationAsync(OrganizationId id, Organization organization);
@@ -20,27 +35,36 @@ public interface IOrganizationService
 public sealed partial class ZammadClient : IOrganizationService
 {
     private const string OrganizationsEndpoint = "/api/v1/organizations";
+    private const string OrganizationsSearchEndpoint = "/api/v1/organizations/search";
 
     public async Task<List<Organization>> ListOrganizationsAsync() =>
         await GetAsync<List<Organization>>(OrganizationsEndpoint) ?? [];
 
-    public async Task<List<Organization>> ListOrganizationsAsync(int page, int count)
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
+    public async Task<List<Organization>> ListOrganizationsAsync(int page, int count) =>
+        await ListOrganizationsAsync(new Pagination { Page = page, PerPage = count });
+
+    public async Task<List<Organization>> ListOrganizationsAsync(Pagination? pagination)
     {
         var builder = new QueryBuilder();
-        builder.Add("page", page);
-        builder.Add("per_page", count);
+        builder.AddPagination(pagination);
         return await GetAsync<List<Organization>>(OrganizationsEndpoint, builder.ToString()) ?? [];
     }
 
+    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     public async Task<List<Organization>> SearchOrganizationsAsync(string query, int limit)
     {
         var builder = new QueryBuilder();
         builder.Add("query", query);
         builder.Add("limit", limit);
         builder.Add("expand", true);
-        return await GetAsync<List<Organization>>($"{OrganizationsEndpoint}/search", builder.ToString()) ?? [];
+        return await GetAsync<List<Organization>>(OrganizationsSearchEndpoint, builder.ToString()) ?? [];
     }
 
+    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     public async Task<List<Organization>> SearchOrganizationsAsync(
         string query,
         int limit,
@@ -54,7 +78,15 @@ public sealed partial class ZammadClient : IOrganizationService
         builder.Add("expand", true);
         builder.Add("sort_by", sortBy);
         builder.Add("order_by", orderBy);
-        return await GetAsync<List<Organization>>($"{OrganizationsEndpoint}/search", builder.ToString()) ?? [];
+        return await GetAsync<List<Organization>>(OrganizationsSearchEndpoint, builder.ToString()) ?? [];
+    }
+
+    public async Task<List<Organization>> SearchOrganizationsAsync(SearchQuery query)
+    {
+        var builder = new QueryBuilder();
+        builder.AddSearchQuery(query);
+        builder.Add("expand", true);
+        return await GetAsync<List<Organization>>(OrganizationsSearchEndpoint, builder.ToString()) ?? [];
     }
 
     public async Task<Organization?> GetOrganizationAsync(OrganizationId id) =>

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using Zammad.Client.Core;
@@ -9,7 +11,12 @@ namespace Zammad.Client;
 public interface ITicketArticleService
 {
     Task<List<TicketArticle>> ListTicketArticlesAsync();
+
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
     Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count);
+
+    Task<List<TicketArticle>> ListTicketArticlesAsync(Pagination? pagination);
     Task<List<TicketArticle>> ListTicketArticlesAsync(TicketId id);
     Task<TicketArticle?> GetTicketArticleAsync(ArticleId id);
     Task<TicketArticle> CreateTicketArticleAsync(TicketArticle article);
@@ -24,11 +31,15 @@ public sealed partial class ZammadClient : ITicketArticleService
     public async Task<List<TicketArticle>> ListTicketArticlesAsync() =>
         await GetAsync<List<TicketArticle>>(TicketArticlesEndpoint) ?? [];
 
-    public async Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count)
+    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
+    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
+    public async Task<List<TicketArticle>> ListTicketArticlesAsync(int page, int count) =>
+        await ListTicketArticlesAsync(new Pagination { Page = page, PerPage = count });
+
+    public async Task<List<TicketArticle>> ListTicketArticlesAsync(Pagination? pagination)
     {
         var builder = new QueryBuilder();
-        builder.Add("page", page);
-        builder.Add("per_page", count);
+        builder.AddPagination(pagination);
         return await GetAsync<List<TicketArticle>>(TicketArticlesEndpoint, builder.ToString()) ?? [];
     }
 
