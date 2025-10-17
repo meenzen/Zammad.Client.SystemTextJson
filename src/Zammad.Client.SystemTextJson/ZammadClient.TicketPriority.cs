@@ -17,28 +17,30 @@ public interface ITicketPriorityService
 
 public sealed partial class ZammadClient : ITicketPriorityService
 {
+    private const string TicketPrioritiesEndpoint = "/api/v1/ticket_priorities";
+
     public async Task<List<TicketPriority>> ListTicketPrioritiesAsync() =>
-        await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities") ?? [];
+        await GetAsync<List<TicketPriority>>(TicketPrioritiesEndpoint) ?? [];
 
     public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count)
     {
         var builder = new QueryBuilder();
         builder.Add("page", page);
         builder.Add("per_page", count);
-        return await GetAsync<List<TicketPriority>>("/api/v1/ticket_priorities", builder.ToString()) ?? [];
+        return await GetAsync<List<TicketPriority>>(TicketPrioritiesEndpoint, builder.ToString()) ?? [];
     }
 
     public async Task<TicketPriority?> GetTicketPriorityAsync(PriorityId id) =>
-        await GetAsync<TicketPriority>($"/api/v1/ticket_priorities/{id}");
+        await GetAsync<TicketPriority>($"{TicketPrioritiesEndpoint}/{id}");
 
     public async Task<TicketPriority> CreateTicketPriorityAsync(TicketPriority priority) =>
-        await PostAsync<TicketPriority>("/api/v1/ticket_priorities", priority)
+        await PostAsync<TicketPriority>(TicketPrioritiesEndpoint, priority)
         ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<TicketPriority> UpdateTicketPriorityAsync(PriorityId id, TicketPriority priority) =>
-        await PutAsync<TicketPriority>($"/api/v1/ticket_priorities/{id}", priority)
+        await PutAsync<TicketPriority>($"{TicketPrioritiesEndpoint}/{id}", priority)
         ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<bool> DeleteTicketPriorityAsync(PriorityId id) =>
-        await DeleteAsync<bool>($"/api/v1/ticket_priorities/{id}");
+        await DeleteAsync<bool>($"{TicketPrioritiesEndpoint}/{id}");
 }

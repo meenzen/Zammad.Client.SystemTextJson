@@ -18,34 +18,36 @@ public interface IOnlineNotificationService
 
 public sealed partial class ZammadClient : IOnlineNotificationService
 {
+    private const string OnlineNotificationsEndpoint = "/api/v1/online_notifications";
+
     public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync() =>
-        await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications") ?? [];
+        await GetAsync<List<OnlineNotification>>(OnlineNotificationsEndpoint) ?? [];
 
     public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count)
     {
         var builder = new QueryBuilder();
         builder.Add("page", page);
         builder.Add("per_page", count);
-        return await GetAsync<List<OnlineNotification>>("/api/v1/online_notifications", builder.ToString()) ?? [];
+        return await GetAsync<List<OnlineNotification>>(OnlineNotificationsEndpoint, builder.ToString()) ?? [];
     }
 
     public async Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id) =>
-        await GetAsync<OnlineNotification>($"/api/v1/online_notifications/{id}");
+        await GetAsync<OnlineNotification>($"{OnlineNotificationsEndpoint}/{id}");
 
     public async Task<OnlineNotification> CreateOnlineNotificationAsync(OnlineNotification notification) =>
-        await PostAsync<OnlineNotification>("/api/v1/online_notifications", notification)
+        await PostAsync<OnlineNotification>(OnlineNotificationsEndpoint, notification)
         ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<OnlineNotification> UpdateOnlineNotificationAsync(
         NotificationId id,
         OnlineNotification notification
     ) =>
-        await PutAsync<OnlineNotification>($"/api/v1/online_notifications/{id}", notification)
+        await PutAsync<OnlineNotification>($"{OnlineNotificationsEndpoint}/{id}", notification)
         ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<bool> DeleteOnlineNotificationAsync(NotificationId id) =>
-        await DeleteAsync<bool>($"/api/v1/online_notifications/{id}");
+        await DeleteAsync<bool>($"{OnlineNotificationsEndpoint}/{id}");
 
     public async Task<bool> MarkAllAsReadAsync() =>
-        await PostAsync<bool>("/api/v1/online_notifications/mark_all_as_read");
+        await PostAsync<bool>($"{OnlineNotificationsEndpoint}/mark_all_as_read");
 }

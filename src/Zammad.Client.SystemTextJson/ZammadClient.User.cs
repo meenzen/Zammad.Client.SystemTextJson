@@ -20,17 +20,19 @@ public interface IUserService
 
 public sealed partial class ZammadClient : IUserService
 {
-    public async Task<User> GetUserMeAsync() =>
-        await GetAsync<User>("/api/v1/users/me") ?? throw LogicException.UnexpectedNullResult;
+    private const string UsersEndpoint = "/api/v1/users";
 
-    public async Task<List<User>> ListUsersAsync() => await GetAsync<List<User>>("/api/v1/users") ?? [];
+    public async Task<User> GetUserMeAsync() =>
+        await GetAsync<User>($"{UsersEndpoint}/me") ?? throw LogicException.UnexpectedNullResult;
+
+    public async Task<List<User>> ListUsersAsync() => await GetAsync<List<User>>(UsersEndpoint) ?? [];
 
     public async Task<List<User>> ListUsersAsync(int page, int count)
     {
         var builder = new QueryBuilder();
         builder.Add("page", page);
         builder.Add("per_page", count);
-        return await GetAsync<List<User>>("/api/v1/users", builder.ToString()) ?? [];
+        return await GetAsync<List<User>>(UsersEndpoint, builder.ToString()) ?? [];
     }
 
     public async Task<List<User>> SearchUsersAsync(string query, int limit)
@@ -39,7 +41,7 @@ public sealed partial class ZammadClient : IUserService
         builder.Add("query", query);
         builder.Add("limit", limit);
         builder.Add("expand", true);
-        return await GetAsync<List<User>>("/api/v1/users/search", builder.ToString()) ?? [];
+        return await GetAsync<List<User>>($"{UsersEndpoint}/search", builder.ToString()) ?? [];
     }
 
     public async Task<List<User>> SearchUsersAsync(string query, int limit, string sortBy, string orderBy)
@@ -50,16 +52,16 @@ public sealed partial class ZammadClient : IUserService
         builder.Add("expand", true);
         builder.Add("sort_by", sortBy);
         builder.Add("order_by", orderBy);
-        return await GetAsync<List<User>>("/api/v1/users/search", builder.ToString()) ?? [];
+        return await GetAsync<List<User>>($"{UsersEndpoint}/search", builder.ToString()) ?? [];
     }
 
-    public async Task<User?> GetUserAsync(UserId id) => await GetAsync<User>($"/api/v1/users/{id}");
+    public async Task<User?> GetUserAsync(UserId id) => await GetAsync<User>($"{UsersEndpoint}/{id}");
 
     public async Task<User> CreateUserAsync(User user) =>
-        await PostAsync<User>("/api/v1/users", user) ?? throw LogicException.UnexpectedNullResult;
+        await PostAsync<User>(UsersEndpoint, user) ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<User> UpdateUserAsync(UserId id, User user) =>
-        await PutAsync<User>($"/api/v1/users/{id}", user) ?? throw LogicException.UnexpectedNullResult;
+        await PutAsync<User>($"{UsersEndpoint}/{id}", user) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteUserAsync(UserId id) => await DeleteAsync<bool>($"/api/v1/users/{id}");
+    public async Task<bool> DeleteUserAsync(UserId id) => await DeleteAsync<bool>($"{UsersEndpoint}/{id}");
 }

@@ -19,15 +19,17 @@ public interface IOrganizationService
 
 public sealed partial class ZammadClient : IOrganizationService
 {
+    private const string OrganizationsEndpoint = "/api/v1/organizations";
+
     public async Task<List<Organization>> ListOrganizationsAsync() =>
-        await GetAsync<List<Organization>>("/api/v1/organizations") ?? [];
+        await GetAsync<List<Organization>>(OrganizationsEndpoint) ?? [];
 
     public async Task<List<Organization>> ListOrganizationsAsync(int page, int count)
     {
         var builder = new QueryBuilder();
         builder.Add("page", page);
         builder.Add("per_page", count);
-        return await GetAsync<List<Organization>>("/api/v1/organizations", builder.ToString()) ?? [];
+        return await GetAsync<List<Organization>>(OrganizationsEndpoint, builder.ToString()) ?? [];
     }
 
     public async Task<List<Organization>> SearchOrganizationsAsync(string query, int limit)
@@ -36,7 +38,7 @@ public sealed partial class ZammadClient : IOrganizationService
         builder.Add("query", query);
         builder.Add("limit", limit);
         builder.Add("expand", true);
-        return await GetAsync<List<Organization>>("/api/v1/organizations/search", builder.ToString()) ?? [];
+        return await GetAsync<List<Organization>>($"{OrganizationsEndpoint}/search", builder.ToString()) ?? [];
     }
 
     public async Task<List<Organization>> SearchOrganizationsAsync(
@@ -52,20 +54,19 @@ public sealed partial class ZammadClient : IOrganizationService
         builder.Add("expand", true);
         builder.Add("sort_by", sortBy);
         builder.Add("order_by", orderBy);
-        return await GetAsync<List<Organization>>("/api/v1/organizations/search", builder.ToString()) ?? [];
+        return await GetAsync<List<Organization>>($"{OrganizationsEndpoint}/search", builder.ToString()) ?? [];
     }
 
     public async Task<Organization?> GetOrganizationAsync(OrganizationId id) =>
-        await GetAsync<Organization>($"/api/v1/organizations/{id}");
+        await GetAsync<Organization>($"{OrganizationsEndpoint}/{id}");
 
     public async Task<Organization> CreateOrganizationAsync(Organization organization) =>
-        await PostAsync<Organization>("/api/v1/organizations", organization)
-        ?? throw LogicException.UnexpectedNullResult;
+        await PostAsync<Organization>(OrganizationsEndpoint, organization) ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<Organization> UpdateOrganizationAsync(OrganizationId id, Organization organization) =>
-        await PutAsync<Organization>($"/api/v1/organizations/{id}", organization)
+        await PutAsync<Organization>($"{OrganizationsEndpoint}/{id}", organization)
         ?? throw LogicException.UnexpectedNullResult;
 
     public async Task<bool> DeleteOrganizationAsync(OrganizationId id) =>
-        await DeleteAsync<bool>($"/api/v1/organizations/{id}");
+        await DeleteAsync<bool>($"{OrganizationsEndpoint}/{id}");
 }
