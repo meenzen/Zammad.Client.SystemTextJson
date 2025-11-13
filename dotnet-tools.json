@@ -7,28 +7,28 @@
       "commands": [
         "upgrade-assistant"
       ],
-      "rollForward": false
+      "rollForward": true
     },
     "nbgv": {
       "version": "3.9.50",
       "commands": [
         "nbgv"
       ],
-      "rollForward": false
+      "rollForward": true
     },
     "csharpier": {
       "version": "1.2.1",
       "commands": [
         "csharpier"
       ],
-      "rollForward": false
+      "rollForward": true
     },
     "husky": {
       "version": "0.8.0",
       "commands": [
         "husky"
       ],
-      "rollForward": false
+      "rollForward": true
     }
   }
 }
