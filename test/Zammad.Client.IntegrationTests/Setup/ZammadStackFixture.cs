@@ -160,7 +160,7 @@ public class ZammadStackFixture : IAsyncLifetime
                 Wait.ForUnixContainer()
                     .UntilMessageIsLogged(
                         $".*{EntrypointFinished}.*",
-                        strategy => strategy.WithTimeout(TimeSpan.FromMinutes(5))
+                        strategy => strategy.WithTimeout(TimeSpan.FromMinutes(5)).WithMode(WaitStrategyMode.OneShot)
                     )
             )
             .WithCleanUp(true)
@@ -226,24 +226,20 @@ public class ZammadStackFixture : IAsyncLifetime
 
         await Task.WhenAll([network.CreateAsync(), storage.CreateAsync()]);
 
-        await Task.WhenAll(
-            [
-                zammadElasticsearch.StartAsync(),
-                zammadPostgres.StartAsync(),
-                zammadRedis.StartAsync(),
-                zammadMemcached.StartAsync(),
-            ]
-        );
+        await Task.WhenAll([
+            zammadElasticsearch.StartAsync(),
+            zammadPostgres.StartAsync(),
+            zammadRedis.StartAsync(),
+            zammadMemcached.StartAsync(),
+        ]);
 
-        await Task.WhenAll(
-            [
-                zammadInit.StartAsync(),
-                zammadRailsserver.StartAsync(),
-                zammadNginx.StartAsync(),
-                zammadScheduler.StartAsync(),
-                zammadWebsocket.StartAsync(),
-            ]
-        );
+        await Task.WhenAll([
+            zammadInit.StartAsync(),
+            zammadRailsserver.StartAsync(),
+            zammadNginx.StartAsync(),
+            zammadScheduler.StartAsync(),
+            zammadWebsocket.StartAsync(),
+        ]);
 
         _publicPort = zammadNginx.GetMappedPublicPort(8080);
         _client = GetClient(GetUri(_publicPort.Value));
