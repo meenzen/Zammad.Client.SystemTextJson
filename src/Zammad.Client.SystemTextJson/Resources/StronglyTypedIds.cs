@@ -38,6 +38,9 @@ public partial struct ArticleTypeId;
 public partial struct AttachmentId;
 
 [StronglyTypedId]
+public partial struct StoreFileId;
+
+[StronglyTypedId]
 public partial struct PriorityId;
 
 [StronglyTypedId]
