@@ -86,7 +86,7 @@ builder.Services.AddZammadClient(builder.Configuration.GetSection("Zammad"))
     .AddStandardResilienceHandler();
 ```
 
-This configuration will automatically handle transipent errors, making your application more robust.
+This configuration will automatically handle transient errors, making your application more robust.
 
 ## Contributing
 
