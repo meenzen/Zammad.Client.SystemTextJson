@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
@@ -194,4 +195,13 @@ public class Ticket
 
     [JsonPropertyName("create_article_sender")]
     public string? CreateArticleSender { get; set; }
+
+    /// <summary>
+    /// Additional properties that are not explicitly defined in this class.
+    /// </summary>
+    /// <remarks>
+    /// This will contain custom attributes configured in the Zammad object manager.
+    /// </remarks>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }

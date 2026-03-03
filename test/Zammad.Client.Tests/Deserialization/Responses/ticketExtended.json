@@ -1,0 +1,76 @@
+{
+  "id": 1234,
+  "group_id": 9,
+  "priority_id": 2,
+  "state_id": 4,
+  "organization_id": null,
+  "number": "123456",
+  "title": "Mustermann (+1234567890) über WhatsApp",
+  "owner_id": 4,
+  "customer_id": 321,
+  "note": null,
+  "first_response_at": "2026-03-03T09:58:25.502Z",
+  "first_response_escalation_at": null,
+  "first_response_in_min": 0,
+  "first_response_diff_in_min": 59940,
+  "close_at": "2026-03-03T09:58:46.200Z",
+  "close_escalation_at": null,
+  "close_in_min": null,
+  "close_diff_in_min": null,
+  "update_escalation_at": null,
+  "update_in_min": null,
+  "update_diff_in_min": null,
+  "last_close_at": "2026-03-03T10:02:21.125Z",
+  "last_contact_at": "2026-03-03T10:02:10.280Z",
+  "last_contact_agent_at": "2026-03-03T10:02:10.280Z",
+  "last_contact_customer_at": "2026-03-03T09:58:01.887Z",
+  "last_owner_update_at": null,
+  "create_article_type_id": 14,
+  "create_article_sender_id": 2,
+  "article_count": 3,
+  "escalation_at": null,
+  "pending_time": null,
+  "type": null,
+  "time_unit": null,
+  "preferences": {
+    "channel_id": 14,
+    "channel_area": "WhatsApp::Business",
+    "whatsapp": {
+      "from": {
+        "phone_number": "1234567890",
+        "display_name": "Mustermann"
+      },
+      "timestamp_incoming": "1772531879",
+      "timestamp_outgoing": "1772532133"
+    },
+    "escalation_calculation": {
+      "first_response_at": "2026-03-03T09:58:25.502Z",
+      "last_update_at": "2026-03-03T10:02:10.280Z",
+      "close_at": "2026-03-03T09:58:46.200Z",
+      "last_contact_at": "2026-03-03T10:02:10.280Z",
+      "sla_id": 1,
+      "sla_updated_at": "2025-08-11T13:06:22.275Z",
+      "calendar_id": 1,
+      "calendar_updated_at": "2026-03-02T14:34:40.449Z",
+      "escalation_disabled": false
+    }
+  },
+  "updated_by_id": 4,
+  "created_by_id": 243,
+  "created_at": "2026-03-03T09:58:01.746Z",
+  "updated_at": "2026-03-03T10:02:21.122Z",
+  "checklist_id": null,
+  "category": "",
+  "supportclaim": false,
+  "product_line": [
+    "TEST"
+  ],
+  "referencing_checklist_ids": [],
+  "article_ids": [
+    5926,
+    5927,
+    5928,
+    5931
+  ],
+  "ticket_time_accounting_ids": []
+}
