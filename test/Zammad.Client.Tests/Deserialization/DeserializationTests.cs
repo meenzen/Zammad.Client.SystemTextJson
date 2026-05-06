@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Xunit;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client.Tests.Deserialization;
@@ -26,33 +25,33 @@ public static class TestFile
 
 public class DeserializationTests
 {
-    [Theory]
-    [InlineData(typeof(Ticket), "ticket.json")]
-    [InlineData(typeof(Ticket), "ticket1.json")]
-    [InlineData(typeof(Ticket), "ticketExtended.json")]
-    [InlineData(typeof(List<Ticket>), "tickets.json")]
+    [Test]
+    [Arguments(typeof(Ticket), "ticket.json")]
+    [Arguments(typeof(Ticket), "ticket1.json")]
+    [Arguments(typeof(Ticket), "ticketExtended.json")]
+    [Arguments(typeof(List<Ticket>), "tickets.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var json = await TestFile.ReadStringAsync("Responses", fileName);
         var result = JsonSerializer.Deserialize(json, type);
-        Assert.NotNull(result);
+        await Assert.That(result).IsNotNull();
     }
 
-    [Fact]
+    [Test]
     public async Task CanDeserializeExtensionData()
     {
         var json = await TestFile.ReadStringAsync("Responses", "ticketExtended.json");
         var result = JsonSerializer.Deserialize<Ticket>(json);
-        Assert.NotNull(result);
-        Assert.NotNull(result.ExtensionData);
-        Assert.Equal(3, result.ExtensionData.Count);
-        Assert.True(result.ExtensionData.ContainsKey("category"));
-        Assert.True(result.ExtensionData.ContainsKey("supportclaim"));
-        Assert.True(result.ExtensionData.ContainsKey("product_line"));
-        Assert.Equal("", result.ExtensionData["category"].GetString());
-        Assert.False(result.ExtensionData["supportclaim"].GetBoolean());
-        Assert.Equal(JsonValueKind.Array, result.ExtensionData["product_line"].ValueKind);
-        Assert.Single(result.ExtensionData["product_line"].EnumerateArray());
-        Assert.Equal("TEST", result.ExtensionData["product_line"].EnumerateArray().First().GetString());
+        await Assert.That(result).IsNotNull();
+        await Assert.That(result.ExtensionData).IsNotNull();
+        await Assert.That(result.ExtensionData.Count).IsEqualTo(3);
+        await Assert.That(result.ExtensionData.ContainsKey("category")).IsTrue();
+        await Assert.That(result.ExtensionData.ContainsKey("supportclaim")).IsTrue();
+        await Assert.That(result.ExtensionData.ContainsKey("product_line")).IsTrue();
+        await Assert.That(result.ExtensionData["category"].GetString()).IsEqualTo("");
+        await Assert.That(result.ExtensionData["supportclaim"].GetBoolean()).IsFalse();
+        await Assert.That(result.ExtensionData["product_line"].ValueKind).IsEqualTo(JsonValueKind.Array);
+        await Assert.That(result.ExtensionData["product_line"].EnumerateArray()).HasSingleItem();
+        await Assert.That(result.ExtensionData["product_line"].EnumerateArray().First().GetString()).IsEqualTo("TEST");
     }
 }

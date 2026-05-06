@@ -1,104 +1,104 @@
 using System;
-using Xunit;
+using System.Threading.Tasks;
 using Zammad.Client.Core;
 
 namespace Zammad.Client.Tests.Core;
 
 public sealed class QueryBuilderTests
 {
-    [Fact]
-    public void ToString_WhenNoValues_ReturnsEmptyString()
+    [Test]
+    public async Task ToString_WhenNoValues_ReturnsEmptyString()
     {
         var qb = new QueryBuilder();
 
         var result = qb.ToString();
 
-        Assert.Equal(string.Empty, result);
+        await Assert.That(result).IsEqualTo(string.Empty);
     }
 
-    [Fact]
-    public void Add_String_AddsKeyValue_AndToStringBuildsQuery()
+    [Test]
+    public async Task Add_String_AddsKeyValue_AndToStringBuildsQuery()
     {
         var qb = new QueryBuilder().Add("a", "1").Add("b", "two");
 
         var result = qb.ToString();
 
-        Assert.StartsWith("?", result);
-        Assert.Contains("a=1", result);
-        Assert.Contains("b=two", result);
-        Assert.Equal(2, CountPairs(result));
+        await Assert.That(result).StartsWith("?");
+        await Assert.That(result).Contains("a=1");
+        await Assert.That(result).Contains("b=two");
+        await Assert.That(CountPairs(result)).IsEqualTo(2);
     }
 
-    [Fact]
-    public void Add_Int_AddsKeyValue_AsInvariantString()
+    [Test]
+    public async Task Add_Int_AddsKeyValue_AsInvariantString()
     {
         var qb = new QueryBuilder().Add("limit", 25);
 
         var result = qb.ToString();
 
-        Assert.Equal("?limit=25", result);
+        await Assert.That(result).IsEqualTo("?limit=25");
     }
 
-    [Theory]
-    [InlineData(true, "?active=true")]
-    [InlineData(false, "?active=false")]
-    public void Add_Bool_AddsKeyValue_AsLowercaseTrueFalse(bool input, string expected)
+    [Test]
+    [Arguments(true, "?active=true")]
+    [Arguments(false, "?active=false")]
+    public async Task Add_Bool_AddsKeyValue_AsLowercaseTrueFalse(bool input, string expected)
     {
         var qb = new QueryBuilder().Add("active", input);
 
         var result = qb.ToString();
 
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 
-    [Fact]
-    public void Add_SameKey_OverwritesPreviousValue()
+    [Test]
+    public async Task Add_SameKey_OverwritesPreviousValue()
     {
         var qb = new QueryBuilder().Add("q", "first").Add("q", "second");
 
         var result = qb.ToString();
 
-        Assert.Equal("?q=second", result);
+        await Assert.That(result).IsEqualTo("?q=second");
     }
 
-    [Fact]
-    public void KeysAreSortedAscending_InOutput()
+    [Test]
+    public async Task KeysAreSortedAscending_InOutput()
     {
         var qb = new QueryBuilder().Add("z", "1").Add("a", "2").Add("m", "3");
 
         var result = qb.ToString();
 
-        Assert.Equal("?a=2&m=3&z=1", result);
+        await Assert.That(result).IsEqualTo("?a=2&m=3&z=1");
     }
 
-    [Fact]
-    public void ValuesProperty_ExposesSnapshotWithCurrentData()
+    [Test]
+    public async Task ValuesProperty_ExposesSnapshotWithCurrentData()
     {
         var qb = new QueryBuilder().Add("a", "1").Add("b", "2");
 
         var values = qb.Values;
 
-        Assert.Equal(2, values.Count);
-        Assert.Equal("1", values["a"]);
-        Assert.Equal("2", values["b"]);
+        await Assert.That(values.Count).IsEqualTo(2);
+        await Assert.That(values["a"]).IsEqualTo("1");
+        await Assert.That(values["b"]).IsEqualTo("2");
     }
 
-    [Fact]
-    public void ToString_EncodesKeysAndValues()
+    [Test]
+    public async Task ToString_EncodesKeysAndValues()
     {
         var qb = new QueryBuilder().Add("sp ace", "val ue").Add("sym&bol", "x/y?").Add("unicode-✓", "🙂");
 
         var result = qb.ToString();
 
         // Ensure it's a valid query format
-        Assert.StartsWith("?", result);
+        await Assert.That(result).StartsWith("?");
 
         // Verify URL-encoding of special characters
-        Assert.Contains("sp%20ace=val%20ue", result);
-        Assert.Contains("sym%26bol=x%2Fy%3F", result);
-        Assert.Contains("unicode-%E2%9C%93=%F0%9F%99%82", result);
+        await Assert.That(result).Contains("sp%20ace=val%20ue");
+        await Assert.That(result).Contains("sym%26bol=x%2Fy%3F");
+        await Assert.That(result).Contains("unicode-%E2%9C%93=%F0%9F%99%82");
 
-        Assert.Equal(3, CountPairs(result));
+        await Assert.That(CountPairs(result)).IsEqualTo(3);
     }
 
     private static int CountPairs(string query)

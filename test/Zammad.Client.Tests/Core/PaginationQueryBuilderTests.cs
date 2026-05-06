@@ -1,51 +1,51 @@
-using Xunit;
+using System.Threading.Tasks;
 using Zammad.Client.Core;
 
 namespace Zammad.Client.Tests.Core;
 
 public sealed class PaginationQueryBuilderTests
 {
-    [Fact]
-    public void AddPagination_Null_ReturnsSameBuilder()
+    [Test]
+    public async Task AddPagination_Null_ReturnsSameBuilder()
     {
         var builder = new QueryBuilder();
 
         var result = builder.AddPagination(null);
 
-        Assert.Same(builder, result);
-        Assert.Empty(builder.Values);
+        await Assert.That(result).IsSameReferenceAs(builder);
+        await Assert.That(builder.Values).IsEmpty();
     }
 
-    [Fact]
-    public void AddPagination_Adds_Page_And_PerPage()
+    [Test]
+    public async Task AddPagination_Adds_Page_And_PerPage()
     {
         var builder = new QueryBuilder();
         var pagination = new Pagination { Page = 3, PerPage = 20 };
 
         var result = builder.AddPagination(pagination);
 
-        Assert.Same(builder, result);
-        Assert.Equal(2, builder.Values.Count);
-        Assert.Equal(3.ToString(), builder.Values["page"]);
-        Assert.Equal(20.ToString(), builder.Values["per_page"]);
+        await Assert.That(result).IsSameReferenceAs(builder);
+        await Assert.That(builder.Values.Count).IsEqualTo(2);
+        await Assert.That(builder.Values["page"]).IsEqualTo(3.ToString());
+        await Assert.That(builder.Values["per_page"]).IsEqualTo(20.ToString());
     }
 
-    [Fact]
-    public void AddLimitOffsetPagination_Null_ReturnsSameBuilder()
+    [Test]
+    public async Task AddLimitOffsetPagination_Null_ReturnsSameBuilder()
     {
         var builder = new QueryBuilder();
 
         var result = builder.AddLimitOffsetPagination(null);
 
-        Assert.Same(builder, result);
-        Assert.Empty(builder.Values);
+        await Assert.That(result).IsSameReferenceAs(builder);
+        await Assert.That(builder.Values).IsEmpty();
     }
 
-    [Theory]
-    [InlineData(1, 50, 50, 0)]
-    [InlineData(2, 50, 50, 50)]
-    [InlineData(4, 25, 25, 75)]
-    public void AddLimitOffsetPagination_Adds_Limit_And_Offset(
+    [Test]
+    [Arguments(1, 50, 50, 0)]
+    [Arguments(2, 50, 50, 50)]
+    [Arguments(4, 25, 25, 75)]
+    public async Task AddLimitOffsetPagination_Adds_Limit_And_Offset(
         int page,
         int perPage,
         int expectedLimit,
@@ -57,8 +57,8 @@ public sealed class PaginationQueryBuilderTests
 
         var result = builder.AddLimitOffsetPagination(pagination);
 
-        Assert.Same(builder, result);
-        Assert.Equal(expectedLimit.ToString(), builder.Values["limit"]);
-        Assert.Equal(expectedOffset.ToString(), builder.Values["offset"]);
+        await Assert.That(result).IsSameReferenceAs(builder);
+        await Assert.That(builder.Values["limit"]).IsEqualTo(expectedLimit.ToString());
+        await Assert.That(builder.Values["offset"]).IsEqualTo(expectedOffset.ToString());
     }
 }

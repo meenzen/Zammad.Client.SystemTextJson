@@ -1,119 +1,119 @@
-using Xunit;
+using System.Threading.Tasks;
 using Zammad.Client.Core;
 
 namespace Zammad.Client.Tests.Core;
 
 public sealed class PaginationTests
 {
-    [Fact]
-    public void Defaults_AreCorrect()
+    [Test]
+    public async Task Defaults_AreCorrect()
     {
         var p = new Pagination();
 
-        Assert.Equal(1, p.Page);
-        Assert.Equal(Pagination.DefaultPerPage, p.PerPage);
+        await Assert.That(p.Page).IsEqualTo(1);
+        await Assert.That(p.PerPage).IsEqualTo(Pagination.DefaultPerPage);
     }
 
-    [Theory]
-    [InlineData(1)]
-    [InlineData(5)]
-    [InlineData(1000)]
-    public void Page_Init_Assigns_WhenValid(int value)
+    [Test]
+    [Arguments(1)]
+    [Arguments(5)]
+    [Arguments(1000)]
+    public async Task Page_Init_Assigns_WhenValid(int value)
     {
         var p = new Pagination { Page = value };
 
-        Assert.Equal(value, p.Page);
+        await Assert.That(p.Page).IsEqualTo(value);
     }
 
-    [Theory]
-    [InlineData(0)]
-    [InlineData(-1)]
-    [InlineData(int.MinValue)]
-    public void Page_Init_Clamps_To_Min1(int value)
+    [Test]
+    [Arguments(0)]
+    [Arguments(-1)]
+    [Arguments(int.MinValue)]
+    public async Task Page_Init_Clamps_To_Min1(int value)
     {
         var p = new Pagination { Page = value };
 
-        Assert.Equal(1, p.Page);
+        await Assert.That(p.Page).IsEqualTo(1);
     }
 
-    [Theory]
-    [InlineData(1)]
-    [InlineData(10)]
-    [InlineData(Pagination.MaxPerPage)]
-    public void PerPage_Init_Assigns_WhenWithinBounds(int value)
+    [Test]
+    [Arguments(1)]
+    [Arguments(10)]
+    [Arguments(Pagination.MaxPerPage)]
+    public async Task PerPage_Init_Assigns_WhenWithinBounds(int value)
     {
         var p = new Pagination { PerPage = value };
 
-        Assert.Equal(value, p.PerPage);
+        await Assert.That(p.PerPage).IsEqualTo(value);
     }
 
-    [Theory]
-    [InlineData(0)]
-    [InlineData(-1)]
-    [InlineData(int.MinValue)]
-    public void PerPage_Init_Clamps_To_Min1(int value)
+    [Test]
+    [Arguments(0)]
+    [Arguments(-1)]
+    [Arguments(int.MinValue)]
+    public async Task PerPage_Init_Clamps_To_Min1(int value)
     {
         var p = new Pagination { PerPage = value };
 
-        Assert.Equal(1, p.PerPage);
+        await Assert.That(p.PerPage).IsEqualTo(1);
     }
 
-    [Theory]
-    [InlineData(Pagination.MaxPerPage + 1)]
-    [InlineData(10_000)]
-    [InlineData(int.MaxValue)]
-    public void PerPage_Init_Clamps_To_Max(int value)
+    [Test]
+    [Arguments(Pagination.MaxPerPage + 1)]
+    [Arguments(10_000)]
+    [Arguments(int.MaxValue)]
+    public async Task PerPage_Init_Clamps_To_Max(int value)
     {
         var p = new Pagination { PerPage = value };
 
-        Assert.Equal(Pagination.MaxPerPage, p.PerPage);
+        await Assert.That(p.PerPage).IsEqualTo(Pagination.MaxPerPage);
     }
 
-    [Fact]
-    public void Next_Increments_Page_And_Preserves_PerPage()
+    [Test]
+    public async Task Next_Increments_Page_And_Preserves_PerPage()
     {
         var p = new Pagination { Page = 3, PerPage = 40 };
 
         var next = p.Next();
 
-        Assert.Equal(4, next.Page);
-        Assert.Equal(40, next.PerPage);
-        Assert.Equal(3, p.Page); // immutability of original
+        await Assert.That(next.Page).IsEqualTo(4);
+        await Assert.That(next.PerPage).IsEqualTo(40);
+        await Assert.That(p.Page).IsEqualTo(3); // immutability of original
     }
 
-    [Fact]
-    public void Previous_ReturnsNull_On_First_Page()
+    [Test]
+    public async Task Previous_ReturnsNull_On_First_Page()
     {
         var p = new Pagination { Page = 1, PerPage = 25 };
 
         var prev = p.Previous();
 
-        Assert.Null(prev);
+        await Assert.That(prev).IsNull();
     }
 
-    [Fact]
-    public void Previous_Decrements_Page_And_Preserves_PerPage()
+    [Test]
+    public async Task Previous_Decrements_Page_And_Preserves_PerPage()
     {
         var p = new Pagination { Page = 5, PerPage = 25 };
 
         var prev = p.Previous();
 
-        Assert.NotNull(prev);
-        Assert.Equal(4, prev.Page);
-        Assert.Equal(25, prev.PerPage);
+        await Assert.That(prev).IsNotNull();
+        await Assert.That(prev.Page).IsEqualTo(4);
+        await Assert.That(prev.PerPage).IsEqualTo(25);
     }
 
-    [Theory]
-    [InlineData(1, 50, 0)]
-    [InlineData(2, 50, 50)]
-    [InlineData(3, 25, 50)]
-    [InlineData(10, 100, 900)]
-    public void GetOffset_Computes_Correctly(int page, int perPage, int expected)
+    [Test]
+    [Arguments(1, 50, 0)]
+    [Arguments(2, 50, 50)]
+    [Arguments(3, 25, 50)]
+    [Arguments(10, 100, 900)]
+    public async Task GetOffset_Computes_Correctly(int page, int perPage, int expected)
     {
         var p = new Pagination { Page = page, PerPage = perPage };
 
         var offset = p.GetOffset();
 
-        Assert.Equal(expected, offset);
+        await Assert.That(offset).IsEqualTo(expected);
     }
 }
