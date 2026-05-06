@@ -17,7 +17,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     private static OrganizationId SpringfieldElementarySchoolId { get; set; } = OrganizationId.Empty;
 
     [Test]
-    public async Task Organization_List_Before_Test()
+    public async Task ListOrganizationsInitial()
     {
         var client = await zammadStack.GetClientAsync();
 
@@ -28,8 +28,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(Organization_List_Before_Test))]
-    public async Task Organization_Create_Test()
+    [DependsOn(nameof(ListOrganizationsInitial))]
+    public async Task CreateOrganization()
     {
         var client = await zammadStack.GetClientAsync();
 
@@ -76,8 +76,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(Organization_Create_Test))]
-    public async Task Organization_List_Test()
+    [DependsOn(nameof(CreateOrganization))]
+    public async Task ListOrganizations()
     {
         var client = await zammadStack.GetClientAsync();
 
@@ -87,8 +87,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(Organization_List_Test))]
-    public async Task Organization_Detail_Test()
+    [DependsOn(nameof(ListOrganizations))]
+    public async Task OrganizationDetails()
     {
         var client = await zammadStack.GetClientAsync();
 
@@ -103,8 +103,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(Organization_Detail_Test))]
-    public async Task Organization_Search_Test(CancellationToken cancellationToken)
+    [DependsOn(nameof(OrganizationDetails))]
+    public async Task SearchOrganizations(CancellationToken cancellationToken)
     {
         var client = await zammadStack.GetClientAsync();
 
@@ -122,8 +122,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(Organization_Search_Test))]
-    public async Task Organization_Update_Test()
+    [DependsOn(nameof(SearchOrganizations))]
+    public async Task UpdateOrganization()
     {
         var client = await zammadStack.GetClientAsync();
 
@@ -136,8 +136,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(Organization_Update_Test))]
-    public async Task Organization_Delete_Test()
+    [DependsOn(nameof(UpdateOrganization))]
+    public async Task DeleteOrganization()
     {
         var client = await zammadStack.GetClientAsync();
 

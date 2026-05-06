@@ -9,7 +9,7 @@ namespace Zammad.Client.IntegrationTests;
 public class TagTests(ZammadStackFixture zammadStack)
 {
     [Test]
-    [DependsOn<TicketTests>(nameof(TicketTests.Ticket_Create_Test))]
+    [DependsOn<TicketTests>(nameof(TicketTests.CreateTicket))]
     public async Task Tag_TagGetTagList_Test()
     {
         var client = await zammadStack.GetClientAsync();
