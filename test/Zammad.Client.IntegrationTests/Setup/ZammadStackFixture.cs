@@ -146,6 +146,13 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
             .WithVolumeMount(storage, ZammadStorage)
             .WithBindMount(TestFile.GetAbsolutePath("docker-entrypoint"), ZammadEntrypoint, AccessMode.ReadOnly)
             .WithEntrypoint(ZammadEntrypoint)
+            .WithWaitStrategy(
+                Wait.ForUnixContainer()
+                    .UntilMessageIsLogged(
+                        $".*{EntrypointFinished}.*",
+                        strategy => strategy.WithTimeout(TimeSpan.FromMinutes(5)).WithMode(WaitStrategyMode.OneShot)
+                    )
+            )
             .WithCleanUp(true)
             .Build();
         _resources.Add(zammadInit);
