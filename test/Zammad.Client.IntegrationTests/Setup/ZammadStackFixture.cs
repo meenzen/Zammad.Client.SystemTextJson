@@ -10,9 +10,10 @@ using Zammad.Client.IntegrationTests.Infrastructure;
 
 namespace Zammad.Client.IntegrationTests.Setup;
 
+// Based on https://github.com/zammad/zammad-docker-compose/blob/cb03095125f7adce0e0936e1364477f1ad77f550/docker-compose.yml
 public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
 {
-    private const string ZammadImage = "ghcr.io/zammad/zammad:6.5.2";
+    private const string ZammadImage = "ghcr.io/zammad/zammad:7.0.1";
     private const string ZammadEntrypoint = "/docker-entrypoint-override";
     private const string ZammadStorage = "/opt/zammad/storage";
     private const string EntrypointFinished = "Zammad entrypoint script finished";
@@ -96,7 +97,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
         var storage = new VolumeBuilder().WithName($"zammad-{id}").WithCleanUp(true).WithReuse(false).Build();
         _resources.Add(storage);
 
-        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:8.19.4")
+        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:9.3.4")
             .WithEnvironment("discovery.type", "single-node")
             .WithEnvironment("xpack.security.enabled", "false")
             .WithEnvironment("xpack.security.http.ssl.enabled", "false")
@@ -107,7 +108,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
             .Build();
         _resources.Add(zammadElasticsearch);
 
-        var zammadPostgres = new PostgreSqlBuilder("postgres:17.6-alpine")
+        var zammadPostgres = new PostgreSqlBuilder("postgres:17.9-alpine")
             .WithDatabase("zammad_production")
             .WithUsername("zammad")
             .WithPassword("zammad")
@@ -118,14 +119,14 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
             .Build();
         _resources.Add(zammadPostgres);
 
-        var zammadRedis = new RedisBuilder("redis:7.4.5-alpine")
+        var zammadRedis = new RedisBuilder("redis:8.6.2-alpine")
             .WithNetwork(network)
             .WithName($"zammad-redis-{id}")
             .WithCleanUp(true)
             .Build();
         _resources.Add(zammadRedis);
 
-        var zammadMemcached = new ContainerBuilder("memcached:1.6.39-alpine")
+        var zammadMemcached = new ContainerBuilder("memcached:1.6.41-alpine")
             .WithName($"zammad-memcached-{id}")
             .WithCommand("--memory-limit=64")
             .WithWaitStrategy(Wait.ForUnixContainer().UntilInternalTcpPortIsAvailable(11211))
@@ -145,13 +146,6 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
             .WithVolumeMount(storage, ZammadStorage)
             .WithBindMount(TestFile.GetAbsolutePath("docker-entrypoint"), ZammadEntrypoint, AccessMode.ReadOnly)
             .WithEntrypoint(ZammadEntrypoint)
-            .WithWaitStrategy(
-                Wait.ForUnixContainer()
-                    .UntilMessageIsLogged(
-                        $".*{EntrypointFinished}.*",
-                        strategy => strategy.WithTimeout(TimeSpan.FromMinutes(5)).WithMode(WaitStrategyMode.OneShot)
-                    )
-            )
             .WithCleanUp(true)
             .Build();
         _resources.Add(zammadInit);
@@ -225,6 +219,12 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
             zammadScheduler.StartAsync(),
             zammadWebsocket.StartAsync(),
         ]);
+
+        var exitCode = await zammadInit.GetExitCodeAsync();
+        if (exitCode != 0)
+        {
+            throw new Exception($"Zammad initialization failed with exit code {exitCode}");
+        }
 
         _publicPort = zammadNginx.GetMappedPublicPort(8080);
         _client = GetClient(GetUri(_publicPort.Value));
