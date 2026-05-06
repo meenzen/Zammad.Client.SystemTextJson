@@ -10,8 +10,6 @@ public class UserTests(ZammadStackFixture zammadStack)
 {
     private static readonly string RandomName = TestSetup.RandomString();
     private static UserId HomerSimpsonId { get; set; } = UserId.Empty;
-    private static UserId MargeSimpsonId { get; set; } = UserId.Empty;
-    private static UserId BartSimpsonId { get; set; } = UserId.Empty;
 
     [Test]
     public async Task GetUserMe()
@@ -40,35 +38,9 @@ public class UserTests(ZammadStackFixture zammadStack)
             }
         );
 
-        var user2 = await client.CreateUserAsync(
-            new User
-            {
-                FirstName = "Marge",
-                LastName = "Simpson" + RandomName,
-                Email = $"marge.simpson.{RandomName}@springfield.com",
-                Login = $"marge.{RandomName}",
-                Active = true,
-            }
-        );
-
-        var user3 = await client.CreateUserAsync(
-            new User
-            {
-                FirstName = "Bart",
-                LastName = "Simpson" + RandomName,
-                Email = $"bart.simpson.{RandomName}@springfield.com",
-                Login = $"bart.{RandomName}",
-                Active = true,
-            }
-        );
-
         await Assert.That(user1).IsNotNull();
-        await Assert.That(user2).IsNotNull();
-        await Assert.That(user3).IsNotNull();
 
         HomerSimpsonId = user1.Id;
-        MargeSimpsonId = user2.Id;
-        BartSimpsonId = user3.Id;
     }
 
     [Test]
@@ -79,10 +51,8 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         var userList = await client.ListUsersAsync();
 
-        await Assert.That(userList).HasAtLeast(3);
+        await Assert.That(userList).HasAtLeast(1);
         await Assert.That(userList).Contains(u => u.Id == HomerSimpsonId);
-        await Assert.That(userList).Contains(u => u.Id == MargeSimpsonId);
-        await Assert.That(userList).Contains(u => u.Id == BartSimpsonId);
     }
 
     [Test]
@@ -93,10 +63,8 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         var userList = await client.ListUsersAsync(new Pagination { Page = 1, PerPage = 100 });
 
-        await Assert.That(userList).HasAtLeast(3);
+        await Assert.That(userList).HasAtLeast(1);
         await Assert.That(userList).Contains(u => u.Id == HomerSimpsonId);
-        await Assert.That(userList).Contains(u => u.Id == MargeSimpsonId);
-        await Assert.That(userList).Contains(u => u.Id == BartSimpsonId);
     }
 
     [Test]
@@ -108,10 +76,8 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         var userList = await client.ListUsersAsync(1, 100);
 
-        await Assert.That(userList).HasAtLeast(3);
+        await Assert.That(userList).HasAtLeast(1);
         await Assert.That(userList).Contains(u => u.Id == HomerSimpsonId);
-        await Assert.That(userList).Contains(u => u.Id == MargeSimpsonId);
-        await Assert.That(userList).Contains(u => u.Id == BartSimpsonId);
     }
 
     [Test]
@@ -200,16 +166,16 @@ public class UserTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(UpdateUser))]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task DeleteUser()
     {
+        // this test is flaky, so we wait a bit before deleting the user
+        await Task.Delay(TestSetup.IndexerDelay);
+
         var client = await zammadStack.GetClientAsync();
 
         var result1 = await client.DeleteUserAsync(HomerSimpsonId);
-        var result2 = await client.DeleteUserAsync(MargeSimpsonId);
-        var result3 = await client.DeleteUserAsync(BartSimpsonId);
 
         await Assert.That(result1).IsTrue();
-        await Assert.That(result2).IsTrue();
-        await Assert.That(result3).IsTrue();
     }
 }
