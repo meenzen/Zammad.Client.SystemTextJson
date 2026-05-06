@@ -103,10 +103,10 @@ public class ZammadStackFixture : IAsyncLifetime
         var storage = new VolumeBuilder().WithName($"zammad-{id}").WithCleanUp(true).WithReuse(false).Build();
         _resources.Add(storage);
 
-        var zammadElasticsearch = new ElasticsearchBuilder()
-            .WithImage("elasticsearch:8.19.4")
+        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:8.19.4")
             .WithEnvironment("discovery.type", "single-node")
             .WithEnvironment("xpack.security.enabled", "false")
+            .WithEnvironment("xpack.security.http.ssl.enabled", "false")
             .WithEnvironment("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
             .WithNetwork(network)
             .WithName($"zammad-elasticsearch-{id}")
@@ -114,11 +114,10 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadElasticsearch);
 
-        var zammadPostgres = new PostgreSqlBuilder()
+        var zammadPostgres = new PostgreSqlBuilder("postgres:17.6-alpine")
             .WithDatabase("zammad_production")
             .WithUsername("zammad")
             .WithPassword("zammad")
-            .WithImage("postgres:17.6-alpine")
             .WithNetwork(network)
             .WithName($"zammad-postgres-{id}")
             .WithCleanUp(true)
@@ -126,16 +125,14 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadPostgres);
 
-        var zammadRedis = new RedisBuilder()
-            .WithImage("redis:7.4.5-alpine")
+        var zammadRedis = new RedisBuilder("redis:7.4.5-alpine")
             .WithNetwork(network)
             .WithName($"zammad-redis-{id}")
             .WithCleanUp(true)
             .Build();
         _resources.Add(zammadRedis);
 
-        var zammadMemcached = new ContainerBuilder()
-            .WithImage("memcached:1.6.39-alpine")
+        var zammadMemcached = new ContainerBuilder("memcached:1.6.39-alpine")
             .WithName($"zammad-memcached-{id}")
             .WithCommand("--memory-limit=64")
             .WithWaitStrategy(Wait.ForUnixContainer().UntilInternalTcpPortIsAvailable(11211))
@@ -145,8 +142,7 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadMemcached);
 
-        var zammadInit = new ContainerBuilder()
-            .WithImage(ZammadImage)
+        var zammadInit = new ContainerBuilder(ZammadImage)
             .WithCommand("zammad-init")
             .WithName($"zammad-init-{id}")
             .DependsOn(zammadPostgres)
@@ -167,8 +163,7 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadInit);
 
-        var zammadRailsserver = new ContainerBuilder()
-            .WithImage(ZammadImage)
+        var zammadRailsserver = new ContainerBuilder(ZammadImage)
             .WithCommand("zammad-railsserver")
             .WithName($"zammad-railsserver-{id}")
             .DependsOn(zammadMemcached)
@@ -181,8 +176,7 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadRailsserver);
 
-        var zammadNginx = new ContainerBuilder()
-            .WithImage(ZammadImage)
+        var zammadNginx = new ContainerBuilder(ZammadImage)
             .WithCommand("zammad-nginx")
             .WithName($"zammad-nginx-{id}")
             .DependsOn(zammadRailsserver)
@@ -196,8 +190,7 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadNginx);
 
-        var zammadScheduler = new ContainerBuilder()
-            .WithImage(ZammadImage)
+        var zammadScheduler = new ContainerBuilder(ZammadImage)
             .WithCommand("zammad-scheduler")
             .WithName($"zammad-scheduler-{id}")
             .DependsOn(zammadMemcached)
@@ -210,8 +203,7 @@ public class ZammadStackFixture : IAsyncLifetime
             .Build();
         _resources.Add(zammadScheduler);
 
-        var zammadWebsocket = new ContainerBuilder()
-            .WithImage(ZammadImage)
+        var zammadWebsocket = new ContainerBuilder(ZammadImage)
             .WithCommand("zammad-websocket")
             .WithName($"zammad-websocket-{id}")
             .DependsOn(zammadMemcached)
