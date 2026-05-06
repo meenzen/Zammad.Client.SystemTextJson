@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Zammad.Client.Core;
 
 namespace Zammad.Client.Tests.Core;

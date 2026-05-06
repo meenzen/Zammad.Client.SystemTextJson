@@ -1,6 +1,4 @@
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace Zammad.Client.IntegrationTests.Infrastructure;
 

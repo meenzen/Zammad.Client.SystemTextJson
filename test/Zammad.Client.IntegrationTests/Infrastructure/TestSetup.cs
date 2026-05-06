@@ -1,5 +1,3 @@
-using System;
-
 namespace Zammad.Client.IntegrationTests.Infrastructure;
 
 public static class TestSetup

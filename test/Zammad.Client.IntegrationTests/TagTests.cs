@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Zammad.Client.IntegrationTests.Infrastructure;
+﻿using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
 

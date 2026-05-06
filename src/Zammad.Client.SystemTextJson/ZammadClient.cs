@@ -1,10 +1,7 @@
-using System;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Zammad.Client.Core;
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace Zammad.Client.Core;
 
 public sealed class LogicException : Exception

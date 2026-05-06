@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Zammad.Client.Resources.Internal;
