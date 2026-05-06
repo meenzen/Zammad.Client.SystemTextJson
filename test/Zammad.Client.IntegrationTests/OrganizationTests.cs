@@ -1,5 +1,5 @@
+using System.Threading;
 using System.Threading.Tasks;
-using Xunit;
 using Zammad.Client.Core;
 using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
@@ -7,7 +7,7 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
-[TestCaseOrderer(typeof(TestOrderer))]
+[ClassDataSource<ZammadStackFixture>(Shared = SharedType.PerAssembly)]
 public class OrganizationTests(ZammadStackFixture zammadStack)
 {
     private static readonly string RandomName = TestSetup.RandomString();
@@ -16,18 +16,19 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     private static OrganizationId SpringfieldNuclearPowerPlantId { get; set; } = OrganizationId.Empty;
     private static OrganizationId SpringfieldElementarySchoolId { get; set; } = OrganizationId.Empty;
 
-    [Fact, Order(TestOrder.OrganizationListBefore)]
+    [Test]
     public async Task Organization_List_Before_Test()
     {
         var client = await zammadStack.GetClientAsync();
 
         var organizationList = await client.ListOrganizationsAsync(new Pagination { Page = 1, PerPage = 100 });
 
-        Assert.NotNull(organizationList);
+        await Assert.That(organizationList).IsNotNull();
         NotFromTestOrganizationCount = organizationList.Count;
     }
 
-    [Fact, Order(TestOrder.OrganizationCreate)]
+    [Test]
+    [DependsOn(nameof(Organization_List_Before_Test))]
     public async Task Organization_Create_Test()
     {
         var client = await zammadStack.GetClientAsync();
@@ -65,46 +66,49 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
             }
         );
 
-        Assert.NotNull(organization1);
-        Assert.NotNull(organization2);
-        Assert.NotNull(organization3);
+        await Assert.That(organization1).IsNotNull();
+        await Assert.That(organization2).IsNotNull();
+        await Assert.That(organization3).IsNotNull();
 
         KrustyBurgerId = organization1.Id;
         SpringfieldNuclearPowerPlantId = organization2.Id;
         SpringfieldElementarySchoolId = organization3.Id;
     }
 
-    [Fact, Order(TestOrder.OrganizationList)]
+    [Test]
+    [DependsOn(nameof(Organization_Create_Test))]
     public async Task Organization_List_Test()
     {
         var client = await zammadStack.GetClientAsync();
 
         var organizationList = await client.ListOrganizationsAsync(new Pagination { Page = 1, PerPage = 100 });
 
-        Assert.Equal(NotFromTestOrganizationCount + 3, organizationList.Count);
+        await Assert.That(organizationList.Count).IsEqualTo(NotFromTestOrganizationCount + 3);
     }
 
-    [Fact, Order(TestOrder.OrganizationDetail)]
+    [Test]
+    [DependsOn(nameof(Organization_List_Test))]
     public async Task Organization_Detail_Test()
     {
         var client = await zammadStack.GetClientAsync();
 
         var organization = await client.GetOrganizationAsync(KrustyBurgerId);
 
-        Assert.Equal(KrustyBurgerId, organization.Id);
-        Assert.StartsWith("Krusty Burger", organization.Name);
-        Assert.True(organization.Shared);
-        Assert.Equal("krustyburger.com", organization.Domain);
-        Assert.True(organization.DomainAssignment);
-        Assert.True(organization.Active);
+        await Assert.That(organization.Id).IsEqualTo(KrustyBurgerId);
+        await Assert.That(organization.Name).StartsWith("Krusty Burger");
+        await Assert.That(organization.Shared).IsTrue();
+        await Assert.That(organization.Domain).IsEqualTo("krustyburger.com");
+        await Assert.That(organization.DomainAssignment).IsTrue();
+        await Assert.That(organization.Active).IsTrue();
     }
 
-    [Fact, Order(TestOrder.OrganizationSearch)]
-    public async Task Organization_Search_Test()
+    [Test]
+    [DependsOn(nameof(Organization_Detail_Test))]
+    public async Task Organization_Search_Test(CancellationToken cancellationToken)
     {
         var client = await zammadStack.GetClientAsync();
 
-        await Task.Delay(TestSetup.IndexerDelay, TestContext.Current.CancellationToken);
+        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
         var organizationSearch = await client.SearchOrganizationsAsync(
             new SearchQuery
             {
@@ -113,11 +117,12 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
             }
         );
 
-        Assert.Single(organizationSearch);
-        Assert.Equal(KrustyBurgerId, organizationSearch[0].Id);
+        await Assert.That(organizationSearch).HasSingleItem();
+        await Assert.That(organizationSearch[0].Id).IsEqualTo(KrustyBurgerId);
     }
 
-    [Fact, Order(TestOrder.OrganizationUpdate)]
+    [Test]
+    [DependsOn(nameof(Organization_Search_Test))]
     public async Task Organization_Update_Test()
     {
         var client = await zammadStack.GetClientAsync();
@@ -127,10 +132,11 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
 
         var organization2 = await client.UpdateOrganizationAsync(SpringfieldElementarySchoolId, organization1);
 
-        Assert.Equal(organization1.Domain, organization2.Domain);
+        await Assert.That(organization2.Domain).IsEqualTo(organization1.Domain);
     }
 
-    [Fact, Order(TestOrder.OrganizationDelete)]
+    [Test]
+    [DependsOn(nameof(Organization_Update_Test))]
     public async Task Organization_Delete_Test()
     {
         var client = await zammadStack.GetClientAsync();
@@ -139,8 +145,8 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
         var organization2 = await client.DeleteOrganizationAsync(SpringfieldNuclearPowerPlantId);
         var organization3 = await client.DeleteOrganizationAsync(SpringfieldElementarySchoolId);
 
-        Assert.True(organization1);
-        Assert.True(organization2);
-        Assert.True(organization3);
+        await Assert.That(organization1).IsTrue();
+        await Assert.That(organization2).IsTrue();
+        await Assert.That(organization3).IsTrue();
     }
 }

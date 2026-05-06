@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Xunit;
 using Zammad.Client.Core;
 using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
@@ -8,12 +8,13 @@ using Zammad.Client.Resources;
 
 namespace Zammad.Client.IntegrationTests;
 
-[TestCaseOrderer(typeof(TestOrderer))]
+[ClassDataSource<ZammadStackFixture>(Shared = SharedType.PerAssembly)]
 public class TicketTests(ZammadStackFixture zammadStack)
 {
     private static readonly string Id = TestSetup.RandomString();
 
-    [Fact, Order(TestOrder.TicketCreate)]
+    [Test]
+    [DependsOn<OrganizationTests>(nameof(OrganizationTests.Organization_Delete_Test))]
     public async Task Ticket_Create_Test()
     {
         var client = await zammadStack.GetClientAsync();
@@ -34,15 +35,16 @@ public class TicketTests(ZammadStackFixture zammadStack)
             }
         );
 
-        Assert.NotNull(ticket);
+        await Assert.That(ticket).IsNotNull();
     }
 
-    [Fact, Order(TestOrder.TicketSearch)]
-    public async Task Ticket_Search_Test()
+    [Test]
+    [DependsOn<TicketTests>(nameof(Ticket_Create_Test))]
+    public async Task Ticket_Search_Test(CancellationToken cancellationToken)
     {
         var client = await zammadStack.GetClientAsync();
 
-        await Task.Delay(TestSetup.IndexerDelay, TestContext.Current.CancellationToken);
+        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
         var ticketSearch = await client.SearchTicketsAsync(
             new SearchQuery
             {
@@ -51,8 +53,8 @@ public class TicketTests(ZammadStackFixture zammadStack)
             }
         );
 
-        Assert.NotNull(ticketSearch);
-        Assert.NotEmpty(ticketSearch);
-        Assert.Contains(ticketSearch, t => (t.Title ?? "").EndsWith(Id, StringComparison.OrdinalIgnoreCase));
+        await Assert.That(ticketSearch).IsNotNull();
+        await Assert.That(ticketSearch).IsNotEmpty();
+        await Assert.That(ticketSearch).Contains(t => (t.Title ?? "").EndsWith(Id, StringComparison.OrdinalIgnoreCase));
     }
 }

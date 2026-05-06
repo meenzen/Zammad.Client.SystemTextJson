@@ -9,15 +9,12 @@ using Microsoft.Extensions.Options;
 using Testcontainers.Elasticsearch;
 using Testcontainers.PostgreSql;
 using Testcontainers.Redis;
-using Xunit;
+using TUnit.Core.Interfaces;
 using Zammad.Client.IntegrationTests.Infrastructure;
-using Zammad.Client.IntegrationTests.Setup;
-
-[assembly: AssemblyFixture(typeof(ZammadStackFixture))]
 
 namespace Zammad.Client.IntegrationTests.Setup;
 
-public class ZammadStackFixture : IAsyncLifetime
+public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
 {
     private const string ZammadImage = "ghcr.io/zammad/zammad:6.5.2";
     private const string ZammadEntrypoint = "/docker-entrypoint-override";
@@ -74,7 +71,7 @@ public class ZammadStackFixture : IAsyncLifetime
         return client;
     }
 
-    public async ValueTask InitializeAsync()
+    public async Task InitializeAsync()
     {
         using IOutputConsumer outputConsumer = Consume.RedirectStdoutAndStderrToConsole();
 
