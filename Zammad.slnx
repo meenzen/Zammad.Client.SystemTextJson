@@ -1,9 +1,4 @@
 <Solution>
-  <Configurations>
-    <Platform Name="Any CPU" />
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
   <Folder Name="/root/">
     <File Path=".editorconfig" />
     <File Path="LICENSE" />
@@ -12,7 +7,7 @@
   <Folder Name="/src/">
     <Project Path="src/Zammad.Client.SystemTextJson.Extensions/Zammad.Client.SystemTextJson.Extensions.csproj" />
     <Project Path="src/Zammad.Example/Zammad.Example.csproj" />
-    <Project Path="src\Zammad.Client.SystemTextJson\Zammad.Client.SystemTextJson.csproj" />
+    <Project Path="src/Zammad.Client.SystemTextJson/Zammad.Client.SystemTextJson.csproj" />
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/Zammad.Client.IntegrationTests/Zammad.Client.IntegrationTests.csproj" />
