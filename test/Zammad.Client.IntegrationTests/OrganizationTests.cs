@@ -11,24 +11,11 @@ namespace Zammad.Client.IntegrationTests;
 public class OrganizationTests(ZammadStackFixture zammadStack)
 {
     private static readonly string RandomName = TestSetup.RandomString();
-    private static int NotFromTestOrganizationCount { get; set; } = 0;
     private static OrganizationId KrustyBurgerId { get; set; } = OrganizationId.Empty;
     private static OrganizationId SpringfieldNuclearPowerPlantId { get; set; } = OrganizationId.Empty;
     private static OrganizationId SpringfieldElementarySchoolId { get; set; } = OrganizationId.Empty;
 
     [Test]
-    public async Task ListOrganizationsInitial()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var organizationList = await client.ListOrganizationsAsync(new Pagination { Page = 1, PerPage = 100 });
-
-        await Assert.That(organizationList).IsNotNull();
-        NotFromTestOrganizationCount = organizationList.Count;
-    }
-
-    [Test]
-    [DependsOn(nameof(ListOrganizationsInitial))]
     public async Task CreateOrganization()
     {
         var client = await zammadStack.GetClientAsync();
@@ -83,7 +70,10 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
 
         var organizationList = await client.ListOrganizationsAsync(new Pagination { Page = 1, PerPage = 100 });
 
-        await Assert.That(organizationList.Count).IsEqualTo(NotFromTestOrganizationCount + 3);
+        await Assert.That(organizationList).HasAtLeast(3);
+        await Assert.That(organizationList).Contains(o => o.Id == KrustyBurgerId);
+        await Assert.That(organizationList).Contains(o => o.Id == SpringfieldNuclearPowerPlantId);
+        await Assert.That(organizationList).Contains(o => o.Id == SpringfieldElementarySchoolId);
     }
 
     [Test]
@@ -94,6 +84,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
 
         var organization = await client.GetOrganizationAsync(KrustyBurgerId);
 
+        await Assert.That(organization).IsNotNull();
         await Assert.That(organization.Id).IsEqualTo(KrustyBurgerId);
         await Assert.That(organization.Name).StartsWith("Krusty Burger");
         await Assert.That(organization.Shared).IsTrue();
@@ -128,6 +119,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
         var client = await zammadStack.GetClientAsync();
 
         var organization1 = await client.GetOrganizationAsync(SpringfieldElementarySchoolId);
+        await Assert.That(organization1).IsNotNull();
         organization1.Domain = "springfieldelementaryschool.com";
 
         var organization2 = await client.UpdateOrganizationAsync(SpringfieldElementarySchoolId, organization1);

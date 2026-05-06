@@ -39,7 +39,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
     private void SetReady() => _ready.TrySetResult();
 
     private int? _publicPort;
-    private IZammadClient _client = null;
+    private IZammadClient? _client = null;
 
     public async Task<Uri> GetPublicUriAsync()
     {

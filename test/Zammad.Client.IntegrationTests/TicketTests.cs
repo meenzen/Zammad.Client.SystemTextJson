@@ -14,7 +14,6 @@ public class TicketTests(ZammadStackFixture zammadStack)
     private static readonly string Id = TestSetup.RandomString();
 
     [Test]
-    [DependsOn<OrganizationTests>(nameof(OrganizationTests.DeleteOrganization))]
     public async Task CreateTicket()
     {
         var client = await zammadStack.GetClientAsync();
@@ -39,7 +38,7 @@ public class TicketTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn<TicketTests>(nameof(CreateTicket))]
+    [DependsOn(nameof(CreateTicket))]
     public async Task SearchTickets(CancellationToken cancellationToken)
     {
         var client = await zammadStack.GetClientAsync();
