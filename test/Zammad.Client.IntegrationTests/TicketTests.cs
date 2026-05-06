@@ -36,6 +36,7 @@ public class TicketTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateTicket))]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task SearchTickets(CancellationToken cancellationToken)
     {
         var client = await zammadStack.GetClientAsync();

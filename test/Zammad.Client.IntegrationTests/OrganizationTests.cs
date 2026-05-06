@@ -93,6 +93,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(OrganizationDetails))]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task SearchOrganizations(CancellationToken cancellationToken)
     {
         var client = await zammadStack.GetClientAsync();
