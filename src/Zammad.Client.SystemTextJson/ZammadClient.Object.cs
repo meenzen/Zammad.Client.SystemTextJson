@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Zammad.Client.Core;
+﻿using Zammad.Client.Core;
 using Zammad.Client.Resources;
+using Object = Zammad.Client.Resources.Object;
 
 namespace Zammad.Client;
 
