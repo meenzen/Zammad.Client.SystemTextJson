@@ -16,4 +16,7 @@ public enum ObjectType
 
     [JsonStringEnumMemberName("Group")]
     Group,
+
+    [JsonStringEnumMemberName("TicketArticle")]
+    TicketArticle,
 }

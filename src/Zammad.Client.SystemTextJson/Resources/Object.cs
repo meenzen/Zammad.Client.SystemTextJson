@@ -70,6 +70,9 @@ public sealed class Object
 
     [JsonPropertyName("not_deletable_reason")]
     public string? NotDeletableReason { get; set; }
+
+    [JsonPropertyName("internal")]
+    public bool? Internal { get; set; }
 }
 
 public class ObjectDataOption
@@ -128,6 +131,9 @@ public class ObjectDataOption
     [JsonPropertyName("options")]
     public dynamic? Options { get; set; }
 
+    [JsonPropertyName("historical_options")]
+    public dynamic? HistoricalOptions { get; set; }
+
     [JsonPropertyName("nulloption")]
     public bool? NullOption { get; set; }
 
@@ -148,4 +154,40 @@ public class ObjectDataOption
 
     [JsonPropertyName("max")]
     public int? Max { get; set; }
+
+    [JsonPropertyName("rows")]
+    public int? Rows { get; set; }
+
+    [JsonPropertyName("readonly")]
+    public int? Readonly { get; set; }
+
+    [JsonPropertyName("display_limit")]
+    public int? DisplayLimit { get; set; }
+
+    [JsonPropertyName("width")]
+    public string? Width { get; set; }
+
+    [JsonPropertyName("display_config")]
+    public string? DisplayConfig { get; set; }
+
+    [JsonPropertyName("do_not_log")]
+    public bool? DoNotLog { get; set; }
+
+    [JsonPropertyName("note")]
+    public string? Note { get; set; }
+
+    [JsonPropertyName("upload")]
+    public bool? Upload { get; set; }
+
+    [JsonPropertyName("bubble_menu")]
+    public bool? BubbleMenu { get; set; }
+
+    [JsonPropertyName("belongs_to")]
+    public string? BelongsTo { get; set; }
+
+    [JsonPropertyName("autocomplete")]
+    public string? Autocomplete { get; set; }
+
+    [JsonPropertyName("no_images")]
+    public bool? NoImages { get; set; }
 }

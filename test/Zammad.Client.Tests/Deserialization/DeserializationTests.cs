@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Object = Zammad.Client.Resources.Object;
 
@@ -30,6 +31,7 @@ public class DeserializationTests
     [Arguments(typeof(TicketAccounting), "ticketAccounting.json")]
     [Arguments(typeof(List<TicketAccounting>), "ticketAccountings.json")]
     [Arguments(typeof(List<Object>), "objects.json")]
+    [Arguments(typeof(List<Object>), "objects1.json")]
     [Arguments(typeof(Object), "objectBoolean.json")]
     [Arguments(typeof(Object), "objectDate.json")]
     [Arguments(typeof(Object), "objectDateTime.json")]
@@ -40,16 +42,11 @@ public class DeserializationTests
     [Arguments(typeof(HealthCheckResult), "healthCheck.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
+        var options = Serialization.GetOptions();
+        options.UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow;
+
         var json = await TestFile.ReadStringAsync("Responses", fileName);
-        var result = JsonSerializer.Deserialize(
-            json,
-            type,
-            new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
-            }
-        );
+        var result = JsonSerializer.Deserialize(json, type, options);
         await Assert.That(result).IsNotNull();
     }
 
