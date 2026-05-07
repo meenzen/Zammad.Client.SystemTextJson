@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-public class OnlineNotification
+public sealed class OnlineNotification
 {
     [JsonPropertyName("id")]
     public NotificationId Id { get; set; }

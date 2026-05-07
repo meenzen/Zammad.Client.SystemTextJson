@@ -2,7 +2,7 @@
 
 namespace Zammad.Client.Resources;
 
-public class Tag
+public sealed class Tag
 {
     [JsonPropertyName("id")]
     public TagId Id { get; set; }

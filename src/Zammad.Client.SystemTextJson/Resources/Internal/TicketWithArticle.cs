@@ -3,7 +3,7 @@ using Riok.Mapperly.Abstractions;
 
 namespace Zammad.Client.Resources.Internal;
 
-internal class TicketWithArticle : Ticket
+internal sealed class TicketWithArticle : Ticket
 {
     [JsonPropertyName("article")]
     public required TicketArticle Article { get; set; }

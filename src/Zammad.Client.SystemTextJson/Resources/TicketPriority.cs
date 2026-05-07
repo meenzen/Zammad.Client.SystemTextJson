@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-public class TicketPriority
+public sealed class TicketPriority
 {
     [JsonPropertyName("id")]
     public PriorityId Id { get; set; }

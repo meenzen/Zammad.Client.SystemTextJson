@@ -2,7 +2,7 @@
 
 namespace Zammad.Client.Resources;
 
-public class TicketAttachment
+public sealed class TicketAttachment
 {
     [JsonPropertyName("id")]
     public AttachmentId Id { get; set; }
