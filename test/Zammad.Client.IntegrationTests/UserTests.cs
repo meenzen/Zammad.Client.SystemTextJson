@@ -166,7 +166,7 @@ public class UserTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(UpdateUser))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
+    [Retry(5, BackoffMs = TestSetup.BackoffMs)]
     public async Task DeleteUser()
     {
         // this test is flaky, so we wait a bit before deleting the user

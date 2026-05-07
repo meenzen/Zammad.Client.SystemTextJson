@@ -10,25 +10,32 @@ serialization instead of `Newtonsoft.Json`.
 ## Development Environment
 
 ### Target Frameworks
+- .NET Standard 2.0
 - .NET 8.0
 - .NET 9.0
-- .NET Standard 2.0
+- .NET 10.0
 
 ### Build and Test
 ```bash
 dotnet restore
 dotnet build
-dotnet test test/Zammad.Client.Tests
+dotnet test --project test/Zammad.Client.Tests
 ```
 
 **Note**: Integration tests take a long time to run. During development, build the project and run only the unit tests
-to validate changes. The command above only runs the unit test project.
+to validate changes. The command above only runs the unit test project. When the coding session is done, run all tests
+using `dotnet test`.
 
 ## Code Style and Formatting
 
 ### Formatter
 - Use **CSharpier** for code formatting (configured as a dotnet tool)
-- Run formatting before committing: `dotnet csharpier .`
+- Run formatting before committing:
+
+```bash
+dotnet tool restore
+dotnet csharpier format .
+```
 
 ### EditorConfig
 - Follow rules defined in `.editorconfig`
@@ -48,7 +55,7 @@ All analyzer warnings must be fixed before code can be merged.
 ## Coding Conventions
 
 ### Language Features
-- Use `var` when the type is evident
+- Use `var`
 - Use latest C# language features (LangVersion set to `latest`)
 - Avoid unnecessary `this` qualifiers
 
@@ -73,13 +80,13 @@ All analyzer warnings must be fixed before code can be merged.
 ## Testing
 
 ### Test Framework
-- Use **xUnit** for all tests
+- Use **TUnit** for all tests
 - Unit tests are in `test/Zammad.Client.Tests`
 - Integration tests are in `test/Zammad.Client.IntegrationTests`
 
 ### Test Patterns
 - Follow existing test naming conventions: `MethodName_Scenario_ExpectedBehavior`
-- Use theory tests with `[Theory]` and `[InlineData]` for parameterized tests
+- Use tests with `[Test]` and `[Arguments]` for parameterized tests
 - Integration tests automatically start required services as docker containers using **Testcontainers for .NET**
 
 ### Test Coverage
@@ -143,10 +150,6 @@ All analyzer warnings must be fixed before code can be merged.
 - Support both token-based and basic authentication
 - Never hardcode credentials or tokens
 - Use `IOptions<ZammadOptions>` for configuration
-
-### Input Validation
-- Validate all external inputs
-- Use the existing `ThrowIfInvalid()` pattern for option validation
 
 ## Extensions Package
 

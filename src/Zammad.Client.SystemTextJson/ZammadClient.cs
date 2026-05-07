@@ -13,6 +13,7 @@ public interface IZammadClient
         IOnlineNotificationService,
         IOrganizationService,
         ITagService,
+        ITicketAccountingService,
         ITicketArticleService,
         ITicketPriorityService,
         ITicketService,
@@ -73,11 +74,20 @@ public sealed partial class ZammadClient : IZammadClient
 
         var httpRequest = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
 
-        var httpResponse = await SendAsync(httpRequest);
+        var httpResponse = await _client.SendAsync(httpRequest);
 
-        var result = await httpResponse.ParseAsync<TResult>();
+        if (httpResponse.IsSuccessStatusCode)
+        {
+            var result = await httpResponse.ParseAsync<TResult>();
+            return result;
+        }
 
-        return result;
+        if (httpResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return default;
+        }
+
+        throw new ZammadException(httpRequest, httpResponse);
     }
 
     private async Task<TResult?> PostAsync<TResult>(string path, object? content = null)

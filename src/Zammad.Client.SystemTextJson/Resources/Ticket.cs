@@ -102,7 +102,7 @@ public class Ticket
     public string? Type { get; set; }
 
     [JsonPropertyName("time_unit")]
-    public double? TimeUnit { get; set; }
+    public string? TimeUnit { get; set; }
 
     [JsonPropertyName("preferences")]
     public IDictionary<string, object>? Preferences { get; set; }
