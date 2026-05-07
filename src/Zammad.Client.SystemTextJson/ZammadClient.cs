@@ -13,6 +13,7 @@ public interface IZammadClient
         IOnlineNotificationService,
         IOrganizationService,
         ITagService,
+        ITicketAccountingService,
         ITicketArticleService,
         ITicketPriorityService,
         ITicketService,

@@ -25,6 +25,8 @@ public class DeserializationTests
     [Arguments(typeof(Ticket), "ticket1.json")]
     [Arguments(typeof(Ticket), "ticketExtended.json")]
     [Arguments(typeof(List<Ticket>), "tickets.json")]
+    [Arguments(typeof(TicketAccounting), "ticketAccounting.json")]
+    [Arguments(typeof(List<TicketAccounting>), "ticketAccountings.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var json = await TestFile.ReadStringAsync("Responses", fileName);
