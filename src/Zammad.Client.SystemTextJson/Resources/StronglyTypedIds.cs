@@ -13,17 +13,20 @@ public partial struct GroupId;
 [StronglyTypedId]
 public partial struct ObjectId;
 
-public static class ObjectIdExtensions
+[StronglyTypedId]
+public partial struct TargetObjectId;
+
+public static class TargetObjectIdExtensions
 {
-    public static ObjectId ToObjectId(this TicketId id) => new(id.Value);
+    public static TargetObjectId ToTargetObjectId(this TicketId id) => new(id.Value);
 
-    public static ObjectId ToObjectId(this UserId id) => new(id.Value);
+    public static TargetObjectId ToTargetObjectId(this UserId id) => new(id.Value);
 
-    public static ObjectId ToObjectId(this OrganizationId id) => new(id.Value);
+    public static TargetObjectId ToTargetObjectId(this OrganizationId id) => new(id.Value);
 
-    public static ObjectId ToObjectId(this GroupId id) => new(id.Value);
+    public static TargetObjectId ToTargetObjectId(this GroupId id) => new(id.Value);
 
-    public static ObjectId ToObjectId(this ArticleId id) => new(id.Value);
+    public static TargetObjectId ToTargetObjectId(this ArticleId id) => new(id.Value);
 }
 
 [StronglyTypedId]

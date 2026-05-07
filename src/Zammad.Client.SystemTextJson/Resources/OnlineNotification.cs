@@ -8,7 +8,7 @@ public sealed class OnlineNotification
     public NotificationId Id { get; set; }
 
     [JsonPropertyName("o_id")]
-    public ObjectId? ObjectId { get; set; }
+    public TargetObjectId? ObjectId { get; set; }
 
     [JsonPropertyName("object")]
     public ObjectType? ObjectType { get; set; }

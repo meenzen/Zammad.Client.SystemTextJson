@@ -8,7 +8,7 @@ internal sealed class TagRequest
     public required ObjectType ObjectType { get; set; }
 
     [JsonPropertyName("o_id")]
-    public required ObjectId ObjectId { get; set; }
+    public required TargetObjectId ObjectId { get; set; }
 
     [JsonPropertyName("item")]
     public required string Item { get; set; }
