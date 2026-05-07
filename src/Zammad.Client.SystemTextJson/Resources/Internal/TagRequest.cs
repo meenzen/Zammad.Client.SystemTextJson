@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Zammad.Client.Resources;
+namespace Zammad.Client.Resources.Internal;
 
-public sealed class TagRequest
+internal sealed class TagRequest
 {
     [JsonPropertyName("object")]
     public required string ObjectName { get; set; }
