@@ -13,6 +13,19 @@ public partial struct GroupId;
 [StronglyTypedId]
 public partial struct ObjectId;
 
+public static class ObjectIdExtensions
+{
+    public static ObjectId ToObjectId(this TicketId id) => new(id.Value);
+
+    public static ObjectId ToObjectId(this UserId id) => new(id.Value);
+
+    public static ObjectId ToObjectId(this OrganizationId id) => new(id.Value);
+
+    public static ObjectId ToObjectId(this GroupId id) => new(id.Value);
+
+    public static ObjectId ToObjectId(this ArticleId id) => new(id.Value);
+}
+
 [StronglyTypedId]
 public partial struct ObjectLookupId;
 
