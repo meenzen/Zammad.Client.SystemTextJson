@@ -11,7 +11,7 @@ public sealed class OnlineNotification
     public ObjectId? ObjectId { get; set; }
 
     [JsonPropertyName("object")]
-    public string? Object { get; set; }
+    public ObjectType? ObjectType { get; set; }
 
     [JsonPropertyName("type")]
     public string? Type { get; set; }

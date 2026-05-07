@@ -6,11 +6,11 @@ namespace Zammad.Client;
 
 public interface ITagService
 {
-    Task<List<string>> ListTagsAsync(string objectName, ObjectId objectId);
+    Task<List<string>> ListTagsAsync(ObjectType objectType, ObjectId objectId);
     Task<List<TagSearchResult>> SearchTagsAsync(string term);
     Task<List<TagSearchResult>> SearchTagsAsync(string term, int limit);
-    Task<bool> AddTagAsync(string objectName, ObjectId objectId, string tagName);
-    Task<bool> RemoveTagAsync(string objectName, ObjectId objectId, string tagName);
+    Task<bool> AddTagAsync(ObjectType objectType, ObjectId objectId, string tagName);
+    Task<bool> RemoveTagAsync(ObjectType objectType, ObjectId objectId, string tagName);
     Task<List<Tag>> ListTagsAdminAsync();
     Task CreateTagAdminAsync(string name);
     Task RenameTagAdminAsync(TagId id, string name);
@@ -23,10 +23,10 @@ public sealed partial class ZammadClient : ITagService
     private const string TagSearchEndpoint = "/api/v1/tag_search";
     private const string TagListEndpoint = "/api/v1/tag_list";
 
-    public async Task<List<string>> ListTagsAsync(string objectName, ObjectId objectId)
+    public async Task<List<string>> ListTagsAsync(ObjectType objectType, ObjectId objectId)
     {
         var builder = new QueryBuilder();
-        builder.Add("object", objectName);
+        builder.Add("object", objectType.ToString());
         builder.Add("o_id", objectId.ToString());
         var tagList = await GetAsync<StringTagList>(TagsEndpoint, builder.ToString());
         return tagList?.Tags ?? [];
@@ -47,23 +47,23 @@ public sealed partial class ZammadClient : ITagService
         return await GetAsync<List<TagSearchResult>>(TagSearchEndpoint, builder.ToString()) ?? [];
     }
 
-    public async Task<bool> AddTagAsync(string objectName, ObjectId objectId, string tagName) =>
+    public async Task<bool> AddTagAsync(ObjectType objectType, ObjectId objectId, string tagName) =>
         await PostAsync<bool>(
             $"{TagsEndpoint}/add",
             new TagRequest
             {
-                ObjectName = objectName,
+                ObjectType = objectType,
                 ObjectId = objectId,
                 Item = tagName,
             }
         );
 
-    public async Task<bool> RemoveTagAsync(string objectName, ObjectId objectId, string tagName) =>
+    public async Task<bool> RemoveTagAsync(ObjectType objectType, ObjectId objectId, string tagName) =>
         await DeleteAsync<bool>(
             $"{TagsEndpoint}/remove",
             new TagRequest
             {
-                ObjectName = objectName,
+                ObjectType = objectType,
                 ObjectId = objectId,
                 Item = tagName,
             }

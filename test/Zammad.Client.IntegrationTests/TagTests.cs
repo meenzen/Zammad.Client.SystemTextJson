@@ -43,7 +43,7 @@ public class TagTests(ZammadStackFixture zammadStack)
     {
         await Assert.That(CreatedTicketId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
-        var result = await client.AddTagAsync("Ticket", new ObjectId(CreatedTicketId.Value.Value), TagName);
+        var result = await client.AddTagAsync(ObjectType.Ticket, new ObjectId(CreatedTicketId.Value.Value), TagName);
         await Assert.That(result).IsTrue();
     }
 
@@ -53,7 +53,7 @@ public class TagTests(ZammadStackFixture zammadStack)
     {
         await Assert.That(CreatedTicketId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
-        var tagList = await client.ListTagsAsync("Ticket", new ObjectId(CreatedTicketId.Value.Value));
+        var tagList = await client.ListTagsAsync(ObjectType.Ticket, new ObjectId(CreatedTicketId.Value.Value));
         await Assert.That(tagList).IsNotEmpty();
         await Assert.That(tagList).Contains(TagName);
     }
@@ -66,11 +66,11 @@ public class TagTests(ZammadStackFixture zammadStack)
         var objectId = new ObjectId(CreatedTicketId.Value.Value);
 
         var client = await zammadStack.GetClientAsync();
-        var result = await client.RemoveTagAsync("Ticket", objectId, TagName);
+        var result = await client.RemoveTagAsync(ObjectType.Ticket, objectId, TagName);
         await Assert.That(result).IsTrue();
 
         await Assert.That(CreatedTicketId).IsNotNull();
-        var tagList = await client.ListTagsAsync("Ticket", objectId);
+        var tagList = await client.ListTagsAsync(ObjectType.Ticket, objectId);
         await Assert.That(tagList).DoesNotContain(TagName);
     }
 }

@@ -63,7 +63,7 @@ public sealed class Object
     public DateTimeOffset? UpdatedAt { get; set; }
 
     [JsonPropertyName("object")]
-    public string? ObjectType { get; set; }
+    public ObjectType? ObjectType { get; set; }
 
     [JsonPropertyName("deletable")]
     public bool? Deletable { get; set; }
