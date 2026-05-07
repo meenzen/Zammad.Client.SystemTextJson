@@ -14,6 +14,7 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
     private static AttachmentId TestAttachmentId { get; set; } = AttachmentId.Empty;
 
     [Test]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task CreateTicket()
     {
         var client = await zammadStack.GetClientAsync();

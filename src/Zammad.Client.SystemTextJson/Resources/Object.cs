@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
@@ -11,7 +12,7 @@ public sealed class Object
     public ObjectLookupId? ObjectLookupId { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("display")]
     public string? Display { get; set; }
@@ -23,7 +24,7 @@ public sealed class Object
     public ObjectDataOption? DataOption { get; set; }
 
     [JsonPropertyName("data_option_new")]
-    public dynamic? DataOptionNew { get; set; }
+    public ObjectDataOption? DataOptionNew { get; set; }
 
     [JsonPropertyName("editable")]
     public bool? Editable { get; set; }
@@ -60,15 +61,30 @@ public sealed class Object
 
     [JsonPropertyName("updated_at")]
     public DateTimeOffset? UpdatedAt { get; set; }
+
+    [JsonPropertyName("object")]
+    public string? ObjectType { get; set; }
+
+    [JsonPropertyName("deletable")]
+    public bool? Deletable { get; set; }
+
+    [JsonPropertyName("not_deletable_reason")]
+    public string? NotDeletableReason { get; set; }
 }
 
 public class ObjectDataOption
 {
+    [JsonPropertyName("default")]
+    public JsonElement? Default { get; set; }
+
     [JsonPropertyName("type")]
     public string? Type { get; set; }
 
     [JsonPropertyName("relation")]
     public string? Relation { get; set; }
+
+    [JsonPropertyName("relation_condition")]
+    public dynamic? RelationCondition { get; set; }
 
     [JsonPropertyName("autocapitalize")]
     public bool? Autocapitalize { get; set; }
@@ -97,9 +113,30 @@ public class ObjectDataOption
     [JsonPropertyName("translate")]
     public bool? Translate { get; set; }
 
+    [JsonPropertyName("filter")]
+    public List<JsonElement>? Filter { get; set; }
+
+    [JsonPropertyName("only_shown_if_selectable")]
+    public bool? OnlyShownIfSelectable { get; set; }
+
     [JsonPropertyName("item_class")]
     public string? ItemClass { get; set; }
 
     [JsonPropertyName("permission")]
     public List<string>? Permissions { get; set; }
+
+    [JsonPropertyName("options")]
+    public dynamic? Options { get; set; }
+
+    [JsonPropertyName("nulloption")]
+    public bool? NullOption { get; set; }
+
+    [JsonPropertyName("future")]
+    public bool? Future { get; set; }
+
+    [JsonPropertyName("past")]
+    public bool? Past { get; set; }
+
+    [JsonPropertyName("diff")]
+    public int? Diff { get; set; }
 }
