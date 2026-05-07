@@ -12,6 +12,7 @@ public class TicketAccountingTests(ZammadStackFixture zammadStack)
     private static TimeAccountingId TestAccountingId { get; set; } = TimeAccountingId.Empty;
 
     [Test]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task CreateTicket()
     {
         var client = await zammadStack.GetClientAsync();

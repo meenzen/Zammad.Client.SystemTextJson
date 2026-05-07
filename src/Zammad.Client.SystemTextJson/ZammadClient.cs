@@ -9,6 +9,7 @@ namespace Zammad.Client;
 
 public interface IZammadClient
     : IGroupService,
+        IMonitoringService,
         IObjectService,
         IOnlineNotificationService,
         IOrganizationService,
