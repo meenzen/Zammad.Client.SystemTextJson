@@ -139,4 +139,13 @@ public class ObjectDataOption
 
     [JsonPropertyName("diff")]
     public int? Diff { get; set; }
+
+    [JsonPropertyName("linktemplate")]
+    public string? LinkTemplate { get; set; }
+
+    [JsonPropertyName("min")]
+    public int? Min { get; set; }
+
+    [JsonPropertyName("max")]
+    public int? Max { get; set; }
 }

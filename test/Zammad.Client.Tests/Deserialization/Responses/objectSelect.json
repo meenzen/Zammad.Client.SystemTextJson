@@ -1,0 +1,41 @@
+{
+  "name": "sample_select",
+  "object": "Ticket",
+  "display": "Sample Select",
+  "active": true,
+  "position": 1550,
+  "data_type": "select",
+  "data_option": {
+    "options": {
+      "key-one": "First Key",
+      "key-two": "Second Key",
+      "key-three": "Third Key"
+    },
+    "default": "key-two",
+    "linktemplate": ""
+  },
+  "screens": {
+    "create_middle": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      }
+    },
+    "edit": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": true
+      }
+    }
+  }
+}

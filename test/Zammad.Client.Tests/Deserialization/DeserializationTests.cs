@@ -30,6 +30,13 @@ public class DeserializationTests
     [Arguments(typeof(TicketAccounting), "ticketAccounting.json")]
     [Arguments(typeof(List<TicketAccounting>), "ticketAccountings.json")]
     [Arguments(typeof(List<Object>), "objects.json")]
+    [Arguments(typeof(Object), "objectBoolean.json")]
+    [Arguments(typeof(Object), "objectDate.json")]
+    [Arguments(typeof(Object), "objectDateTime.json")]
+    [Arguments(typeof(Object), "objectInteger.json")]
+    [Arguments(typeof(Object), "objectSelect.json")]
+    [Arguments(typeof(Object), "objectText.json")]
+    [Arguments(typeof(Object), "objectTreeSelect.json")]
     [Arguments(typeof(HealthCheckResult), "healthCheck.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {

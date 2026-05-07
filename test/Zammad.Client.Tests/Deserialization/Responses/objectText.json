@@ -1,0 +1,38 @@
+{
+  "name": "sample_text",
+  "object": "Ticket",
+  "display": "Sample Text",
+  "active": true,
+  "position": 1550,
+  "data_type": "input",
+  "data_option": {
+    "default": "amazing default",
+    "type": "text",
+    "maxlength": 120,
+    "linktemplate": "https://www.google.com/search?q=#{ticket.sample_text}"
+  },
+  "screens": {
+    "create_middle": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      }
+    },
+    "edit": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": true
+      }
+    }
+  }
+}
