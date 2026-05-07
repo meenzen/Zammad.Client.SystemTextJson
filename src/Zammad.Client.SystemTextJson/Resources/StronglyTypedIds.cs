@@ -60,3 +60,6 @@ public partial struct ChecklistId;
 
 [StronglyTypedId]
 public partial struct TimeAccountingId;
+
+[StronglyTypedId]
+public partial struct TimeAccountingTypeId;
