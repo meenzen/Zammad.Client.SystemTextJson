@@ -59,22 +59,8 @@ public class TicketStateTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(CreateTicketState))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListTicketStates_Pagination_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var states = await client.ListTicketStatesAsync(1, 100);
-
-        await Assert.That(states).HasAtLeast(1);
-        await Assert.That(states).Contains(s => s.Id == CreatedStateId);
-    }
-
-    [Test]
     [DependsOn(nameof(ListTicketStates))]
     [DependsOn(nameof(ListTicketStates_Pagination))]
-    [DependsOn(nameof(ListTicketStates_Pagination_Legacy))]
     public async Task GetTicketState()
     {
         var client = await zammadStack.GetClientAsync();

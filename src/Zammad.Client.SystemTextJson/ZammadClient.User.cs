@@ -7,23 +7,8 @@ namespace Zammad.Client;
 public interface IUserService
 {
     Task<User> GetUserMeAsync();
-    Task<List<User>> ListUsersAsync();
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<User>> ListUsersAsync(int page, int count);
-
-    Task<List<User>> ListUsersAsync(Pagination? pagination);
-
-    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<User>> SearchUsersAsync(string query, int limit);
-
-    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<User>> SearchUsersAsync(string query, int limit, string sortBy, string orderBy);
-
-    Task<List<User>> SearchUsersAsync(SearchQuery query);
+    Task<List<User>> ListUsersAsync(Pagination? pagination = null);
+    Task<List<User>> SearchUsersAsync(SearchQuery query, bool expand = true);
     Task<User?> GetUserAsync(UserId id);
     Task<User> CreateUserAsync(User user);
     Task<User> UpdateUserAsync(UserId id, User user);
@@ -38,49 +23,18 @@ public sealed partial class ZammadClient : IUserService
     public async Task<User> GetUserMeAsync() =>
         await GetAsync<User>($"{UsersEndpoint}/me") ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<List<User>> ListUsersAsync() => await GetAsync<List<User>>(UsersEndpoint) ?? [];
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<User>> ListUsersAsync(int page, int count) =>
-        await ListUsersAsync(new Pagination { Page = page, PerPage = count });
-
-    public async Task<List<User>> ListUsersAsync(Pagination? pagination)
+    public async Task<List<User>> ListUsersAsync(Pagination? pagination = null)
     {
         var builder = new QueryBuilder();
         builder.AddPagination(pagination);
         return await GetAsync<List<User>>(UsersEndpoint, builder.ToString()) ?? [];
     }
 
-    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<User>> SearchUsersAsync(string query, int limit)
-    {
-        var builder = new QueryBuilder();
-        builder.Add("query", query);
-        builder.Add("limit", limit);
-        builder.Add("expand", true);
-        return await GetAsync<List<User>>(UsersSearchEndpoint, builder.ToString()) ?? [];
-    }
-
-    [Obsolete($"Use {nameof(SearchQuery)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<User>> SearchUsersAsync(string query, int limit, string sortBy, string orderBy)
-    {
-        var builder = new QueryBuilder();
-        builder.Add("query", query);
-        builder.Add("limit", limit);
-        builder.Add("expand", true);
-        builder.Add("sort_by", sortBy);
-        builder.Add("order_by", orderBy);
-        return await GetAsync<List<User>>(UsersSearchEndpoint, builder.ToString()) ?? [];
-    }
-
-    public async Task<List<User>> SearchUsersAsync(SearchQuery query)
+    public async Task<List<User>> SearchUsersAsync(SearchQuery query, bool expand = true)
     {
         var builder = new QueryBuilder();
         builder.AddSearchQuery(query);
-        builder.Add("expand", true);
+        builder.Add("expand", expand);
         return await GetAsync<List<User>>(UsersSearchEndpoint, builder.ToString()) ?? [];
     }
 

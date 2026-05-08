@@ -52,22 +52,8 @@ public class GroupTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(CreateGroup))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListGroups_Pagination_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var groups = await client.ListGroupsAsync(1, 100);
-
-        await Assert.That(groups).HasAtLeast(1);
-        await Assert.That(groups).Contains(g => g.Id == CreatedGroupId);
-    }
-
-    [Test]
     [DependsOn(nameof(ListGroups))]
     [DependsOn(nameof(ListGroups_Pagination))]
-    [DependsOn(nameof(ListGroups_Pagination_Legacy))]
     public async Task GetGroup()
     {
         var client = await zammadStack.GetClientAsync();

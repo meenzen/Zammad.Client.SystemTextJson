@@ -1,18 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Zammad.Client.Core;
+﻿using Zammad.Client.Core;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
 public interface IOnlineNotificationService
 {
-    Task<List<OnlineNotification>> ListOnlineNotificationsAsync();
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count);
-
-    Task<List<OnlineNotification>> ListOnlineNotificationsAsync(Pagination? pagination);
+    Task<List<OnlineNotification>> ListOnlineNotificationsAsync(Pagination? pagination = null, bool expand = true);
     Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id);
     Task<OnlineNotification> UpdateOnlineNotificationAsync(NotificationId id, OnlineNotification notification);
     Task DeleteOnlineNotificationAsync(NotificationId id);
@@ -23,19 +16,14 @@ public sealed partial class ZammadClient : IOnlineNotificationService
 {
     private const string OnlineNotificationsEndpoint = "/api/v1/online_notifications";
 
-    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync() =>
-        await ListOnlineNotificationsAsync(null);
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(int page, int count) =>
-        await ListOnlineNotificationsAsync(new Pagination { Page = page, PerPage = count });
-
-    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(Pagination? pagination)
+    public async Task<List<OnlineNotification>> ListOnlineNotificationsAsync(
+        Pagination? pagination = null,
+        bool expand = true
+    )
     {
         var builder = new QueryBuilder();
         builder.AddPagination(pagination);
-        builder.Add("expand", true);
+        builder.Add("expand", expand);
         return await GetAsync<List<OnlineNotification>>(OnlineNotificationsEndpoint, builder.ToString()) ?? [];
     }
 

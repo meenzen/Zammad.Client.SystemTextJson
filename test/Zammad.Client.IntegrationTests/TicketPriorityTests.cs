@@ -53,22 +53,8 @@ public class TicketPriorityTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(CreateTicketPriority))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListTicketPriorities_Pagination_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var priorities = await client.ListTicketPrioritiesAsync(1, 100);
-
-        await Assert.That(priorities).HasAtLeast(1);
-        await Assert.That(priorities).Contains(p => p.Id == CreatedPriorityId);
-    }
-
-    [Test]
     [DependsOn(nameof(ListTicketPriorities))]
     [DependsOn(nameof(ListTicketPriorities_Pagination))]
-    [DependsOn(nameof(ListTicketPriorities_Pagination_Legacy))]
     public async Task GetTicketPriority()
     {
         var client = await zammadStack.GetClientAsync();

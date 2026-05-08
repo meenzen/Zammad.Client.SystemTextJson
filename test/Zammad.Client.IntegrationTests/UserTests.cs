@@ -69,22 +69,8 @@ public class UserTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(CreateUser))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListUsers_Pagination_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var userList = await client.ListUsersAsync(1, 100);
-
-        await Assert.That(userList).HasAtLeast(1);
-        await Assert.That(userList).Contains(u => u.Id == HomerSimpsonId);
-    }
-
-    [Test]
     [DependsOn(nameof(ListUsers))]
     [DependsOn(nameof(ListUsers_Pagination))]
-    [DependsOn(nameof(ListUsers_Pagination_Legacy))]
     public async Task GetUser()
     {
         var client = await zammadStack.GetClientAsync();
@@ -119,39 +105,7 @@ public class UserTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(GetUser))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Obsolete("Testing legacy search.")]
-    public async Task SearchUsers_Legacy(CancellationToken cancellationToken)
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
-        var userSearch = await client.SearchUsersAsync($"homer.simpson.{RandomName}", 20);
-
-        await Assert.That(userSearch).HasSingleItem();
-        await Assert.That(userSearch[0].Id).IsEqualTo(HomerSimpsonId);
-    }
-
-    [Test]
-    [DependsOn(nameof(GetUser))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Obsolete("Testing legacy search with sort.")]
-    public async Task SearchUsers_LegacyWithSort(CancellationToken cancellationToken)
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
-        var userSearch = await client.SearchUsersAsync($"homer.simpson.{RandomName}", 20, "id", "asc");
-
-        await Assert.That(userSearch).HasSingleItem();
-        await Assert.That(userSearch[0].Id).IsEqualTo(HomerSimpsonId);
-    }
-
-    [Test]
     [DependsOn(nameof(SearchUsers))]
-    [DependsOn(nameof(SearchUsers_Legacy))]
-    [DependsOn(nameof(SearchUsers_LegacyWithSort))]
     public async Task UpdateUser()
     {
         var client = await zammadStack.GetClientAsync();

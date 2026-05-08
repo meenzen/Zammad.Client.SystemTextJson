@@ -96,19 +96,6 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateTicketArticle))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListTicketArticles_Pagination_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var articles = await client.ListTicketArticlesAsync(1, 100);
-
-        await Assert.That(articles).IsNotEmpty();
-        await Assert.That(articles).Contains(a => a.Id == TestArticleId);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateTicketArticle))]
     public async Task ListTicketArticlesByTicket()
     {
         var client = await zammadStack.GetClientAsync();
@@ -122,7 +109,6 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
     [Test]
     [DependsOn(nameof(ListTicketArticles))]
     [DependsOn(nameof(ListTicketArticles_Pagination))]
-    [DependsOn(nameof(ListTicketArticles_Pagination_Legacy))]
     [DependsOn(nameof(ListTicketArticlesByTicket))]
     public async Task GetTicketArticle()
     {

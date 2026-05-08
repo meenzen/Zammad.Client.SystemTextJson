@@ -6,13 +6,7 @@ namespace Zammad.Client;
 
 public interface ITicketPriorityService
 {
-    Task<List<TicketPriority>> ListTicketPrioritiesAsync();
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count);
-
-    Task<List<TicketPriority>> ListTicketPrioritiesAsync(Pagination? pagination);
+    Task<List<TicketPriority>> ListTicketPrioritiesAsync(Pagination? pagination = null);
     Task<TicketPriority?> GetTicketPriorityAsync(PriorityId id);
     Task<TicketPriority> CreateTicketPriorityAsync(TicketPriority priority);
     Task<TicketPriority> UpdateTicketPriorityAsync(PriorityId id, TicketPriority priority);
@@ -23,15 +17,7 @@ public sealed partial class ZammadClient : ITicketPriorityService
 {
     private const string TicketPrioritiesEndpoint = "/api/v1/ticket_priorities";
 
-    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync() =>
-        await GetAsync<List<TicketPriority>>(TicketPrioritiesEndpoint) ?? [];
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(int page, int count) =>
-        await ListTicketPrioritiesAsync(new Pagination { Page = page, PerPage = count });
-
-    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(Pagination? pagination)
+    public async Task<List<TicketPriority>> ListTicketPrioritiesAsync(Pagination? pagination = null)
     {
         var builder = new QueryBuilder();
         builder.AddPagination(pagination);

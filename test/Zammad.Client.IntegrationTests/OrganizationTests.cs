@@ -47,19 +47,6 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateOrganization))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListOrganizations_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var organizationList = await client.ListOrganizationsAsync(1, 10);
-
-        await Assert.That(organizationList).HasAtLeast(1);
-        await Assert.That(organizationList).Contains(o => o.Id == KrustyBurgerId);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateOrganization))]
     public async Task ListOrganizations_Pagination()
     {
         var client = await zammadStack.GetClientAsync();
@@ -109,43 +96,10 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateOrganization))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Obsolete("Testing legacy search.")]
-    public async Task SearchOrganizations_Legacy(CancellationToken cancellationToken)
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
-        var organizationSearch = await client.SearchOrganizationsAsync(OrganizationName, 10);
-
-        await Assert.That(organizationSearch).HasSingleItem();
-        await Assert.That(organizationSearch[0].Id).IsEqualTo(KrustyBurgerId);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateOrganization))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Obsolete("Testing legacy search.")]
-    public async Task SearchOrganizations_Legacy_Sort(CancellationToken cancellationToken)
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
-        var organizationSearch = await client.SearchOrganizationsAsync(OrganizationName, 10, "id", "desc");
-
-        await Assert.That(organizationSearch).HasSingleItem();
-        await Assert.That(organizationSearch[0].Id).IsEqualTo(KrustyBurgerId);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateOrganization))]
     [DependsOn(nameof(ListOrganizations))]
-    [DependsOn(nameof(ListOrganizations_Legacy))]
     [DependsOn(nameof(ListOrganizations_Pagination))]
     [DependsOn(nameof(GetOrganization))]
     [DependsOn(nameof(SearchOrganizations))]
-    [DependsOn(nameof(SearchOrganizations_Legacy))]
-    [DependsOn(nameof(SearchOrganizations_Legacy_Sort))]
     public async Task UpdateOrganization()
     {
         var client = await zammadStack.GetClientAsync();

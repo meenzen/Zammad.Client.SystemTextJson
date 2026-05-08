@@ -6,13 +6,7 @@ namespace Zammad.Client;
 
 public interface ITicketStateService
 {
-    Task<List<TicketState>> ListTicketStatesAsync();
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<TicketState>> ListTicketStatesAsync(int page, int count);
-
-    Task<List<TicketState>> ListTicketStatesAsync(Pagination? pagination);
+    Task<List<TicketState>> ListTicketStatesAsync(Pagination? pagination = null);
     Task<TicketState?> GetTicketStateAsync(StateId id);
     Task<TicketState> CreateTicketStateAsync(TicketState state);
     Task<TicketState> UpdateTicketStateAsync(StateId id, TicketState state);
@@ -23,15 +17,7 @@ public sealed partial class ZammadClient : ITicketStateService
 {
     private const string TicketStatesEndpoint = "/api/v1/ticket_states";
 
-    public async Task<List<TicketState>> ListTicketStatesAsync() =>
-        await GetAsync<List<TicketState>>(TicketStatesEndpoint) ?? [];
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<TicketState>> ListTicketStatesAsync(int page, int count) =>
-        await ListTicketStatesAsync(new Pagination { Page = page, PerPage = count });
-
-    public async Task<List<TicketState>> ListTicketStatesAsync(Pagination? pagination)
+    public async Task<List<TicketState>> ListTicketStatesAsync(Pagination? pagination = null)
     {
         var builder = new QueryBuilder();
         builder.AddPagination(pagination);

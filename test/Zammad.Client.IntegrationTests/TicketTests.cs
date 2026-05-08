@@ -66,51 +66,6 @@ public class TicketTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateTicket))]
-    [Obsolete("Testing legacy pagination.")]
-    public async Task ListTickets_Pagination_Legacy()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var tickets = await client.ListTicketsAsync(1, 20);
-        await Assert.That(tickets).IsNotNull();
-        await Assert.That(tickets).IsNotEmpty();
-        await Assert.That(tickets).Contains(t => t.Id == CreatedTicketId);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateTicket))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Obsolete("Testing legacy search.")]
-    public async Task SearchTickets_Legacy_Sort(CancellationToken cancellationToken)
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
-        var ticketSearch = await client.SearchTicketsAsync(TicketTitle, 20, "created_at", "desc");
-
-        await Assert.That(ticketSearch).IsNotNull();
-        await Assert.That(ticketSearch).IsNotEmpty();
-        await Assert.That(ticketSearch).Contains(t => t.Title == TicketTitle);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateTicket))]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Obsolete("Testing legacy search.")]
-    public async Task SearchTickets_Legacy(CancellationToken cancellationToken)
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
-        var ticketSearch = await client.SearchTicketsAsync(TicketTitle, 20);
-
-        await Assert.That(ticketSearch).IsNotNull();
-        await Assert.That(ticketSearch).IsNotEmpty();
-        await Assert.That(ticketSearch).Contains(t => t.Title == TicketTitle);
-    }
-
-    [Test]
-    [DependsOn(nameof(CreateTicket))]
     [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task SearchTickets_Pagination(CancellationToken cancellationToken)
     {
@@ -148,9 +103,6 @@ public class TicketTests(ZammadStackFixture zammadStack)
     [DependsOn(nameof(CreateTicket))]
     [DependsOn(nameof(ListTickets))]
     [DependsOn(nameof(ListTickets_Pagination))]
-    [DependsOn(nameof(ListTickets_Pagination_Legacy))]
-    [DependsOn(nameof(SearchTickets_Legacy_Sort))]
-    [DependsOn(nameof(SearchTickets_Legacy))]
     [DependsOn(nameof(SearchTickets_Pagination))]
     [DependsOn(nameof(GetTicket))]
     public async Task UpdateTicket()

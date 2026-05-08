@@ -1,18 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Zammad.Client.Core;
+﻿using Zammad.Client.Core;
 using Zammad.Client.Resources;
 
 namespace Zammad.Client;
 
 public interface IGroupService
 {
-    Task<List<Group>> ListGroupsAsync();
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    Task<List<Group>> ListGroupsAsync(int page, int count);
-
-    Task<List<Group>> ListGroupsAsync(Pagination? pagination);
+    Task<List<Group>> ListGroupsAsync(Pagination? pagination = null);
     Task<Group?> GetGroupAsync(GroupId id);
     Task<Group> CreateGroupAsync(Group group);
     Task<Group> UpdateGroupAsync(GroupId id, Group group);
@@ -23,14 +16,7 @@ public sealed partial class ZammadClient : IGroupService
 {
     private const string GroupsEndpoint = "/api/v1/groups";
 
-    public async Task<List<Group>> ListGroupsAsync() => await GetAsync<List<Group>>(GroupsEndpoint) ?? [];
-
-    [Obsolete($"Use {nameof(Pagination)} overload instead.")]
-    [SuppressMessage("Info Code Smell", "S1133:Deprecated code should be removed")]
-    public async Task<List<Group>> ListGroupsAsync(int page, int count) =>
-        await ListGroupsAsync(new Pagination { Page = page, PerPage = count });
-
-    public async Task<List<Group>> ListGroupsAsync(Pagination? pagination)
+    public async Task<List<Group>> ListGroupsAsync(Pagination? pagination = null)
     {
         var builder = new QueryBuilder();
         builder.AddPagination(pagination);
