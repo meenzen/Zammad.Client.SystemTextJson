@@ -6,6 +6,7 @@ using Zammad.Client.Resources;
 namespace Zammad.Client.IntegrationTests;
 
 [ClassDataSource<ZammadStackFixture>(Shared = SharedType.PerAssembly)]
+[NotInParallel]
 public class UserTests(ZammadStackFixture zammadStack)
 {
     private static readonly string RandomName = TestSetup.RandomString();
