@@ -1,0 +1,35 @@
+{
+  "name": "sample_date",
+  "object": "Ticket",
+  "display": "Sample Date",
+  "active": true,
+  "position": 1550,
+  "data_type": "date",
+  "data_option": {
+    "diff": 120
+  },
+  "screens": {
+    "create_middle": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      }
+    },
+    "edit": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": true
+      }
+    }
+  }
+}

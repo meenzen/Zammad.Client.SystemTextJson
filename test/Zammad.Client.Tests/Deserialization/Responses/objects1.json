@@ -1,0 +1,3177 @@
+[
+  {
+    "id": 1,
+    "name": "number",
+    "display": "#",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "readonly": 1,
+      "null": true,
+      "maxlength": 60,
+      "width": "68px",
+      "display_config": "ticket_hook"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_top": {},
+      "edit": {}
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 5,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.244Z",
+    "updated_at": "2026-03-06T14:58:23.588Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 2,
+    "name": "title",
+    "display": "Title",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 200,
+      "null": false,
+      "translate": false
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_top": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {}
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 8,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.248Z",
+    "updated_at": "2025-03-28T17:11:22.248Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 3,
+    "name": "customer_id",
+    "display": "Customer",
+    "data_type": "user_autocompletion",
+    "data_option": {
+      "relation": "User",
+      "autocapitalize": false,
+      "multiple": false,
+      "guess": true,
+      "null": false,
+      "limit": 200,
+      "placeholder": "Enter Person or Organization/Company",
+      "minLengt": 2,
+      "translate": false,
+      "permission": [
+        "ticket.agent",
+        "ticket.customer"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_top": {
+        "ticket.agent": {
+          "null": false
+        }
+      },
+      "edit": {}
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 10,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.252Z",
+    "updated_at": "2026-03-06T14:58:23.586Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 4,
+    "name": "organization_id",
+    "display": "Organization",
+    "data_type": "autocompletion_ajax_customer_organization",
+    "data_option": {
+      "relation": "Organization",
+      "autocapitalize": false,
+      "multiple": false,
+      "null": true,
+      "translate": false,
+      "permission": [
+        "ticket.agent",
+        "ticket.customer"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_top": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {}
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 12,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.255Z",
+    "updated_at": "2025-03-28T17:11:22.255Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 5,
+    "name": "type",
+    "display": "Type",
+    "data_type": "select",
+    "data_option": {
+      "default": "",
+      "options": {
+        "Incident": "Incident",
+        "Problem": "Problem",
+        "Request for Change": "Request for Change"
+      },
+      "nulloption": true,
+      "multiple": false,
+      "null": true,
+      "translate": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": false,
+    "screens": {
+      "create_middle": {
+        "-all-": {
+          "null": false,
+          "item_class": "column"
+        }
+      },
+      "edit": {
+        "ticket.agent": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 20,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.264Z",
+    "updated_at": "2025-03-28T17:11:22.264Z",
+    "internal": false,
+    "object": "Ticket",
+    "deletable": true
+  },
+  {
+    "id": 59,
+    "name": "category",
+    "display": "Kategorie",
+    "data_type": "select",
+    "data_option": {
+      "options": {
+        "K1": "K1",
+        "K2": "K2",
+        "K3": "K3"
+      },
+      "linktemplate": "",
+      "translate": false,
+      "default": "",
+      "null": true,
+      "relation": "",
+      "nulloption": true,
+      "maxlength": 255,
+      "historical_options": {
+        "K1": "K1",
+        "K2": "K2",
+        "K3": "K3"
+      }
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": true,
+    "screens": {
+      "create_middle": {
+        "ticket.customer": {
+          "shown": false,
+          "required": false,
+          "item_class": "column"
+        },
+        "ticket.agent": {
+          "shown": false,
+          "required": false,
+          "item_class": "column"
+        }
+      },
+      "edit": {
+        "ticket.customer": {
+          "shown": false,
+          "required": false
+        },
+        "ticket.agent": {
+          "shown": false,
+          "required": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 21,
+    "created_by_id": 5,
+    "updated_by_id": 5,
+    "created_at": "2025-08-11T13:59:44.248Z",
+    "updated_at": "2025-08-11T14:00:07.746Z",
+    "internal": false,
+    "object": "Ticket",
+    "deletable": true
+  },
+  {
+    "id": 6,
+    "name": "group_id",
+    "display": "Group",
+    "data_type": "tree_select",
+    "data_option": {
+      "default": "",
+      "relation": "Group",
+      "relation_condition": {
+        "access": "full"
+      },
+      "nulloption": true,
+      "multiple": false,
+      "null": false,
+      "translate": false,
+      "only_shown_if_selectable": true,
+      "permission": [
+        "ticket.agent",
+        "ticket.customer"
+      ],
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {
+        "-all-": {
+          "null": false,
+          "item_class": "column"
+        }
+      },
+      "edit": {
+        "ticket.agent": {
+          "null": false
+        }
+      },
+      "overview_bulk": {
+        "ticket.agent": {
+          "nulloption": true,
+          "null": true,
+          "default": "",
+          "direction": "up"
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 25,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.269Z",
+    "updated_at": "2025-03-28T17:11:22.269Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 7,
+    "name": "owner_id",
+    "display": "Owner",
+    "data_type": "select",
+    "data_option": {
+      "default": "",
+      "relation": "User",
+      "relation_condition": {
+        "roles": "Agent"
+      },
+      "nulloption": true,
+      "multiple": false,
+      "null": true,
+      "translate": false,
+      "permission": [
+        "ticket.agent"
+      ],
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {
+        "-all-": {
+          "null": true,
+          "item_class": "column"
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "overview_bulk": {
+        "ticket.agent": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 30,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.273Z",
+    "updated_at": "2025-03-28T17:11:22.273Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 8,
+    "name": "state_id",
+    "display": "State",
+    "data_type": "select",
+    "data_option": {
+      "relation": "TicketState",
+      "nulloption": true,
+      "multiple": false,
+      "null": false,
+      "default": 2,
+      "translate": true,
+      "filter": [
+        2,
+        1,
+        3,
+        4,
+        6
+      ],
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {
+        "ticket.agent": {
+          "null": false,
+          "item_class": "column",
+          "filter": [
+            2,
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "ticket.customer": {
+          "item_class": "column",
+          "nulloption": false,
+          "null": true,
+          "filter": [
+            1,
+            4
+          ],
+          "default": 1
+        }
+      },
+      "edit": {
+        "ticket.agent": {
+          "nulloption": false,
+          "null": false,
+          "filter": [
+            2,
+            3,
+            4,
+            6
+          ]
+        },
+        "TICKET.CUSTOMER": {
+          "nulloption": false,
+          "null": true,
+          "filter": [
+            2,
+            4
+          ],
+          "default": 2
+        }
+      },
+      "overview_bulk": {
+        "ticket.agent": {
+          "nulloption": true,
+          "null": true,
+          "default": "",
+          "filter": [
+            2,
+            3,
+            4,
+            6
+          ]
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 40,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.281Z",
+    "updated_at": "2025-03-28T17:11:22.281Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 9,
+    "name": "pending_time",
+    "display": "Pending till",
+    "data_type": "datetime",
+    "data_option": {
+      "future": true,
+      "past": false,
+      "diff": null,
+      "null": true,
+      "translate": true,
+      "permission": [
+        "ticket.agent"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {
+        "-all-": {
+          "null": false,
+          "item_class": "column"
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "overview_bulk": {
+        "ticket.agent": {
+          "nulloption": true,
+          "null": true,
+          "default": "",
+          "orientation": "top",
+          "disableScroll": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 41,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.285Z",
+    "updated_at": "2025-03-28T17:11:22.285Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 10,
+    "name": "priority_id",
+    "display": "Priority",
+    "data_type": "select",
+    "data_option": {
+      "relation": "TicketPriority",
+      "nulloption": false,
+      "multiple": false,
+      "null": false,
+      "default": 2,
+      "translate": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {
+        "ticket.agent": {
+          "null": false,
+          "item_class": "column"
+        }
+      },
+      "edit": {
+        "ticket.agent": {
+          "null": false
+        }
+      },
+      "overview_bulk": {
+        "ticket.agent": {
+          "nulloption": true,
+          "null": true,
+          "default": ""
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 80,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.289Z",
+    "updated_at": "2025-03-28T17:11:22.289Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 58,
+    "name": "detected_language",
+    "display": "Detected Language",
+    "data_type": "select",
+    "data_option": {
+      "nulloption": true,
+      "multiple": false,
+      "null": true,
+      "default": "",
+      "translate": false,
+      "options": {
+        "ab": "Abkhazian",
+        "aa": "Afar",
+        "af": "Afrikaans",
+        "sq": "Albanian",
+        "am": "Amharic",
+        "ar": "Arabic",
+        "hy": "Armenian",
+        "as": "Assamese",
+        "ay": "Aymara",
+        "az": "Azerbaijani",
+        "ba": "Bashkir",
+        "eu": "Basque",
+        "be": "Belarusian",
+        "bn": "Bengali",
+        "bh": "Bihari",
+        "bi": "Bislama",
+        "bs": "Bosnian",
+        "br": "Breton",
+        "bg": "Bulgarian",
+        "my": "Burmese",
+        "ca": "Catalan",
+        "chr": "Cherokee",
+        "zh-TW": "Chinese (Taiwan)",
+        "zh": "Chinese",
+        "co": "Corsican",
+        "cpe": "Creoles and Pidgins (English based)",
+        "cpf": "Creoles and Pidgins (French based)",
+        "crp": "Creoles and Pidgins (Other)",
+        "cpp": "Creoles and Pidgins (Portuguese based)",
+        "hr": "Croatian",
+        "cs": "Czech",
+        "da": "Danish",
+        "dv": "Dhivehi",
+        "nl": "Dutch",
+        "dz": "Dzongkha",
+        "en": "English",
+        "eo": "Esperanto",
+        "et": "Estonian",
+        "fo": "Faroese",
+        "fj": "Fijian",
+        "fi": "Finnish",
+        "fr": "French",
+        "fy": "Frisian",
+        "gl": "Galician",
+        "lg": "Ganda",
+        "ka": "Georgian",
+        "de": "German",
+        "el": "Greek",
+        "kl": "Greenlandic",
+        "gn": "Guarani",
+        "gu": "Gujarati",
+        "ht": "Haitian Creole",
+        "ha": "Hausa",
+        "he": "Hebrew",
+        "hi": "Hindi",
+        "hu": "Hungarian",
+        "is": "Icelandic",
+        "id": "Indonesian",
+        "ia": "Interlingua",
+        "ie": "Interlingue",
+        "iu": "Inuktitut",
+        "ik": "Inupiak",
+        "ga": "Irish",
+        "it": "Italian",
+        "ja": "Japanese",
+        "jw": "Javanese",
+        "kn": "Kannada",
+        "ks": "Kashmiri",
+        "kk": "Kazakh",
+        "kha": "Khasi",
+        "km": "Khmer",
+        "rw": "Kinyarwanda",
+        "ko": "Korean",
+        "ku": "Kurdish",
+        "ky": "Kyrgyz",
+        "lo": "Laothian",
+        "la": "Latin",
+        "lv": "Latvian",
+        "sit-NP": "Limbu",
+        "ln": "Lingala",
+        "lt": "Lithuanian",
+        "lb": "Luxembourgish",
+        "mk": "Macedonian",
+        "mg": "Malagasy",
+        "ms": "Malay",
+        "ml": "Malayalam",
+        "mt": "Maltese",
+        "gv": "Manx",
+        "mi": "Maori",
+        "mr": "Marathi",
+        "mo": "Moldavian",
+        "mn": "Mongolian",
+        "sr-ME": "Montenegrin",
+        "na": "Nauru",
+        "ne": "Nepali",
+        "nn": "Norwegian (Nynorsk)",
+        "nb": "Norwegian",
+        "oc": "Occitan",
+        "or": "Oriya",
+        "om": "Oromo",
+        "ps": "Pashto",
+        "fa": "Persian",
+        "pl": "Polish",
+        "pt-BR": "Portuguese (Brazil)",
+        "pt-PT": "Portuguese (Portugal)",
+        "pt": "Portuguese",
+        "pa": "Punjabi",
+        "qu": "Quechua",
+        "rm": "Rhaeto Romance",
+        "ro": "Romanian",
+        "rn": "Rundi",
+        "ru": "Russian",
+        "sm": "Samoan",
+        "sg": "Sango",
+        "sa": "Sanskrit",
+        "gd": "Scots Gaelic",
+        "sco": "Scots",
+        "sr": "Serbian",
+        "sh": "Serbo Croatian",
+        "st": "Sesotho",
+        "sn": "Shona",
+        "sd": "Sindhi",
+        "si": "Sinhalese",
+        "ss": "Siswant",
+        "sk": "Slovak",
+        "sl": "Slovenian",
+        "so": "Somali",
+        "es": "Spanish",
+        "su": "Sundanese",
+        "sw": "Swahili",
+        "sv": "Swedish",
+        "syr": "Syriac",
+        "fil": "Tagalog",
+        "tg": "Tajik",
+        "ta": "Tamil",
+        "tt": "Tatar",
+        "te": "Telugu",
+        "th": "Thai",
+        "bo": "Tibetan",
+        "ti": "Tigrinya",
+        "to": "Tonga",
+        "ts": "Tsonga",
+        "tn": "Tswana",
+        "tr": "Turkish",
+        "tk": "Turkmen",
+        "tw": "Twi",
+        "ug": "Uighur",
+        "uk": "Ukrainian",
+        "ur": "Urdu",
+        "uz": "Uzbek",
+        "vi": "Vietnamese",
+        "vo": "Volapuk",
+        "cy": "Welsh",
+        "wo": "Wolof",
+        "xh": "Xhosa",
+        "yi": "Yiddish",
+        "yo": "Yoruba",
+        "za": "Zhuang",
+        "zu": "Zulu"
+      },
+      "historical_options": {
+        "ab": "Abkhazian",
+        "aa": "Afar",
+        "af": "Afrikaans",
+        "sq": "Albanian",
+        "am": "Amharic",
+        "ar": "Arabic",
+        "hy": "Armenian",
+        "as": "Assamese",
+        "ay": "Aymara",
+        "az": "Azerbaijani",
+        "ba": "Bashkir",
+        "eu": "Basque",
+        "be": "Belarusian",
+        "bn": "Bengali",
+        "bh": "Bihari",
+        "bi": "Bislama",
+        "bs": "Bosnian",
+        "br": "Breton",
+        "bg": "Bulgarian",
+        "my": "Burmese",
+        "ca": "Catalan",
+        "chr": "Cherokee",
+        "zh-TW": "Chinese (Taiwan)",
+        "zh": "Chinese",
+        "co": "Corsican",
+        "cpe": "Creoles and Pidgins (English based)",
+        "cpf": "Creoles and Pidgins (French based)",
+        "crp": "Creoles and Pidgins (Other)",
+        "cpp": "Creoles and Pidgins (Portuguese based)",
+        "hr": "Croatian",
+        "cs": "Czech",
+        "da": "Danish",
+        "dv": "Dhivehi",
+        "nl": "Dutch",
+        "dz": "Dzongkha",
+        "en": "English",
+        "eo": "Esperanto",
+        "et": "Estonian",
+        "fo": "Faroese",
+        "fj": "Fijian",
+        "fi": "Finnish",
+        "fr": "French",
+        "fy": "Frisian",
+        "gl": "Galician",
+        "lg": "Ganda",
+        "ka": "Georgian",
+        "de": "German",
+        "el": "Greek",
+        "kl": "Greenlandic",
+        "gn": "Guarani",
+        "gu": "Gujarati",
+        "ht": "Haitian Creole",
+        "ha": "Hausa",
+        "he": "Hebrew",
+        "hi": "Hindi",
+        "hu": "Hungarian",
+        "is": "Icelandic",
+        "id": "Indonesian",
+        "ia": "Interlingua",
+        "ie": "Interlingue",
+        "iu": "Inuktitut",
+        "ik": "Inupiak",
+        "ga": "Irish",
+        "it": "Italian",
+        "ja": "Japanese",
+        "jw": "Javanese",
+        "kn": "Kannada",
+        "ks": "Kashmiri",
+        "kk": "Kazakh",
+        "kha": "Khasi",
+        "km": "Khmer",
+        "rw": "Kinyarwanda",
+        "ko": "Korean",
+        "ku": "Kurdish",
+        "ky": "Kyrgyz",
+        "lo": "Laothian",
+        "la": "Latin",
+        "lv": "Latvian",
+        "sit-NP": "Limbu",
+        "ln": "Lingala",
+        "lt": "Lithuanian",
+        "lb": "Luxembourgish",
+        "mk": "Macedonian",
+        "mg": "Malagasy",
+        "ms": "Malay",
+        "ml": "Malayalam",
+        "mt": "Maltese",
+        "gv": "Manx",
+        "mi": "Maori",
+        "mr": "Marathi",
+        "mo": "Moldavian",
+        "mn": "Mongolian",
+        "sr-ME": "Montenegrin",
+        "na": "Nauru",
+        "ne": "Nepali",
+        "nn": "Norwegian (Nynorsk)",
+        "nb": "Norwegian",
+        "oc": "Occitan",
+        "or": "Oriya",
+        "om": "Oromo",
+        "ps": "Pashto",
+        "fa": "Persian",
+        "pl": "Polish",
+        "pt-BR": "Portuguese (Brazil)",
+        "pt-PT": "Portuguese (Portugal)",
+        "pt": "Portuguese",
+        "pa": "Punjabi",
+        "qu": "Quechua",
+        "rm": "Rhaeto Romance",
+        "ro": "Romanian",
+        "rn": "Rundi",
+        "ru": "Russian",
+        "sm": "Samoan",
+        "sg": "Sango",
+        "sa": "Sanskrit",
+        "gd": "Scots Gaelic",
+        "sco": "Scots",
+        "sr": "Serbian",
+        "sh": "Serbo Croatian",
+        "st": "Sesotho",
+        "sn": "Shona",
+        "sd": "Sindhi",
+        "si": "Sinhalese",
+        "ss": "Siswant",
+        "sk": "Slovak",
+        "sl": "Slovenian",
+        "so": "Somali",
+        "es": "Spanish",
+        "su": "Sundanese",
+        "sw": "Swahili",
+        "sv": "Swedish",
+        "syr": "Syriac",
+        "fil": "Tagalog",
+        "tg": "Tajik",
+        "ta": "Tamil",
+        "tt": "Tatar",
+        "te": "Telugu",
+        "th": "Thai",
+        "bo": "Tibetan",
+        "ti": "Tigrinya",
+        "to": "Tonga",
+        "ts": "Tsonga",
+        "tn": "Tswana",
+        "tr": "Turkish",
+        "tk": "Turkmen",
+        "tw": "Twi",
+        "ug": "Uighur",
+        "uk": "Ukrainian",
+        "ur": "Urdu",
+        "uz": "Uzbek",
+        "vi": "Vietnamese",
+        "vo": "Volapuk",
+        "cy": "Welsh",
+        "wo": "Wolof",
+        "xh": "Xhosa",
+        "yi": "Yiddish",
+        "yo": "Yoruba",
+        "za": "Zhuang",
+        "zu": "Zulu"
+      },
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {},
+      "edit": {
+        "ticket.agent": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 100,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-04-28T08:39:12.699Z",
+    "updated_at": "2025-04-28T08:39:12.699Z",
+    "internal": true,
+    "object": "TicketArticle",
+    "deletable": false
+  },
+  {
+    "id": 17,
+    "name": "login",
+    "display": "Login",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 100,
+      "null": true,
+      "autocapitalize": false,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {},
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 100,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.315Z",
+    "updated_at": "2025-03-28T17:11:22.315Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 12,
+    "name": "type_id",
+    "display": "Type",
+    "data_type": "select",
+    "data_option": {
+      "relation": "TicketArticleType",
+      "nulloption": false,
+      "multiple": false,
+      "null": false,
+      "default": 10,
+      "translate": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {},
+      "edit": {
+        "ticket.agent": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 100,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.297Z",
+    "updated_at": "2025-03-28T17:11:22.297Z",
+    "internal": true,
+    "object": "TicketArticle",
+    "deletable": false
+  },
+  {
+    "id": 18,
+    "name": "firstname",
+    "display": "First name",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 150,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "invite_agent": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "invite_customer": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 200,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.318Z",
+    "updated_at": "2025-03-28T17:11:22.318Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 13,
+    "name": "internal",
+    "display": "Visibility",
+    "data_type": "select",
+    "data_option": {
+      "options": {
+        "true": "internal",
+        "false": "public"
+      },
+      "nulloption": false,
+      "multiple": false,
+      "null": true,
+      "default": false,
+      "translate": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {},
+      "edit": {
+        "ticket.agent": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 200,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.300Z",
+    "updated_at": "2025-03-28T17:11:22.300Z",
+    "internal": true,
+    "object": "TicketArticle",
+    "deletable": false
+  },
+  {
+    "id": 46,
+    "name": "name",
+    "display": "Name",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 255,
+      "readonly": 1,
+      "null": true
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {},
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 200,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.429Z",
+    "updated_at": "2025-03-28T17:11:22.429Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 39,
+    "name": "name",
+    "display": "Name",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 150,
+      "null": false,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "ticket.agent": {
+          "shown": true
+        },
+        "ticket.customer": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 200,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.404Z",
+    "updated_at": "2025-03-28T17:11:22.404Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 47,
+    "name": "name_last",
+    "display": "Name",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 160,
+      "null": false
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 210,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.432Z",
+    "updated_at": "2025-03-28T17:11:22.432Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 48,
+    "name": "parent_id",
+    "display": "Parent group",
+    "data_type": "tree_select",
+    "data_option": {
+      "default": "",
+      "null": true,
+      "relation": "Group",
+      "nulloption": true,
+      "do_not_log": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 250,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.435Z",
+    "updated_at": "2025-03-28T17:11:22.435Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 49,
+    "name": "assignment_timeout",
+    "display": "Assignment Timeout",
+    "data_type": "integer",
+    "data_option": {
+      "maxlength": 150,
+      "null": true,
+      "note": "Assignment timeout in minutes if assigned agent is not working on it. Ticket will be shown as unassigend.",
+      "min": 0,
+      "max": 999999
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 300,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.438Z",
+    "updated_at": "2025-03-28T17:11:22.438Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 19,
+    "name": "lastname",
+    "display": "Last name",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 150,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "invite_agent": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "invite_customer": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 300,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.322Z",
+    "updated_at": "2025-03-28T17:11:22.322Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 14,
+    "name": "to",
+    "display": "To",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 1000,
+      "null": true
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_middle": {},
+      "edit": {
+        "ticket.agent": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 300,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.304Z",
+    "updated_at": "2025-03-28T17:11:22.304Z",
+    "internal": true,
+    "object": "TicketArticle",
+    "deletable": false
+  },
+  {
+    "id": 15,
+    "name": "cc",
+    "display": "CC",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 1000,
+      "null": true
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_top": {},
+      "create_middle": {},
+      "edit": {
+        "ticket.agent": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 400,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.307Z",
+    "updated_at": "2025-03-28T17:11:22.307Z",
+    "internal": true,
+    "object": "TicketArticle",
+    "deletable": false
+  },
+  {
+    "id": 20,
+    "name": "email",
+    "display": "Email",
+    "data_type": "input",
+    "data_option": {
+      "type": "email",
+      "maxlength": 150,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "invite_agent": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "invite_customer": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 400,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.325Z",
+    "updated_at": "2025-03-28T17:11:22.325Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 50,
+    "name": "follow_up_possible",
+    "display": "Follow-up possible",
+    "data_type": "select",
+    "data_option": {
+      "default": "yes",
+      "options": {
+        "yes": "yes",
+        "new_ticket": "do not reopen ticket but create new ticket",
+        "new_ticket_after_certain_time": "do not reopen ticket after certain time but create new ticket"
+      },
+      "null": false,
+      "note": "Follow-up for closed ticket possible or not.",
+      "translate": true,
+      "nulloption": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 400,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.442Z",
+    "updated_at": "2025-03-28T17:11:22.442Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 51,
+    "name": "reopen_time_in_days",
+    "display": "Reopening time in days",
+    "data_type": "integer",
+    "data_option": {
+      "default": "",
+      "min": 1,
+      "max": 3650,
+      "null": true,
+      "note": "Allow reopening of tickets within a certain time.",
+      "translate": true
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "admin.group": {
+          "shown": false,
+          "required": false
+        }
+      },
+      "edit": {
+        "admin.group": {
+          "shown": false,
+          "required": false
+        }
+      },
+      "view": {
+        "admin.group": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 410,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.457Z",
+    "updated_at": "2025-03-28T17:11:22.457Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 52,
+    "name": "follow_up_assignment",
+    "display": "Assign Follow-Ups",
+    "data_type": "select",
+    "data_option": {
+      "default": "true",
+      "options": {
+        "true": "yes",
+        "false": "no"
+      },
+      "null": false,
+      "note": "Assign follow-up to latest agent again.",
+      "translate": true,
+      "nulloption": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 500,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.461Z",
+    "updated_at": "2025-03-28T17:11:22.461Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 21,
+    "name": "web",
+    "display": "Web",
+    "data_type": "input",
+    "data_option": {
+      "type": "url",
+      "maxlength": 250,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 500,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.329Z",
+    "updated_at": "2025-03-28T17:11:22.329Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 16,
+    "name": "body",
+    "display": "Text",
+    "data_type": "richtext",
+    "data_option": {
+      "type": "richtext",
+      "maxlength": 150000,
+      "upload": true,
+      "rows": 8,
+      "null": true,
+      "bubble_menu": true
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_top": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 600,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.310Z",
+    "updated_at": "2026-03-06T14:58:23.343Z",
+    "internal": true,
+    "object": "TicketArticle",
+    "deletable": false
+  },
+  {
+    "id": 53,
+    "name": "email_address_id",
+    "display": "Sending Email Address",
+    "data_type": "select",
+    "data_option": {
+      "default": "",
+      "multiple": false,
+      "null": true,
+      "relation": "EmailAddress",
+      "nulloption": true,
+      "do_not_log": true,
+      "maxlength": 255,
+      "note": "A group's email address determines which address should be used for outgoing mails, e.g. when an agent is composing an email or a trigger is sending an auto-reply."
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 600,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.465Z",
+    "updated_at": "2025-04-28T08:39:12.803Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 22,
+    "name": "phone",
+    "display": "Phone",
+    "data_type": "input",
+    "data_option": {
+      "type": "tel",
+      "maxlength": 100,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 600,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.332Z",
+    "updated_at": "2025-03-28T17:11:22.332Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 54,
+    "name": "signature_id",
+    "display": "Signature",
+    "data_type": "select",
+    "data_option": {
+      "default": "",
+      "multiple": false,
+      "null": true,
+      "relation": "Signature",
+      "nulloption": true,
+      "do_not_log": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 600,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.469Z",
+    "updated_at": "2025-03-28T17:11:22.469Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 23,
+    "name": "mobile",
+    "display": "Mobile",
+    "data_type": "input",
+    "data_option": {
+      "type": "tel",
+      "maxlength": 100,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 700,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.336Z",
+    "updated_at": "2025-03-28T17:11:22.336Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 24,
+    "name": "fax",
+    "display": "Fax",
+    "data_type": "input",
+    "data_option": {
+      "type": "tel",
+      "maxlength": 100,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 800,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.340Z",
+    "updated_at": "2025-03-28T17:11:22.340Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 25,
+    "name": "organization_id",
+    "display": "Organization",
+    "data_type": "autocompletion_ajax",
+    "data_option": {
+      "multiple": false,
+      "nulloption": true,
+      "null": true,
+      "relation": "Organization",
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 900,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.344Z",
+    "updated_at": "2025-03-28T17:11:22.344Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 11,
+    "name": "tags",
+    "display": "Tags",
+    "data_type": "tag",
+    "data_option": {
+      "type": "text",
+      "null": true,
+      "translate": false
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create_bottom": {
+        "ticket.agent": {
+          "null": true
+        }
+      },
+      "edit": {}
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 900,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.292Z",
+    "updated_at": "2025-03-28T17:11:22.292Z",
+    "internal": true,
+    "object": "Ticket",
+    "deletable": false
+  },
+  {
+    "id": 26,
+    "name": "organization_ids",
+    "display": "Secondary organizations",
+    "data_type": "autocompletion_ajax",
+    "data_option": {
+      "multiple": true,
+      "nulloption": true,
+      "null": true,
+      "relation": "Organization",
+      "item_class": "formGroup--halfSize",
+      "display_limit": 3,
+      "belongs_to": "secondary_organizations"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 901,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.347Z",
+    "updated_at": "2025-03-28T17:11:22.347Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 27,
+    "name": "department",
+    "display": "Department",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 200,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1000,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.351Z",
+    "updated_at": "2025-03-28T17:11:22.351Z",
+    "internal": false,
+    "object": "User",
+    "deletable": true
+  },
+  {
+    "id": 28,
+    "name": "street",
+    "display": "Street",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 100,
+      "null": true
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": false,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1100,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.356Z",
+    "updated_at": "2025-03-28T17:11:22.356Z",
+    "internal": false,
+    "object": "User",
+    "deletable": true
+  },
+  {
+    "id": 29,
+    "name": "zip",
+    "display": "Zip",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 100,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": false,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1200,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.362Z",
+    "updated_at": "2025-03-28T17:11:22.362Z",
+    "internal": false,
+    "object": "User",
+    "deletable": true
+  },
+  {
+    "id": 30,
+    "name": "city",
+    "display": "City",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 100,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": false,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1300,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.368Z",
+    "updated_at": "2025-03-28T17:11:22.368Z",
+    "internal": false,
+    "object": "User",
+    "deletable": true
+  },
+  {
+    "id": 31,
+    "name": "country",
+    "display": "Country",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 100,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": false,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1325,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.375Z",
+    "updated_at": "2025-03-28T17:11:22.375Z",
+    "internal": false,
+    "object": "User",
+    "deletable": true
+  },
+  {
+    "id": 32,
+    "name": "address",
+    "display": "Address",
+    "data_type": "textarea",
+    "data_option": {
+      "type": "text",
+      "maxlength": 500,
+      "rows": 4,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": true,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1350,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.378Z",
+    "updated_at": "2025-03-28T17:11:22.378Z",
+    "internal": false,
+    "object": "User",
+    "deletable": true
+  },
+  {
+    "id": 33,
+    "name": "password",
+    "display": "Password",
+    "data_type": "input",
+    "data_option": {
+      "type": "password",
+      "maxlength": 1001,
+      "null": true,
+      "autocomplete": "new-password",
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "admin.user": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {}
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1400,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.381Z",
+    "updated_at": "2025-03-28T17:11:22.381Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 40,
+    "name": "shared",
+    "display": "Shared organization",
+    "data_type": "boolean",
+    "data_option": {
+      "null": true,
+      "default": true,
+      "note": "Customers in the organization can view each other's items.",
+      "item_class": "formGroup--halfSize",
+      "options": {
+        "true": "yes",
+        "false": "no"
+      },
+      "translate": true,
+      "permission": [
+        "admin.organization"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "ticket.agent": {
+          "shown": true
+        },
+        "ticket.customer": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1400,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.408Z",
+    "updated_at": "2025-03-28T17:11:22.408Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 55,
+    "name": "shared_drafts",
+    "display": "Shared Drafts",
+    "data_type": "active",
+    "data_option": {
+      "null": false,
+      "default": true,
+      "permission": [
+        "admin.group"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1400,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.475Z",
+    "updated_at": "2025-03-28T17:11:22.475Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 41,
+    "name": "domain_assignment",
+    "display": "Domain based assignment",
+    "data_type": "boolean",
+    "data_option": {
+      "null": true,
+      "default": false,
+      "note": "Assign users based on user domain.",
+      "item_class": "formGroup--halfSize",
+      "options": {
+        "true": "yes",
+        "false": "no"
+      },
+      "translate": true,
+      "permission": [
+        "admin.organization"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "ticket.agent": {
+          "shown": true
+        },
+        "ticket.customer": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1410,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.411Z",
+    "updated_at": "2025-03-28T17:11:22.411Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 42,
+    "name": "domain",
+    "display": "Domain",
+    "data_type": "input",
+    "data_option": {
+      "type": "text",
+      "maxlength": 150,
+      "null": true,
+      "item_class": "formGroup--halfSize"
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "ticket.agent": {
+          "shown": true
+        },
+        "ticket.customer": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1420,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.415Z",
+    "updated_at": "2025-03-28T17:11:22.415Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 62,
+    "name": "summary_generation",
+    "display": "Summary Generation",
+    "data_type": "select",
+    "data_option": {
+      "default": "global_default",
+      "options": [
+        {
+          "name": "Use global default",
+          "value": "global_default"
+        },
+        {
+          "name": "On ticket detail opening",
+          "value": "on_ticket_detail_opening"
+        },
+        {
+          "name": "On ticket summary sidebar activation",
+          "value": "on_ticket_summary_sidebar_activation"
+        }
+      ],
+      "nulloption": false,
+      "multiple": false,
+      "null": false,
+      "translate": true,
+      "maxlength": 255
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1450,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2026-03-06T14:58:23.178Z",
+    "updated_at": "2026-03-06T14:58:23.511Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 43,
+    "name": "vip",
+    "display": "VIP",
+    "data_type": "boolean",
+    "data_option": {
+      "null": true,
+      "default": false,
+      "item_class": "formGroup--halfSize",
+      "options": {
+        "false": "no",
+        "true": "yes"
+      },
+      "translate": true,
+      "permission": [
+        "admin.organization"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1450,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.418Z",
+    "updated_at": "2025-03-28T17:11:22.418Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 34,
+    "name": "vip",
+    "display": "VIP",
+    "data_type": "boolean",
+    "data_option": {
+      "null": true,
+      "default": false,
+      "item_class": "formGroup--halfSize",
+      "options": {
+        "false": "no",
+        "true": "yes"
+      },
+      "translate": true,
+      "permission": [
+        "admin.user",
+        "ticket.agent"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1490,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.384Z",
+    "updated_at": "2025-03-28T17:11:22.384Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 44,
+    "name": "note",
+    "display": "Note",
+    "data_type": "richtext",
+    "data_option": {
+      "type": "richtext",
+      "maxlength": 5000,
+      "no_images": true,
+      "null": true,
+      "note": "Notes are visible to agents only, never to customers."
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "ticket.agent": {
+          "shown": true
+        },
+        "ticket.customer": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1500,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.421Z",
+    "updated_at": "2026-03-06T14:58:23.505Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 35,
+    "name": "note",
+    "display": "Note",
+    "data_type": "richtext",
+    "data_option": {
+      "type": "richtext",
+      "maxlength": 5000,
+      "no_images": true,
+      "null": true,
+      "note": "Notes are visible to agents only, never to customers."
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1500,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.388Z",
+    "updated_at": "2026-03-06T14:58:23.502Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 56,
+    "name": "note",
+    "display": "Note",
+    "data_type": "richtext",
+    "data_option": {
+      "type": "richtext",
+      "maxlength": 250,
+      "no_images": true,
+      "null": true,
+      "note": "Notes are visible to agents only, never to customers."
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": true
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1500,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.478Z",
+    "updated_at": "2026-03-06T14:58:23.506Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 36,
+    "name": "role_ids",
+    "display": "Roles",
+    "data_type": "user_permission",
+    "data_option": {
+      "relation": "Role",
+      "null": false,
+      "item_class": "checkbox",
+      "permission": [
+        "admin.user"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {
+        "-all-": {
+          "null": false,
+          "default": [
+            2
+          ]
+        }
+      },
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1600,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.391Z",
+    "updated_at": "2025-03-28T17:11:22.391Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 37,
+    "name": "group_ids",
+    "display": "Group permissions",
+    "data_type": "group_permissions",
+    "data_option": {
+      "null": false,
+      "item_class": "checkbox",
+      "permission": [
+        "admin.user"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1700,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.396Z",
+    "updated_at": "2025-03-28T17:11:22.396Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  },
+  {
+    "id": 57,
+    "name": "active",
+    "display": "Active",
+    "data_type": "active",
+    "data_option": {
+      "null": true,
+      "default": true,
+      "permission": [
+        "admin.group"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "create": {
+        "-all-": {
+          "null": true
+        }
+      },
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1800,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.481Z",
+    "updated_at": "2025-03-28T17:11:22.481Z",
+    "internal": true,
+    "object": "Group",
+    "deletable": false
+  },
+  {
+    "id": 45,
+    "name": "active",
+    "display": "Active",
+    "data_type": "active",
+    "data_option": {
+      "null": true,
+      "default": true,
+      "permission": [
+        "admin.organization"
+      ]
+    },
+    "DATA_OPTION_NEW": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "ticket.agent": {
+          "shown": false
+        },
+        "ticket.customer": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1800,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.424Z",
+    "updated_at": "2025-03-28T17:11:22.424Z",
+    "internal": true,
+    "object": "Organization",
+    "deletable": false
+  },
+  {
+    "id": 38,
+    "name": "active",
+    "display": "Active",
+    "data_type": "active",
+    "data_option": {
+      "null": true,
+      "default": true,
+      "permission": [
+        "admin.user",
+        "ticket.agent"
+      ]
+    },
+    "data_option_new": {},
+    "editable": false,
+    "active": true,
+    "screens": {
+      "signup": {},
+      "invite_agent": {},
+      "invite_customer": {},
+      "edit": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "create": {
+        "-all-": {
+          "null": false
+        }
+      },
+      "view": {
+        "-all-": {
+          "shown": false
+        }
+      }
+    },
+    "to_create": false,
+    "to_migrate": false,
+    "to_delete": false,
+    "to_config": false,
+    "position": 1800,
+    "created_by_id": 1,
+    "updated_by_id": 1,
+    "created_at": "2025-03-28T17:11:22.399Z",
+    "updated_at": "2025-03-28T17:11:22.399Z",
+    "internal": true,
+    "object": "User",
+    "deletable": false
+  }
+]

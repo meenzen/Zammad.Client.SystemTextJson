@@ -1,0 +1,38 @@
+{
+  "name": "sample_boolean",
+  "object": "Ticket",
+  "display": "Sample Boolean",
+  "active": true,
+  "position": 1550,
+  "data_type": "boolean",
+  "data_option": {
+    "options": {
+      "true": "very correct indeed",
+      "false": "very incorrect indeed"
+    }
+  },
+  "screens": {
+    "create_middle": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      }
+    },
+    "edit": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": true
+      }
+    }
+  }
+}

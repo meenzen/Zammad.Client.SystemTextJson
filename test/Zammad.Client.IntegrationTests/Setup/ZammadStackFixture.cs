@@ -1,6 +1,7 @@
 using System.Text;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
+using DotNet.Testcontainers.Containers;
 using Microsoft.Extensions.Options;
 using Testcontainers.Elasticsearch;
 using Testcontainers.PostgreSql;
@@ -20,6 +21,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
     private const string AutowizardFilename = "auto_wizard_integration_test.json";
 
     private readonly List<IAsyncDisposable> _resources = [];
+    private readonly List<IContainer> _zammadContainers = [];
 
     private async Task<string> GetAutowizardJson()
     {
@@ -227,6 +229,8 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
             zammadWebsocket.StartAsync(),
         ]);
 
+        _zammadContainers.AddRange([zammadRailsserver, zammadScheduler, zammadWebsocket]);
+
         var exitCode = await zammadInit.GetExitCodeAsync();
         if (exitCode != 0)
         {
@@ -236,6 +240,20 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
         _publicPort = zammadNginx.GetMappedPublicPort(8080);
         _client = GetClient(GetUri(_publicPort.Value));
 
+        await WaitForHealthcheck();
+
+        SetReady();
+    }
+
+    public async Task RestartAsync()
+    {
+        await Task.WhenAll(_zammadContainers.Select(c => c.StopAsync()));
+        await Task.WhenAll(_zammadContainers.Select(c => c.StartAsync()));
+        await WaitForHealthcheck();
+    }
+
+    private async Task WaitForHealthcheck()
+    {
         TimeSpan timeout = TimeSpan.FromMinutes(1);
         var start = DateTimeOffset.UtcNow;
 
@@ -243,21 +261,24 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
         {
             try
             {
-                await _client.GetUserMeAsync();
-                break;
-            }
-            catch (Exception e)
-            {
-                if (DateTimeOffset.UtcNow - start > timeout)
+                var result = await _client!.HealthCheckAsync();
+                if (result.Healthy)
                 {
-                    throw new TimeoutException("Timed out waiting for Zammad to become ready.", e);
+                    break;
                 }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            if (DateTimeOffset.UtcNow - start > timeout)
+            {
+                throw new TimeoutException("Timed out waiting for Zammad to become ready.");
             }
 
             await Task.Delay(1000);
         }
-
-        SetReady();
     }
 
     public async ValueTask DisposeAsync()

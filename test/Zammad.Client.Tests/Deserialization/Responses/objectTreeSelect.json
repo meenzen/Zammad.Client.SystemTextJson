@@ -1,0 +1,84 @@
+{
+  "name": "sample_treeselect",
+  "object": "Ticket",
+  "display": "Sample Tree Select",
+  "active": true,
+  "position": 1550,
+  "data_type": "tree_select",
+  "data_option": {
+    "options": [
+      {
+        "name": "row one - maximum child depth",
+        "value": "row one - maximum child depth",
+        "children": [
+          {
+            "name": "row one child level one",
+            "value": "row one - maximum child depth::row one child level one",
+            "children": [
+              {
+                "name": "row one child level two",
+                "value": "row one - maximum child depth::row one child level one::row one child level two",
+                "children": [
+                  {
+                    "name": "row one child level three",
+                    "value": "row one - maximum child depth::row one child level one::row one child level two::row one child level three",
+                    "children": [
+                      {
+                        "name": "row one child level four",
+                        "value": "row one - maximum child depth::row one child level one::row one child level two::row one child level three::row one child level four",
+                        "children": [
+                          {
+                            "name": "row one child level fize",
+                            "value": "row one - maximum child depth::row one child level one::row one child level two::row one child level three::row one child level four::row one child level fize"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "row two - no childs",
+        "value": "row two - no childs"
+      },
+      {
+        "name": "row three - one child",
+        "value": "row three - one child",
+        "children": [
+          {
+            "name": "row three - first and only child",
+            "value": "row three - one child::row three - first and only child"
+          }
+        ]
+      }
+    ]
+  },
+  "screens": {
+    "create_middle": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      }
+    },
+    "edit": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": true
+      }
+    }
+  }
+}

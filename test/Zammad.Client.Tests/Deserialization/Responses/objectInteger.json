@@ -1,0 +1,37 @@
+{
+  "name": "sample_integer",
+  "object": "Ticket",
+  "display": "Sample Integer",
+  "active": true,
+  "position": 1550,
+  "data_type": "integer",
+  "data_option": {
+    "default": 1234,
+    "min": 4,
+    "max": 8
+  },
+  "screens": {
+    "create_middle": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": false,
+        "item_class": "column"
+      }
+    },
+    "edit": {
+      "ticket.customer": {
+        "shown": true,
+        "required": false
+      },
+      "ticket.agent": {
+        "shown": true,
+        "required": true
+      }
+    }
+  }
+}

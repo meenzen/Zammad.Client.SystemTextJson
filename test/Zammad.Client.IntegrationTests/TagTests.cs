@@ -12,6 +12,7 @@ public class TagTests(ZammadStackFixture zammadStack)
     private static TicketId? CreatedTicketId { get; set; }
 
     [Test]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task CreateTicketForTags()
     {
         var client = await zammadStack.GetClientAsync();
@@ -42,7 +43,7 @@ public class TagTests(ZammadStackFixture zammadStack)
     {
         await Assert.That(CreatedTicketId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
-        var result = await client.AddTagAsync("Ticket", new ObjectId(CreatedTicketId.Value.Value), TagName);
+        var result = await client.AddTagAsync(ObjectType.Ticket, CreatedTicketId.Value.ToTargetObjectId(), TagName);
         await Assert.That(result).IsTrue();
     }
 
@@ -52,7 +53,7 @@ public class TagTests(ZammadStackFixture zammadStack)
     {
         await Assert.That(CreatedTicketId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
-        var tagList = await client.ListTagsAsync("Ticket", new ObjectId(CreatedTicketId.Value.Value));
+        var tagList = await client.ListTagsAsync(ObjectType.Ticket, CreatedTicketId.Value.ToTargetObjectId());
         await Assert.That(tagList).IsNotEmpty();
         await Assert.That(tagList).Contains(TagName);
     }
@@ -62,14 +63,14 @@ public class TagTests(ZammadStackFixture zammadStack)
     public async Task RemoveTag()
     {
         await Assert.That(CreatedTicketId).IsNotNull();
-        var objectId = new ObjectId(CreatedTicketId.Value.Value);
+        var objectId = CreatedTicketId.Value.ToTargetObjectId();
 
         var client = await zammadStack.GetClientAsync();
-        var result = await client.RemoveTagAsync("Ticket", objectId, TagName);
+        var result = await client.RemoveTagAsync(ObjectType.Ticket, objectId, TagName);
         await Assert.That(result).IsTrue();
 
         await Assert.That(CreatedTicketId).IsNotNull();
-        var tagList = await client.ListTagsAsync("Ticket", objectId);
+        var tagList = await client.ListTagsAsync(ObjectType.Ticket, objectId);
         await Assert.That(tagList).DoesNotContain(TagName);
     }
 }
