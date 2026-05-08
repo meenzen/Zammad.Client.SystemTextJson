@@ -33,6 +33,9 @@ public static class TargetObjectIdExtensions
 public partial struct ObjectLookupId;
 
 [StronglyTypedId]
+public partial struct TypeLookupId;
+
+[StronglyTypedId]
 public partial struct NotificationId;
 
 [StronglyTypedId]

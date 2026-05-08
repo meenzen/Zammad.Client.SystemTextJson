@@ -10,11 +10,23 @@ public sealed class OnlineNotification
     [JsonPropertyName("o_id")]
     public TargetObjectId? ObjectId { get; set; }
 
+    [JsonPropertyName("object_lookup_id")]
+    public ObjectLookupId? ObjectLookupId { get; set; }
+
     [JsonPropertyName("object")]
     public ObjectType? ObjectType { get; set; }
 
     [JsonPropertyName("type")]
     public string? Type { get; set; }
+
+    [JsonPropertyName("type_lookup_id")]
+    public TypeLookupId? TypeLookupId { get; set; }
+
+    [JsonPropertyName("user_id")]
+    public UserId? UserId { get; set; }
+
+    [JsonPropertyName("user")]
+    public string? User { get; set; }
 
     [JsonPropertyName("seen")]
     public bool? Seen { get; set; }
@@ -30,4 +42,10 @@ public sealed class OnlineNotification
 
     [JsonPropertyName("updated_at")]
     public DateTimeOffset? UpdatedAt { get; set; }
+
+    [JsonPropertyName("created_by")]
+    public string? CreatedBy { get; set; }
+
+    [JsonPropertyName("updated_by")]
+    public string? UpdatedBy { get; set; }
 }
