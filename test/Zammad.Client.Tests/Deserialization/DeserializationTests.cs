@@ -40,6 +40,8 @@ public class DeserializationTests
     [Arguments(typeof(Object), "objectText.json")]
     [Arguments(typeof(Object), "objectTreeSelect.json")]
     [Arguments(typeof(HealthCheckResult), "healthCheck.json")]
+    [Arguments(typeof(OnlineNotification), "notification.json")]
+    [Arguments(typeof(List<OnlineNotification>), "notifications.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var options = Serialization.GetOptions();
