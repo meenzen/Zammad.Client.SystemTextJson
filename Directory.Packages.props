@@ -33,6 +33,6 @@
     <PackageVersion Include="Testcontainers.Elasticsearch" Version="4.13.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.13.0" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.13.0" />
-    <PackageVersion Include="TUnit" Version="1.61.35" />
+    <PackageVersion Include="TUnit" Version="1.61.38" />
   </ItemGroup>
 </Project>
