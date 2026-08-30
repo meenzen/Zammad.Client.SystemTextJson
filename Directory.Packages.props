@@ -26,6 +26,7 @@
     <PackageVersion Include="Riok.Mapperly" Version="4.3.1" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.31.0.145097" />
+    <PackageVersion Include="SSH.NET" Version="2026.0.0" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="System.Net.Http.Json" Version="10.0.10" />
     <PackageVersion Include="System.Text.Json" Version="10.0.10" />
