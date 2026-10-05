@@ -127,3 +127,27 @@ public partial struct TemplateId;
 
 [StronglyTypedId]
 public partial struct TextModuleId;
+
+[StronglyTypedId]
+public partial struct TriggerId;
+
+/// <summary>
+/// ID of a scheduler (<c>Job</c> in Zammad's API).
+/// </summary>
+[StronglyTypedId]
+public partial struct JobId;
+
+[StronglyTypedId]
+public partial struct WebhookId;
+
+[StronglyTypedId]
+public partial struct CoreWorkflowId;
+
+[StronglyTypedId]
+public partial struct SlaId;
+
+[StronglyTypedId]
+public partial struct CalendarId;
+
+[StronglyTypedId]
+public partial struct PostmasterFilterId;

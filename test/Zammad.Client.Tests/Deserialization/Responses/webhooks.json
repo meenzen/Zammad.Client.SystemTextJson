@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "rec webhook ocjfcoof",
+    "endpoint": "http://127.0.0.1:9/hook",
+    "http_method": "post",
+    "signature_token": "**********",
+    "ssl_verify": true,
+    "basic_auth_username": "u",
+    "basic_auth_password": "**********",
+    "bearer_token": "**********",
+    "note": "n",
+    "pre_defined_webhook_type": null,
+    "customized_payload": false,
+    "custom_payload": null,
+    "preferences": {},
+    "active": false,
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:23:57.916Z",
+    "updated_at": "2026-10-05T15:23:57.916Z"
+  },
+  {
+    "id": 2,
+    "name": "rec webhook slack ocjfcoof",
+    "endpoint": "http://127.0.0.1:9/slack",
+    "http_method": "post",
+    "signature_token": null,
+    "ssl_verify": true,
+    "basic_auth_username": null,
+    "basic_auth_password": null,
+    "bearer_token": null,
+    "note": null,
+    "pre_defined_webhook_type": "Mattermost",
+    "customized_payload": false,
+    "custom_payload": null,
+    "preferences": {
+      "pre_defined_webhook": {
+        "messaging_username": "bot"
+      }
+    },
+    "active": false,
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:23:58.018Z",
+    "updated_at": "2026-10-05T15:23:58.018Z"
+  }
+]
