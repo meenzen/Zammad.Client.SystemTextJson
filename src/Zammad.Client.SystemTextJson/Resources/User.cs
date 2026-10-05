@@ -93,7 +93,7 @@ public sealed class User : IHasCustomFields
     public UserId? OutOfOfficeReplacementId { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object>? Preferences { get; set; }
+    public Dictionary<string, JsonElement>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }

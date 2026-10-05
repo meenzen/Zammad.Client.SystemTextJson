@@ -47,13 +47,13 @@ public class TicketAccountingTests(ZammadStackFixture zammadStack)
 
         var accounting = await client.CreateTicketAccountingAsync(
             TestTicketId,
-            new TicketAccounting { TimeUnit = "60.0" }
+            new TicketAccounting { TimeUnit = 60m }
         );
 
         await Assert.That(accounting).IsNotNull();
         await Assert.That(accounting.Id).IsNotEqualTo(TimeAccountingId.Empty);
         await Assert.That(accounting.TicketId).IsEqualTo(TestTicketId);
-        await Assert.That(accounting.TimeUnit).IsEqualTo("60.0");
+        await Assert.That(accounting.TimeUnit).IsEqualTo(60m);
 
         TestAccountingId = accounting.Id;
     }
@@ -81,7 +81,7 @@ public class TicketAccountingTests(ZammadStackFixture zammadStack)
         await Assert.That(accounting).IsNotNull();
         await Assert.That(accounting!.Id).IsEqualTo(TestAccountingId);
         await Assert.That(accounting.TicketId).IsEqualTo(TestTicketId);
-        await Assert.That(accounting.TimeUnit).IsEqualTo("60.0");
+        await Assert.That(accounting.TimeUnit).IsEqualTo(60m);
     }
 
     [Test]
@@ -94,12 +94,12 @@ public class TicketAccountingTests(ZammadStackFixture zammadStack)
         var updated = await client.UpdateTicketAccountingAsync(
             TestTicketId,
             TestAccountingId,
-            new TicketAccounting { TimeUnit = "30.0" }
+            new TicketAccounting { TimeUnit = 30m }
         );
 
         await Assert.That(updated).IsNotNull();
         await Assert.That(updated.Id).IsEqualTo(TestAccountingId);
-        await Assert.That(updated.TimeUnit).IsEqualTo("30.0");
+        await Assert.That(updated.TimeUnit).IsEqualTo(30m);
     }
 
     [Test]

@@ -8,7 +8,7 @@ public interface IMonitoringService
     Task<HealthCheckResult> HealthCheckAsync();
 }
 
-public sealed partial class ZammadClient : IUserService
+public sealed partial class ZammadClient : IMonitoringService
 {
     private const string MonitoringEndpoint = "/api/v1/monitoring";
 

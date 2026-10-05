@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
@@ -23,7 +24,7 @@ public sealed class TicketAttachment
     public string? MimeType { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object>? Preferences { get; set; }
+    public Dictionary<string, JsonElement>? Preferences { get; set; }
 
     public static TicketAttachment CreateFromFile(string fileName, string mimeType)
     {

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
@@ -56,7 +57,8 @@ public sealed class TicketArticle
     public string? DetectedLanguage { get; set; }
 
     [JsonPropertyName("time_unit")]
-    public string? TimeUnit { get; set; }
+    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
+    public decimal? TimeUnit { get; set; }
 
     [JsonPropertyName("ai_stored_result_ids")]
     public List<AIStoredResultId>? AIStoredResultIds { get; set; }
@@ -65,7 +67,7 @@ public sealed class TicketArticle
     public bool? BodyRenderingError { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object>? Preferences { get; set; }
+    public Dictionary<string, JsonElement>? Preferences { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }

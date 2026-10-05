@@ -14,7 +14,8 @@ public sealed class TicketAccounting
     public ArticleId? TicketArticleId { get; set; }
 
     [JsonPropertyName("time_unit")]
-    public string? TimeUnit { get; set; }
+    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
+    public decimal? TimeUnit { get; set; }
 
     [JsonPropertyName("type_id")]
     public TimeAccountingTypeId? TypeId { get; set; }

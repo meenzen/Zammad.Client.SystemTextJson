@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
@@ -29,7 +30,7 @@ public sealed class EmailAddress
     public string? Note { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object>? Preferences { get; set; }
+    public Dictionary<string, JsonElement>? Preferences { get; set; }
 
     [JsonPropertyName("group_ids")]
     public List<GroupId>? GroupIds { get; set; }
