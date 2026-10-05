@@ -10,6 +10,9 @@ public sealed class TicketArticle
     [JsonPropertyName("ticket_id")]
     public TicketId? TicketId { get; set; }
 
+    [JsonPropertyName("type_id")]
+    public ArticleTypeId? TypeId { get; set; }
+
     [JsonPropertyName("sender_id")]
     public UserId? SenderId { get; set; }
 
@@ -49,6 +52,15 @@ public sealed class TicketArticle
     [JsonPropertyName("internal")]
     public bool? Internal { get; set; }
 
+    [JsonPropertyName("detected_language")]
+    public string? DetectedLanguage { get; set; }
+
+    [JsonPropertyName("time_unit")]
+    public string? TimeUnit { get; set; }
+
+    [JsonPropertyName("ai_stored_result_ids")]
+    public List<AIStoredResultId>? AIStoredResultIds { get; set; }
+
     [JsonPropertyName("body_rendering_error")]
     public bool? BodyRenderingError { get; set; }
 
@@ -78,6 +90,9 @@ public sealed class TicketArticle
 
     [JsonPropertyName("sender")]
     public string? Sender { get; set; }
+
+    [JsonPropertyName("ai_stored_results")]
+    public List<string>? AIStoredResults { get; set; }
 
     [JsonPropertyName("created_by")]
     public string? CreatedBy { get; set; }

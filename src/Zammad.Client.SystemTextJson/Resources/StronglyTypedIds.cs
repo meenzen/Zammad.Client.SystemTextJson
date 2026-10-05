@@ -85,3 +85,6 @@ public partial struct TimeAccountingId;
 
 [StronglyTypedId]
 public partial struct TimeAccountingTypeId;
+
+[StronglyTypedId]
+public partial struct AIStoredResultId;

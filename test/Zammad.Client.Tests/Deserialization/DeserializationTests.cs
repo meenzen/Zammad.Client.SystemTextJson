@@ -54,6 +54,11 @@ public class DeserializationTests
     [Arguments(typeof(List<Group>), "groups.json")]
     [Arguments(typeof(TicketState), "ticketState.json")]
     [Arguments(typeof(List<TicketState>), "ticketStates.json")]
+    [Arguments(typeof(TicketPriority), "ticketPriority.json")]
+    [Arguments(typeof(List<TicketPriority>), "ticketPriorities.json")]
+    [Arguments(typeof(TicketArticle), "ticketArticle.json")]
+    [Arguments(typeof(TicketArticle), "ticketArticleWithAttachment.json")]
+    [Arguments(typeof(List<TicketArticle>), "ticketArticles.json")]
     [Arguments(typeof(List<Tag>), "tagList.json")]
     [Arguments(typeof(List<TagSearchResult>), "tagSearch.json")]
     public async Task CanDeserialize(Type type, string fileName)

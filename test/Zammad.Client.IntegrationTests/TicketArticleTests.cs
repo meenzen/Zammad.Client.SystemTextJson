@@ -120,6 +120,8 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
         await Assert.That(article!.Id).IsEqualTo(TestArticleId);
         await Assert.That(article.TicketId).IsEqualTo(TestTicketId);
         await Assert.That(article.Subject).IsEqualTo("Test Article " + Id);
+        await Assert.That(article.Type).IsEqualTo("note");
+        await Assert.That(article.TypeId).IsNotNull();
     }
 
     [Test]
