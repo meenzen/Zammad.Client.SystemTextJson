@@ -25,6 +25,9 @@ public sealed class TicketState
     [JsonPropertyName("default_follow_up")]
     public bool? DefaultFollowUp { get; set; }
 
+    [JsonPropertyName("default_close")]
+    public bool? DefaultClose { get; set; }
+
     [JsonPropertyName("note")]
     public string? Note { get; set; }
 

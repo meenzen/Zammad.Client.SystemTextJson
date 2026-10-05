@@ -11,10 +11,10 @@ using Zammad.Client.IntegrationTests.Infrastructure;
 
 namespace Zammad.Client.IntegrationTests.Setup;
 
-// Based on https://github.com/zammad/zammad-docker-compose/blob/cb03095125f7adce0e0936e1364477f1ad77f550/docker-compose.yml
+// Based on https://github.com/zammad/zammad-docker-compose/blob/bbab857e65884357837f8866c437c47bb4709a3f/docker-compose.yml
 public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndEventReceiver
 {
-    private const string ZammadImage = "ghcr.io/zammad/zammad:7.0.1";
+    private const string ZammadImage = "ghcr.io/zammad/zammad:7.2.0";
     private const string ZammadEntrypoint = "/docker-entrypoint-override";
     private const string ZammadStorage = "/opt/zammad/storage";
     private const string EntrypointFinished = "Zammad entrypoint script finished";
@@ -102,44 +102,61 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             ["ZAMMAD_WEBSOCKET_HOST"] = $"zammad-websocket-{id}",
             ["AUTOWIZARD_JSON"] = await GetAutowizardJson(),
             ["AUTOWIZARD_RELATIVE_PATH"] = AutowizardFilename,
+            // write notification emails to files instead of sending them, see Setup/docker-entrypoint
+            ["ZAMMAD_MAIL_TO_FILE"] = "1",
         };
 
-        var network = new NetworkBuilder().WithName($"zammad-{id}").WithCleanUp(true).Build();
+        // The stack runs on an internal network without access to the internet, so Zammad can't send emails or reach
+        // external services (avatar lookups, geo IP, ...). Docker doesn't publish ports of containers that are only
+        // attached to internal networks, so the containers with port bindings (nginx, and Elasticsearch, Postgres and
+        // Redis, whose Testcontainers modules always bind a port) are also attached to a regular network.
+        var network = new NetworkBuilder()
+            .WithName($"zammad-{id}")
+            .WithCreateParameterModifier(x => x.Internal = true)
+            .WithCleanUp(true)
+            .Build();
         _resources.Add(network);
+
+        var publicNetwork = new NetworkBuilder().WithName($"zammad-{id}-public").WithCleanUp(true).Build();
+        _resources.Add(publicNetwork);
 
         var storage = new VolumeBuilder().WithName($"zammad-{id}").WithCleanUp(true).WithReuse(false).Build();
         _resources.Add(storage);
 
-        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:9.3.4")
+        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:9.5.3")
             .WithEnvironment("discovery.type", "single-node")
             .WithEnvironment("xpack.security.enabled", "false")
             .WithEnvironment("xpack.security.http.ssl.enabled", "false")
             .WithEnvironment("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
+            .WithEnvironment("ingest.geoip.downloader.enabled", "false")
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithName($"zammad-elasticsearch-{id}")
             .WithCleanUp(true)
             .Build();
         _resources.Add(zammadElasticsearch);
 
-        var zammadPostgres = new PostgreSqlBuilder("postgres:17.9-alpine")
+        var zammadPostgres = new PostgreSqlBuilder("postgres:17.11-alpine")
             .WithDatabase("zammad_production")
             .WithUsername("zammad")
             .WithPassword("zammad")
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithName($"zammad-postgres-{id}")
             .WithCleanUp(true)
             .WithReuse(false)
             .Build();
         _resources.Add(zammadPostgres);
 
-        var zammadRedis = new RedisBuilder("redis:8.6.2-alpine")
+        var zammadRedis = new RedisBuilder("redis:8.10.2-alpine")
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithName($"zammad-redis-{id}")
             .WithCleanUp(true)
             .Build();
         _resources.Add(zammadRedis);
 
-        var zammadMemcached = new ContainerBuilder("memcached:1.6.41-alpine")
+        var zammadMemcached = new ContainerBuilder("memcached:1.6.45-alpine")
             .WithName($"zammad-memcached-{id}")
             .WithCommand("--memory-limit=64")
             .WithWaitStrategy(Wait.ForUnixContainer().UntilInternalTcpPortIsAvailable(11211))
@@ -189,6 +206,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             .DependsOn(zammadRailsserver)
             .WithEnvironment(environment)
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithExposedPort(8080)
             .WithPortBinding(8080, true)
             .WithWaitStrategy(Wait.ForUnixContainer().UntilInternalTcpPortIsAvailable(8080))
@@ -223,7 +241,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             .Build();
         _resources.Add(zammadWebsocket);
 
-        await Task.WhenAll([network.CreateAsync(), storage.CreateAsync()]);
+        await Task.WhenAll([network.CreateAsync(), publicNetwork.CreateAsync(), storage.CreateAsync()]);
 
         await Task.WhenAll([
             zammadElasticsearch.StartAsync(),
@@ -268,6 +286,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
     {
         TimeSpan timeout = TimeSpan.FromMinutes(1);
         var start = DateTimeOffset.UtcNow;
+        string? lastState = null;
 
         while (true)
         {
@@ -278,15 +297,17 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
                 {
                     break;
                 }
+
+                lastState = result.Message;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+                lastState = e.Message;
             }
 
             if (DateTimeOffset.UtcNow - start > timeout)
             {
-                throw new TimeoutException("Timed out waiting for Zammad to become ready.");
+                throw new TimeoutException($"Timed out waiting for Zammad to become ready. Last state: {lastState}");
             }
 
             await Task.Delay(1000);

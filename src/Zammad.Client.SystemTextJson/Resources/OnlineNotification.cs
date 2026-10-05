@@ -31,6 +31,9 @@ public sealed class OnlineNotification
     [JsonPropertyName("seen")]
     public bool? Seen { get; set; }
 
+    [JsonPropertyName("meta")]
+    public IDictionary<string, object>? Meta { get; set; }
+
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }
 

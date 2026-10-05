@@ -10,6 +10,11 @@ A hard fork of [Zammad.Client](https://github.com/S3bt3r/Zammad.Client) with sup
 
 This library provides a .NET client for interacting with the [Zammad](https://zammad.org/) helpdesk system API.
 
+## Compatibility
+
+The integration tests run against **Zammad 7.2.0** (`ghcr.io/zammad/zammad:7.2.0`). Other versions usually work as
+long as the REST API hasn't changed, but they aren't tested.
+
 ## Installation
 
 ```bash
