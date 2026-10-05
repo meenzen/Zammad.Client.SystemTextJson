@@ -76,6 +76,11 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   (`TestSetup.RandomString()`). Never assert on global counts.
 - Tests within a class are chained with `[DependsOn]` and pass IDs through `static` properties (create → get → update →
   delete). If one step fails, its dependents are skipped.
+- **Object manager migrations stop the stack.** After a migration that changes columns, Zammad (`auto_shutdown`) makes
+  the railsserver, scheduler and websocket processes exit, and the containers have no restart policy.
+  `ObjectTests.ExecuteMigration` is the only test that migrates and calls `zammadStack.RestartAsync()`. Tests that need
+  new attributes create them in a step that `ExecuteMigration` depends on (see `CustomFieldTests.CreateAttributes`) and
+  depend on `ExecuteMigration` themselves, so the stack restarts once per run.
 - "Skipped due to failed dependencies" on the `OnlineNotification` tests is expected: `CreateOnlineNotification` is
   skipped on purpose because there's no reliable way to trigger a notification.
 - `Setup/docker-entrypoint` is a patched copy of Zammad's `bin/docker-entrypoint` for the pinned image version. It runs

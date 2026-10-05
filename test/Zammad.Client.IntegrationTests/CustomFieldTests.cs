@@ -9,6 +9,9 @@ namespace Zammad.Client.IntegrationTests;
 /// <summary>
 /// Custom attributes created in the object manager are read and written through <see cref="CustomFieldExtensions"/>.
 /// </summary>
+/// <remarks>
+/// The attributes are migrated by <see cref="ObjectTests.ExecuteMigration"/>, so the stack only restarts once.
+/// </remarks>
 [ClassDataSource<ZammadStackFixture>(Shared = SharedType.PerAssembly)]
 public class CustomFieldTests(ZammadStackFixture zammadStack)
 {
@@ -92,21 +95,7 @@ public class CustomFieldTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateAttributes))]
-    [NotInParallel]
-    public async Task ExecuteMigration()
-    {
-        var client = await zammadStack.GetClientAsync();
-
-        var result = await client.ExecuteMigrationAsync();
-        await Assert.That(result).IsTrue();
-
-        // Only the process that ran the migration knows about the new columns, restart to reload the schema everywhere.
-        await Task.Delay(TimeSpan.FromSeconds(10));
-        await zammadStack.RestartAsync();
-    }
-
-    [Test]
-    [DependsOn(nameof(ExecuteMigration))]
+    [DependsOn(typeof(ObjectTests), nameof(ObjectTests.ExecuteMigration))]
     [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task CreateTicketWithCustomFields()
     {
@@ -206,7 +195,8 @@ public class CustomFieldTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(ExecuteMigration))]
+    [DependsOn(nameof(CreateAttributes))]
+    [DependsOn(typeof(ObjectTests), nameof(ObjectTests.ExecuteMigration))]
     [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task CreateUserWithCustomField()
     {
@@ -245,7 +235,8 @@ public class CustomFieldTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [DependsOn(nameof(ExecuteMigration))]
+    [DependsOn(nameof(CreateAttributes))]
+    [DependsOn(typeof(ObjectTests), nameof(ObjectTests.ExecuteMigration))]
     [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
     public async Task CreateOrganizationWithCustomField()
     {

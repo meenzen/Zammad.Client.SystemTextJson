@@ -97,6 +97,8 @@ public class ObjectTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(CreateObject))]
+    // Migrates the attributes of other test classes too, see AGENTS.md
+    [DependsOn(typeof(CustomFieldTests), nameof(CustomFieldTests.CreateAttributes))]
     [NotInParallel]
     public async Task ExecuteMigration()
     {
@@ -105,6 +107,8 @@ public class ObjectTests(ZammadStackFixture zammadStack)
         var result = await client.ExecuteMigrationAsync();
         await Assert.That(result).IsTrue();
 
+        // Zammad (auto_shutdown) stops railsserver, scheduler and websocket a few seconds after a migration that changed
+        // columns. The containers have no restart policy, so start them again.
         await Task.Delay(TimeSpan.FromSeconds(10));
         await zammadStack.RestartAsync();
     }
