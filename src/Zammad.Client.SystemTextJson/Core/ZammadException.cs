@@ -13,12 +13,22 @@ public sealed class ZammadException : Exception
         : this(request, response, null) { }
 
     public ZammadException(HttpRequestMessage request, HttpResponseMessage response, string? content)
-        : base(BuildMessage(request, response, content))
+        : this(request, response, content, null) { }
+
+    /// <summary>
+    /// For responses that report an error in another field than <c>error_human</c>/<c>error</c>, e.g. the
+    /// <c>{"result": "failed", "message": "..."}</c> that some endpoints return with 200 OK.
+    /// </summary>
+    internal ZammadException(HttpRequestMessage request, HttpResponseMessage response, string? content, string? error)
+        : base(BuildMessage(request, response, content, error))
     {
         Request = request;
         Response = response;
         Content = content;
+        _error = error;
     }
+
+    private readonly string? _error;
 
     public HttpRequestMessage Request { get; }
     public HttpResponseMessage Response { get; }
@@ -32,14 +42,23 @@ public sealed class ZammadException : Exception
     /// <summary>
     /// The error message returned by Zammad (<c>error_human</c> or <c>error</c> field), if present.
     /// </summary>
-    public string? Error => ParseError(Content);
+    /// <remarks>
+    /// For endpoints that report failures with 200 OK and a <c>message</c> field instead (ticket merge), this is that
+    /// message.
+    /// </remarks>
+    public string? Error => _error ?? ParseError(Content);
 
-    private static string BuildMessage(HttpRequestMessage request, HttpResponseMessage response, string? content)
+    private static string BuildMessage(
+        HttpRequestMessage request,
+        HttpResponseMessage response,
+        string? content,
+        string? error
+    )
     {
         var message =
             $"{request.Method} {request.RequestUri?.AbsolutePath} failed with {(int)response.StatusCode} {response.ReasonPhrase}";
 
-        if ((ParseError(content) ?? content) is not { } detail || string.IsNullOrWhiteSpace(detail))
+        if ((error ?? ParseError(content) ?? content) is not { } detail || string.IsNullOrWhiteSpace(detail))
         {
             return message;
         }

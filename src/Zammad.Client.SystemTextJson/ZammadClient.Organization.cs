@@ -12,6 +12,15 @@ public interface IOrganizationService
     Task<Organization> CreateOrganizationAsync(Organization organization);
     Task<Organization> UpdateOrganizationAsync(OrganizationId id, Organization organization);
     Task DeleteOrganizationAsync(OrganizationId id);
+
+    /// <summary>
+    /// Gets the history of an organization.
+    /// </summary>
+    /// <remarks>
+    /// Needs the <c>ticket.agent</c> or <c>admin.organization</c> permission. Returns <c>null</c> if the organization
+    /// doesn't exist.
+    /// </remarks>
+    Task<HistoryList?> GetOrganizationHistoryAsync(OrganizationId id);
 }
 
 public sealed partial class ZammadClient : IOrganizationService
@@ -46,4 +55,7 @@ public sealed partial class ZammadClient : IOrganizationService
 
     public async Task DeleteOrganizationAsync(OrganizationId id) =>
         await DeleteAsync<bool>($"{OrganizationsEndpoint}/{id}");
+
+    public async Task<HistoryList?> GetOrganizationHistoryAsync(OrganizationId id) =>
+        await GetAsync<HistoryList>($"{OrganizationsEndpoint}/history/{id}");
 }

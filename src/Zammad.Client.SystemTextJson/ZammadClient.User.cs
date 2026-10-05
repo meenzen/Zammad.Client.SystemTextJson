@@ -36,6 +36,14 @@ public interface IUserService
     /// Removes the user's configuration of all two-factor methods, e.g. after they lost their device.
     /// </summary>
     Task RemoveAllUserTwoFactorMethodsAsync(UserId id);
+
+    /// <summary>
+    /// Gets the history of a user, e.g. attribute changes and added or removed organizations.
+    /// </summary>
+    /// <remarks>
+    /// Needs the <c>ticket.agent</c> or <c>admin.user</c> permission. Returns <c>null</c> if the user doesn't exist.
+    /// </remarks>
+    Task<HistoryList?> GetUserHistoryAsync(UserId id);
 }
 
 public sealed partial class ZammadClient : IUserService
@@ -85,4 +93,7 @@ public sealed partial class ZammadClient : IUserService
 
     public async Task RemoveAllUserTwoFactorMethodsAsync(UserId id) =>
         await DeleteAsync<object>($"{UsersEndpoint}/{id}/admin_two_factor/remove_all_authentication_methods");
+
+    public async Task<HistoryList?> GetUserHistoryAsync(UserId id) =>
+        await GetAsync<HistoryList>($"{UsersEndpoint}/history/{id}");
 }

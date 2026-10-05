@@ -137,6 +137,20 @@ public class DeserializationTests
     [Arguments(typeof(ChecklistTemplate), "checklistTemplate.json")]
     [Arguments(typeof(List<ChecklistTemplate>), "checklistTemplates.json")]
     [Arguments(typeof(FullResponse), "checklistTemplatesFull.json")]
+    [Arguments(typeof(HistoryList), "ticketHistory.json")]
+    [Arguments(typeof(HistoryList), "ticketHistoryMerged.json")]
+    [Arguments(typeof(HistoryList), "userHistory.json")]
+    [Arguments(typeof(HistoryList), "organizationHistory.json")]
+    [Arguments(typeof(TicketMergeResponse), "ticketMerge.json")]
+    [Arguments(typeof(TicketMergeResponse), "ticketMergeFailed.json")]
+    [Arguments(typeof(TicketMassResult), "ticketMassUpdate.json")]
+    [Arguments(typeof(TicketMassResult), "ticketMassMacro.json")]
+    [Arguments(typeof(SearchResult), "search.json")]
+    [Arguments(typeof(SearchResultByObject), "searchByObject.json")]
+    [Arguments(typeof(SearchResultByObject), "searchByObjectTicket.json")]
+    [Arguments(typeof(List<TicketOverviewSummary>), "ticketOverviews.json")]
+    [Arguments(typeof(TicketOverviewResult), "ticketOverview.json")]
+    [Arguments(typeof(TicketOverviewResult), "ticketOverviewUnknown.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var options = Serialization.GetOptions();
