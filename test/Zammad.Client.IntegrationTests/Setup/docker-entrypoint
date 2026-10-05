@@ -85,6 +85,17 @@ if [ "$1" = 'zammad-init' ]; then
         echo "Auto wizard failed to execute."
         exit 1
       fi
+
+      # Zammad creates ObjectLookup/TypeLookup rows lazily with a check-then-create inside the request transaction.
+      # Concurrent requests on a fresh database race on the unique index and fail with 422 "This object already
+      # exists." (PG::UniqueViolation), most often on parallel deletes. Create all rows up front.
+      echo "Seeding object and type lookups..."
+      bundle exec rails r "
+        Rails.application.eager_load!
+        ApplicationModel.descendants.each { |model| ObjectLookup.by_name(model.name) if model.name }
+        %w[create update destroy reminder_reached escalation escalation_warning
+           update.merged_into update.received_merge].each { |type| TypeLookup.by_name(type) }
+      "
       ### Custom End ###
     fi
   else

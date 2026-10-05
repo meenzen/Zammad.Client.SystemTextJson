@@ -61,6 +61,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   The check (`Models.references` in Zammad's `lib/models.rb`) looks at `<model>_id` columns, `belongs_to` links, and for
   users also `created_by_id`/`updated_by_id`. The controller also turns *any* error during that check into a 422, so a
   422 on delete isn't always about references.
+- **`ObjectLookup`/`TypeLookup` rows are created lazily** (check-then-create inside the request transaction). On a
+  fresh database, concurrent requests race on the unique index and one fails with 422 "This object already exists."
+  (`PG::UniqueViolation` in the Rails log). `Setup/docker-entrypoint` seeds these rows after the auto wizard.
 - **Zammad does a lot of work asynchronously** in the scheduler container (avatar lookups, triggers, escalation
   calculation, search indexing). A record you just created may still be changed by a background job a moment later.
 - **Search goes through Elasticsearch and lags behind writes.** Search tests wait `TestSetup.IndexerDelay` and use
@@ -81,8 +84,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   `ObjectTests.ExecuteMigration` is the only test that migrates and calls `zammadStack.RestartAsync()`. Tests that need
   new attributes create them in a step that `ExecuteMigration` depends on (see `CustomFieldTests.CreateAttributes`) and
   depend on `ExecuteMigration` themselves, so the stack restarts once per run.
-- "Skipped due to failed dependencies" on the `OnlineNotification` tests is expected: `CreateOnlineNotification` is
-  skipped on purpose because there's no reliable way to trigger a notification.
+- Zammad never notifies the user who made a change. `OnlineNotificationTests` creates the ticket on behalf of
+  `agent1@example.org` (`GetClientOnBehalfOfAsync`, `X-On-Behalf-Of`) with the admin as owner, then polls until the
+  scheduler has created the admin's notification.
 - `Setup/docker-entrypoint` is a patched copy of Zammad's `bin/docker-entrypoint` for the pinned image version. It runs
   the auto wizard (`Setup/autowizard.json`, admin `admin@example.org` / `TestPassword1234`) and prints a marker that the
   fixture waits for. When you bump the Zammad image, re-apply the patch on top of the new upstream entrypoint.
@@ -97,9 +101,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   `Attempt 1 failed`.
 - Logs of failed tests are uploaded as the `zammad-logs` artifact, also when a retry made the run green. Download it with
   `gh run download <run-id> -n zammad-logs`.
-- Known flaky tests (as of 2026-10): `UserTests.DeleteUser` and `OrganizationTests.DeleteOrganization` (422 on delete),
-  and `TicketAccountingTests.CreateTicketAccounting` (500). Root cause not confirmed yet. Most likely a race with
-  Zammad's background jobs, see above.
+- Known flaky tests (as of 2026-10): `TicketAccountingTests.CreateTicketAccounting` (500). Root cause not confirmed
+  yet. Most likely a race with Zammad's background jobs, see above. The 422s on `DeleteOrganization`/`DeleteUser` were
+  the lazy lookup race described above (confirmed for `DeleteOrganization`).
 - Actions are pinned by commit SHA with a version comment. Keep it that way; Renovate updates them.
 
 ## Versioning and releases
