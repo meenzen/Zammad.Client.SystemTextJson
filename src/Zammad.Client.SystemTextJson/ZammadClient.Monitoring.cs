@@ -1,5 +1,6 @@
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
+using Zammad.Client.Resources.Internal;
 
 namespace Zammad.Client;
 
@@ -22,6 +23,12 @@ public interface IMonitoringService
     /// Restarts the failed scheduler jobs.
     /// </summary>
     Task RestartFailedJobsAsync();
+
+    /// <summary>
+    /// Returns the version of Zammad, including the build for packaged installations, e.g.
+    /// <c>7.2.0-9a69c6b8.docker</c>. Requires the <c>admin</c> permission.
+    /// </summary>
+    Task<string> GetVersionAsync();
 }
 
 public sealed partial class ZammadClient : IMonitoringService
@@ -64,4 +71,7 @@ public sealed partial class ZammadClient : IMonitoringService
     }
 
     public async Task RestartFailedJobsAsync() => await PostAsync<object>($"{MonitoringEndpoint}/restart_failed_jobs");
+
+    public async Task<string> GetVersionAsync() =>
+        (await GetAsync<VersionResponse>("/api/v1/version"))?.Version ?? throw LogicException.UnexpectedNullResult;
 }

@@ -14,7 +14,7 @@ namespace Zammad.Client.IntegrationTests.Setup;
 // Based on https://github.com/zammad/zammad-docker-compose/blob/bbab857e65884357837f8866c437c47bb4709a3f/docker-compose.yml
 public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndEventReceiver
 {
-    private const string ZammadImage = "ghcr.io/zammad/zammad:7.2.0";
+    internal const string ZammadImage = "ghcr.io/zammad/zammad:7.2.0";
     private const string ZammadEntrypoint = "/docker-entrypoint-override";
     private const string ZammadStorage = "/opt/zammad/storage";
     private const string EntrypointFinished = "Zammad entrypoint script finished";

@@ -111,6 +111,12 @@ public partial struct OverviewSortingId;
 public partial struct DailyEventLockId;
 
 [StronglyTypedId]
+public partial struct DataPrivacyTaskId;
+
+[StronglyTypedId]
+public partial struct SettingId;
+
+[StronglyTypedId]
 public partial struct MacroId;
 
 [StronglyTypedId]

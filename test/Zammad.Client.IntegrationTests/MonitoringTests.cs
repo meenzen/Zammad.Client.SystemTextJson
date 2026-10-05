@@ -75,6 +75,17 @@ public class MonitoringTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    public async Task GetVersion()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var version = await client.GetVersionAsync();
+
+        // The tag of the pinned image plus the build, e.g. 7.2.0-9a69c6b8.docker
+        await Assert.That(version).StartsWith(ZammadStackFixture.ZammadImage.Split(':')[^1] + "-");
+    }
+
+    [Test]
     public async Task RestartFailedJobs()
     {
         var client = await zammadStack.GetClientAsync();

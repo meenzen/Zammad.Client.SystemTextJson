@@ -8,7 +8,8 @@ using Zammad.Client.Core;
 namespace Zammad.Client;
 
 public interface IZammadClient
-    : IEmailAddressService,
+    : IDataPrivacyTaskService,
+        IEmailAddressService,
         IGroupService,
         IMacroService,
         IMonitoringService,
@@ -16,6 +17,7 @@ public interface IZammadClient
         IOnlineNotificationService,
         IOrganizationService,
         IOverviewService,
+        ISettingService,
         ISignatureService,
         ITagService,
         ITemplateService,

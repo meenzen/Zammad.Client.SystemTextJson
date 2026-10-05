@@ -107,6 +107,13 @@ if [ "$1" = 'zammad-init' ]; then
           channel.update!(active: channel.options.dig('outbound', 'adapter') == 'sendmail')
         end
       "
+
+      # The scheduler runs data privacy tasks every 10 minutes, which is too slow for the tests. It reads the period
+      # from the database, and runs jobs with a period of up to 5 minutes in a loop.
+      echo "Running data privacy tasks every 10 seconds..."
+      bundle exec rails r "
+        Scheduler.find_by!(method: 'DataPrivacyTaskJob.perform_now').update!(period: 10.seconds, last_run: nil)
+      "
       ### Custom End ###
     fi
   else
