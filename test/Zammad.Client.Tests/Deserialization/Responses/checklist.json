@@ -1,0 +1,20 @@
+{
+  "id": 4,
+  "name": "Record Template",
+  "sorted_item_ids": [
+    "10",
+    "11",
+    "12",
+    "13"
+  ],
+  "created_by_id": 3,
+  "updated_by_id": 3,
+  "created_at": "2026-10-05T15:37:50.863Z",
+  "updated_at": "2026-10-05T15:37:51.526Z",
+  "item_ids": [
+    10,
+    11,
+    12,
+    13
+  ]
+}

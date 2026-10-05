@@ -87,6 +87,18 @@ public partial struct ChannelId;
 public partial struct ChecklistId;
 
 [StronglyTypedId]
+public partial struct ChecklistItemId;
+
+[StronglyTypedId]
+public partial struct ChecklistTemplateId;
+
+[StronglyTypedId]
+public partial struct ChecklistTemplateItemId;
+
+[StronglyTypedId]
+public partial struct MentionId;
+
+[StronglyTypedId]
 public partial struct TimeAccountingId;
 
 [StronglyTypedId]

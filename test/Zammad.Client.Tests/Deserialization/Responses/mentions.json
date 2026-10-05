@@ -1,0 +1,14 @@
+{
+  "mentions": [
+    {
+      "id": 3,
+      "mentionable_type": "Ticket",
+      "mentionable_id": 14,
+      "user_id": 3,
+      "updated_by_id": 3,
+      "created_by_id": 3,
+      "created_at": "2026-10-05T15:37:49.820Z",
+      "updated_at": "2026-10-05T15:37:49.820Z"
+    }
+  ]
+}

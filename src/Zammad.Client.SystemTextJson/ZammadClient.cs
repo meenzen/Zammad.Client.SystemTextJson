@@ -9,12 +9,15 @@ namespace Zammad.Client;
 
 public interface IZammadClient
     : ICalendarService,
+        IChecklistService,
         ICoreWorkflowService,
         IDataPrivacyTaskService,
         IEmailAddressService,
         IGroupService,
         IJobService,
+        ILinkService,
         IMacroService,
+        IMentionService,
         IMonitoringService,
         IObjectService,
         IOnlineNotificationService,

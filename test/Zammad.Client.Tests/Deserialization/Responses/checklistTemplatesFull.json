@@ -1,0 +1,154 @@
+{
+  "record_ids": [
+    2
+  ],
+  "assets": {
+    "ChecklistTemplate": {
+      "2": {
+        "id": 2,
+        "name": "Record Template",
+        "active": true,
+        "sorted_item_ids": [
+          "6",
+          "7"
+        ],
+        "created_by_id": 3,
+        "updated_by_id": 3,
+        "created_at": "2026-10-05T15:37:50.101Z",
+        "updated_at": "2026-10-05T15:37:50.119Z",
+        "item_ids": [
+          6,
+          7
+        ]
+      }
+    },
+    "ChecklistTemplateItem": {
+      "6": {
+        "id": 6,
+        "text": "One",
+        "checklist_template_id": 2,
+        "created_by_id": 3,
+        "updated_by_id": 3,
+        "created_at": "2026-10-05T15:37:50.109Z",
+        "updated_at": "2026-10-05T15:37:50.109Z"
+      },
+      "7": {
+        "id": 7,
+        "text": "Two",
+        "checklist_template_id": 2,
+        "created_by_id": 3,
+        "updated_by_id": 3,
+        "created_at": "2026-10-05T15:37:50.116Z",
+        "updated_at": "2026-10-05T15:37:50.116Z"
+      }
+    },
+    "User": {
+      "3": {
+        "id": 3,
+        "organization_id": null,
+        "login": "admin@example.org",
+        "firstname": "Test Admin",
+        "lastname": "Agent",
+        "email": "admin@example.org",
+        "image": null,
+        "image_source": null,
+        "web": "",
+        "phone": "",
+        "fax": "",
+        "mobile": "",
+        "department": null,
+        "street": "",
+        "zip": "",
+        "city": "",
+        "country": "",
+        "address": null,
+        "vip": false,
+        "verified": false,
+        "active": true,
+        "note": "",
+        "last_login": "2026-10-05T15:37:01.656Z",
+        "source": null,
+        "login_failed": 0,
+        "out_of_office": false,
+        "out_of_office_start_at": null,
+        "out_of_office_end_at": null,
+        "out_of_office_replacement_id": null,
+        "preferences": {
+          "notification_config": {
+            "matrix": {
+              "create": {
+                "criteria": {
+                  "owned_by_me": true,
+                  "owned_by_nobody": true,
+                  "subscribed": true,
+                  "no": false
+                },
+                "channel": {
+                  "email": true,
+                  "online": true
+                }
+              },
+              "update": {
+                "criteria": {
+                  "owned_by_me": true,
+                  "owned_by_nobody": true,
+                  "subscribed": true,
+                  "no": false
+                },
+                "channel": {
+                  "email": true,
+                  "online": true
+                }
+              },
+              "reminder_reached": {
+                "criteria": {
+                  "owned_by_me": true,
+                  "owned_by_nobody": false,
+                  "subscribed": false,
+                  "no": false
+                },
+                "channel": {
+                  "email": true,
+                  "online": true
+                }
+              },
+              "escalation": {
+                "criteria": {
+                  "owned_by_me": true,
+                  "owned_by_nobody": false,
+                  "subscribed": false,
+                  "no": false
+                },
+                "channel": {
+                  "email": true,
+                  "online": true
+                }
+              }
+            }
+          }
+        },
+        "updated_by_id": 3,
+        "created_by_id": 1,
+        "created_at": "2026-10-05T15:36:33.642Z",
+        "updated_at": "2026-10-05T15:37:03.462Z",
+        "role_ids": [
+          1,
+          2
+        ],
+        "two_factor_preference_ids": [],
+        "organization_ids": [],
+        "authorization_ids": [],
+        "overview_sorting_ids": [],
+        "group_ids": {
+          "2": [
+            "full"
+          ],
+          "1": [
+            "full"
+          ]
+        }
+      }
+    }
+  },
+  "total_count": 1
+}
