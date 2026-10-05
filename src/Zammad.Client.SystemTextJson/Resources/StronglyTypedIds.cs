@@ -111,6 +111,15 @@ public partial struct AIStoredResultId;
 public partial struct RoleId;
 
 [StronglyTypedId]
+public partial struct PermissionId;
+
+[StronglyTypedId]
+public partial struct KnowledgeBasePermissionId;
+
+[StronglyTypedId]
+public partial struct UserAccessTokenId;
+
+[StronglyTypedId]
 public partial struct TwoFactorPreferenceId;
 
 [StronglyTypedId]
