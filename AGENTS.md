@@ -79,6 +79,11 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   (`TestSetup.RandomString()`). Never assert on global counts.
 - Tests within a class are chained with `[DependsOn]` and pass IDs through `static` properties (create → get → update →
   delete). If one step fails, its dependents are skipped.
+- **Object manager migrations stop the stack.** After a migration that changes columns, Zammad (`auto_shutdown`) makes
+  the railsserver, scheduler and websocket processes exit, and the containers have no restart policy.
+  `ObjectTests.ExecuteMigration` is the only test that migrates and calls `zammadStack.RestartAsync()`. Tests that need
+  new attributes create them in a step that `ExecuteMigration` depends on (see `CustomFieldTests.CreateAttributes`) and
+  depend on `ExecuteMigration` themselves, so the stack restarts once per run.
 - Zammad never notifies the user who made a change. `OnlineNotificationTests` creates the ticket on behalf of
   `agent1@example.org` (`GetClientOnBehalfOfAsync`, `X-On-Behalf-Of`) with the admin as owner, then polls until the
   scheduler has created the admin's notification.

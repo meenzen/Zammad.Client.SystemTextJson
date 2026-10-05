@@ -88,6 +88,38 @@ builder.Services.AddZammadClient(builder.Configuration.GetSection("Zammad"))
 
 This configuration will automatically handle transient errors, making your application more robust.
 
+### Custom Fields
+
+Custom attributes configured in the Zammad object manager end up in the `ExtensionData` dictionary of `Ticket`, `User`,
+`Organization` and `Group`. The extension methods in `Zammad.Client.Resources.CustomFieldExtensions` convert them from
+and to regular .NET types:
+
+```csharp
+using Zammad.Client.Resources;
+
+// Set custom fields when creating or updating a resource
+var ticket = await client.CreateTicketAsync(
+    new Ticket { Title = "Printer is on fire", GroupId = new GroupId(1), CustomerId = customerId }
+        .WithCustomField("product", "Printer 3000")
+        .WithCustomField("serial_number", 12345)
+        .WithCustomField("affected_sites", new[] { "berlin", "hamburg" }),
+    article
+);
+
+// Read them back
+string? product = ticket.GetCustomField<string>("product");
+int serialNumber = ticket.GetCustomField<int>("serial_number");
+List<string>? sites = ticket.GetCustomField<List<string>>("affected_sites");
+
+// Change or clear a single field
+var update = new Ticket().WithCustomField("product", "Printer 4000");
+update.ClearCustomField("serial_number");
+await client.UpdateTicketAsync(ticket.Id, update);
+```
+
+If you have many custom fields, you can map all of them to a class with `GetCustomFields<T>()` and
+`SetCustomFields(fields)`. Use `[JsonPropertyName]` to match the attribute names.
+
 ## Contributing
 
 Pull requests are welcome. Please use [Conventional Commits](https://www.conventionalcommits.org/) to keep
