@@ -47,6 +47,9 @@ public sealed class Assets
     [JsonPropertyName("ChecklistTemplateItem")]
     public Dictionary<int, ChecklistTemplateItem> ChecklistTemplateItems { get; set; } = [];
 
+    [JsonPropertyName("Overview")]
+    public Dictionary<int, Overview> Overviews { get; set; } = [];
+
     /// <summary>
     /// Records of all other models, e.g. <c>Role</c>, <c>TicketState</c> or <c>TicketPriority</c>, keyed by the model
     /// name. Each value is an object that maps IDs to records.
@@ -72,6 +75,28 @@ public sealed class Assets
 
     public ChecklistTemplateItem? GetChecklistTemplateItem(ChecklistTemplateItemId id) =>
         Find(ChecklistTemplateItems, id.Value);
+
+    public Overview? GetOverview(OverviewId id) => Find(Overviews, id.Value);
+
+    /// <summary>
+    /// Looks up the given tickets and leaves out the ones that aren't in the assets.
+    /// </summary>
+    internal List<Ticket> ResolveTickets(IEnumerable<TicketId> ids) => Resolve(ids, GetTicket);
+
+    internal static List<T> Resolve<TId, T>(IEnumerable<TId> ids, Func<TId, T?> lookup)
+        where T : class
+    {
+        var records = new List<T>();
+        foreach (var id in ids)
+        {
+            if (lookup(id) is { } record)
+            {
+                records.Add(record);
+            }
+        }
+
+        return records;
+    }
 
     private static T? Find<T>(Dictionary<int, T>? records, int id)
         where T : class => records is not null && records.TryGetValue(id, out var record) ? record : null;

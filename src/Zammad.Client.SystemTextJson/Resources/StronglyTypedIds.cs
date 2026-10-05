@@ -172,3 +172,6 @@ public partial struct CalendarId;
 
 [StronglyTypedId]
 public partial struct PostmasterFilterId;
+
+[StronglyTypedId]
+public partial struct HistoryId;
