@@ -1,0 +1,42 @@
+{
+  "id": 1,
+  "name": "rec job ocjfcoof",
+  "timeplan": {
+    "days": {
+      "Mon": true
+    },
+    "hours": {
+      "0": true
+    },
+    "minutes": {
+      "0": true
+    }
+  },
+  "object": "Ticket",
+  "condition": {
+    "ticket.title": {
+      "operator": "contains",
+      "value": "ocjfcoof"
+    }
+  },
+  "perform": {
+    "ticket.priority_id": {
+      "value": "3"
+    }
+  },
+  "disable_notification": true,
+  "last_run_at": null,
+  "next_run_at": null,
+  "running": false,
+  "processed": 0,
+  "matching": 0,
+  "pid": null,
+  "localization": null,
+  "timezone": null,
+  "note": null,
+  "active": false,
+  "updated_by_id": 3,
+  "created_by_id": 3,
+  "created_at": "2026-10-05T15:23:57.636Z",
+  "updated_at": "2026-10-05T15:23:57.636Z"
+}

@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "name": "rec webhook ocjfcoof",
+  "endpoint": "http://127.0.0.1:9/hook",
+  "http_method": "post",
+  "signature_token": "**********",
+  "ssl_verify": true,
+  "basic_auth_username": "u",
+  "basic_auth_password": "**********",
+  "bearer_token": "**********",
+  "note": "n",
+  "pre_defined_webhook_type": null,
+  "customized_payload": false,
+  "custom_payload": null,
+  "preferences": {},
+  "active": false,
+  "updated_by_id": 3,
+  "created_by_id": 3,
+  "created_at": "2026-10-05T15:23:57.916Z",
+  "updated_at": "2026-10-05T15:23:57.916Z"
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "rec cal ocjfcoof",
+    "timezone": "Europe/Berlin",
+    "business_hours": {
+      "mon": {
+        "active": true,
+        "timeframes": [
+          [
+            "09:00",
+            "17:00"
+          ]
+        ]
+      },
+      "tue": {
+        "active": false,
+        "timeframes": [
+          [
+            "09:00",
+            "17:00"
+          ]
+        ]
+      }
+    },
+    "default": true,
+    "ical_url": null,
+    "public_holidays": {
+      "2026-12-25": {
+        "active": true,
+        "summary": "Christmas"
+      }
+    },
+    "last_log": null,
+    "last_sync": null,
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:23:59.965Z",
+    "updated_at": "2026-10-05T15:23:59.974Z"
+  }
+]

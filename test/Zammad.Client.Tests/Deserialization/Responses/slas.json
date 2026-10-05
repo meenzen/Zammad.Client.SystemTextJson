@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "calendar_id": 1,
+    "name": "rec sla ocjfcoof",
+    "first_response_time": 60,
+    "response_time": null,
+    "update_time": 120,
+    "solution_time": 480,
+    "condition": {
+      "ticket.title": {
+        "operator": "contains",
+        "value": "ocjfcoof"
+      }
+    },
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:24:00.391Z",
+    "updated_at": "2026-10-05T15:24:00.391Z",
+    "data": {}
+  }
+]

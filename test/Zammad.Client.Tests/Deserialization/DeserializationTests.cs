@@ -98,6 +98,23 @@ public class DeserializationTests
     [Arguments(typeof(Signature), "signature.json")]
     [Arguments(typeof(Signature), "signatureExpanded.json")]
     [Arguments(typeof(List<Signature>), "signatures.json")]
+    [Arguments(typeof(Trigger), "trigger.json")]
+    [Arguments(typeof(List<Trigger>), "triggers.json")]
+    [Arguments(typeof(Job), "job.json")]
+    [Arguments(typeof(List<Job>), "jobs.json")]
+    [Arguments(typeof(Webhook), "webhook.json")]
+    [Arguments(typeof(List<Webhook>), "webhooks.json")]
+    [Arguments(typeof(List<PreDefinedWebhook>), "webhooksPreDefined.json")]
+    [Arguments(typeof(Dictionary<string, List<string>>), "webhookReplacements.json")]
+    [Arguments(typeof(CoreWorkflow), "coreWorkflow.json")]
+    [Arguments(typeof(List<CoreWorkflow>), "coreWorkflows.json")]
+    [Arguments(typeof(Calendar), "calendar.json")]
+    [Arguments(typeof(List<Calendar>), "calendars.json")]
+    [Arguments(typeof(Zammad.Client.Resources.Internal.CalendarTimezones), "calendarTimezones.json")]
+    [Arguments(typeof(Sla), "sla.json")]
+    [Arguments(typeof(List<Sla>), "slas.json")]
+    [Arguments(typeof(PostmasterFilter), "postmasterFilter.json")]
+    [Arguments(typeof(List<PostmasterFilter>), "postmasterFilters.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var options = Serialization.GetOptions();

@@ -8,17 +8,22 @@ using Zammad.Client.Core;
 namespace Zammad.Client;
 
 public interface IZammadClient
-    : IDataPrivacyTaskService,
+    : ICalendarService,
+        ICoreWorkflowService,
+        IDataPrivacyTaskService,
         IEmailAddressService,
         IGroupService,
+        IJobService,
         IMacroService,
         IMonitoringService,
         IObjectService,
         IOnlineNotificationService,
         IOrganizationService,
         IOverviewService,
+        IPostmasterFilterService,
         ISettingService,
         ISignatureService,
+        ISlaService,
         ITagService,
         ITemplateService,
         ITextModuleService,
@@ -27,7 +32,9 @@ public interface IZammadClient
         ITicketPriorityService,
         ITicketService,
         ITicketStateService,
-        IUserService;
+        ITriggerService,
+        IUserService,
+        IWebhookService;
 
 public sealed partial class ZammadClient : IZammadClient
 {

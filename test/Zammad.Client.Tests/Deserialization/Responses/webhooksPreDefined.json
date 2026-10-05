@@ -1,0 +1,84 @@
+[
+  {
+    "id": "Mattermost",
+    "name": "Mattermost Notifications",
+    "custom_payload": "{\n  \"channel\": \"#{webhook.messaging_channel}\",\n  \"username\": \"#{webhook.messaging_username}\",\n  \"icon_url\": \"#{webhook.messaging_icon_url}\",\n  \"mrkdwn\": true,\n  \"text\": \"# #{ticket.title}\",\n  \"attachments\": [\n    {\n      \"text\": \"_[Ticket##{ticket.number}](#{notification.link}): #{notification.message}_\\n\\n#{notification.changes}\\n\\n#{notification.body}\",\n      \"mrkdwn_in\": [\n        \"text\"\n      ],\n      \"color\": \"#{ticket.current_state_color}\"\n    }\n  ]\n}",
+    "fields": [
+      {
+        "display": "Messaging Username",
+        "placeholder": "",
+        "null": true,
+        "name": "messaging_username",
+        "tag": "input"
+      },
+      {
+        "display": "Messaging Channel",
+        "placeholder": "#channel",
+        "null": true,
+        "name": "messaging_channel",
+        "tag": "input"
+      },
+      {
+        "display": "Messaging Icon URL",
+        "placeholder": "https://example.com/logo.png",
+        "value": "https://zammad.com/assets/images/logo-200x200.png",
+        "null": true,
+        "name": "messaging_icon_url",
+        "tag": "input"
+      }
+    ],
+    "field_names": [
+      "messaging_username",
+      "messaging_channel",
+      "messaging_icon_url"
+    ]
+  },
+  {
+    "id": "MicrosoftTeams",
+    "name": "Microsoft Teams Notifications",
+    "custom_payload": "{\n  \"type\": \"message\",\n  \"attachments\": [\n    {\n      \"contentType\": \"application/vnd.microsoft.card.adaptive\",\n      \"contentUrl\": null,\n      \"content\": {\n        \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n        \"type\": \"AdaptiveCard\",\n        \"version\": \"1.0\",\n        \"body\": [\n          {\n            \"type\": \"TextBlock\",\n            \"text\": \"#{ticket.title}\",\n            \"color\": \"#{ticket.current_state_color}\",\n            \"weight\": \"bolder\",\n            \"size\": \"large\",\n            \"wrap\": true\n          },\n          {\n            \"type\": \"TextBlock\",\n            \"text\": \"#{notification.changes}\",\n            \"wrap\": true\n          },\n          {\n            \"type\": \"TextBlock\",\n            \"text\": \"#{notification.body}\",\n            \"wrap\": true\n          },\n          {\n            \"type\": \"ActionSet\",\n            \"actions\": [\n              {\n                \"type\": \"Action.OpenUrl\",\n                \"title\": \"#{config.ticket_hook}#{ticket.number}\",\n                \"url\": \"#{notification.link}\"\n              }\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}",
+    "fields": [],
+    "field_names": []
+  },
+  {
+    "id": "RocketChat",
+    "name": "Rocket Chat Notifications",
+    "custom_payload": "{\n  \"channel\": \"#{webhook.messaging_channel}\",\n  \"username\": \"#{webhook.messaging_username}\",\n  \"icon_url\": \"#{webhook.messaging_icon_url}\",\n  \"mrkdwn\": true,\n  \"text\": \"# #{ticket.title}\",\n  \"attachments\": [\n    {\n      \"text\": \"_[Ticket##{ticket.number}](#{notification.link}): #{notification.message}_\\n\\n#{notification.changes}\\n\\n#{notification.body}\",\n      \"mrkdwn_in\": [\n        \"text\"\n      ],\n      \"color\": \"#{ticket.current_state_color}\"\n    }\n  ]\n}",
+    "fields": [
+      {
+        "display": "Messaging Username",
+        "placeholder": "",
+        "null": true,
+        "name": "messaging_username",
+        "tag": "input"
+      },
+      {
+        "display": "Messaging Channel",
+        "placeholder": "#channel",
+        "null": true,
+        "name": "messaging_channel",
+        "tag": "input"
+      },
+      {
+        "display": "Messaging Icon URL",
+        "placeholder": "https://example.com/logo.png",
+        "value": "https://zammad.com/assets/images/logo-200x200.png",
+        "null": true,
+        "name": "messaging_icon_url",
+        "tag": "input"
+      }
+    ],
+    "field_names": [
+      "messaging_username",
+      "messaging_channel",
+      "messaging_icon_url"
+    ]
+  },
+  {
+    "id": "Slack",
+    "name": "Slack Notifications",
+    "custom_payload": "{\n  \"mrkdwn\": true,\n  \"text\": \"# #{ticket.title}\",\n  \"attachments\": [\n    {\n      \"text\": \"_[Ticket##{ticket.number}](#{notification.link}): #{notification.message}_\\n\\n#{notification.changes}\\n\\n#{notification.body}\",\n      \"mrkdwn_in\": [\n        \"text\"\n      ],\n      \"color\": \"#{ticket.current_state_color}\"\n    }\n  ]\n}",
+    "fields": [],
+    "field_names": []
+  }
+]
