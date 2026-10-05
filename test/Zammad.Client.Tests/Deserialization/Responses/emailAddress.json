@@ -1,0 +1,14 @@
+{
+  "id": 2,
+  "channel_id": null,
+  "name": "Recorded",
+  "email": "recorded@example.org",
+  "active": false,
+  "note": "x",
+  "preferences": null,
+  "updated_by_id": 3,
+  "created_by_id": 3,
+  "created_at": "2026-10-05T10:51:22.573Z",
+  "updated_at": "2026-10-05T10:51:22.573Z",
+  "group_ids": []
+}
