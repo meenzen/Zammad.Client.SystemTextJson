@@ -1,0 +1,12 @@
+[
+  {
+    "method": "authenticator_app",
+    "configured": true,
+    "default": true
+  },
+  {
+    "method": "security_keys",
+    "configured": false,
+    "default": false
+  }
+]

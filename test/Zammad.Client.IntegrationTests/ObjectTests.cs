@@ -96,9 +96,40 @@ public class ObjectTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    public async Task DeleteUnmigratedObject()
+    {
+        var name = "delete_me_" + RandomName;
+        var payloadObject = JsonSerializer.Deserialize<Object>(
+            $$"""
+            {
+               "name": "{{name}}",
+               "object": "Ticket",
+               "display": "{{name}}",
+               "active": true,
+               "position": 1600,
+               "data_type": "input",
+               "data_option": { "type": "text", "maxlength": 120, "null": true }
+            }
+            """
+        );
+        await Assert.That(payloadObject).IsNotNull();
+
+        var client = await zammadStack.GetClientAsync();
+        var created = await client.CreateObjectAsync(payloadObject);
+        await Assert.That(created.ToCreate).IsTrue();
+
+        // Not migrated yet, so Zammad removes the attribute right away instead of marking it as to_delete
+        await client.DeleteObjectAsync(created.Id);
+
+        await Assert.That(await client.GetObjectAsync(created.Id)).IsNull();
+    }
+
+    [Test]
     [DependsOn(nameof(CreateObject))]
     // Migrates the attributes of other test classes too, see AGENTS.md
     [DependsOn(typeof(CustomFieldTests), nameof(CustomFieldTests.CreateAttributes))]
+    // Must run before the migration, which would turn the attribute into a column
+    [DependsOn(nameof(DeleteUnmigratedObject))]
     [NotInParallel]
     public async Task ExecuteMigration()
     {

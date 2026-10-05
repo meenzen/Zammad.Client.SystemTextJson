@@ -137,8 +137,38 @@ public class TicketTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    [DependsOn(nameof(UpdateTicket))]
+    public async Task UpdateTicketTitle()
+    {
+        await Assert.That(CreatedTicketId).IsNotNull();
+        var client = await zammadStack.GetClientAsync();
+
+        var updatedTitle = TicketTitle + " Renamed";
+        var updatedTicket = await client.UpdateTicketTitleAsync(CreatedTicketId.Value, updatedTitle);
+
+        await Assert.That(updatedTicket.Id).IsEqualTo(CreatedTicketId.Value);
+        await Assert.That(updatedTicket.Title).IsEqualTo(updatedTitle);
+    }
+
+    [Test]
+    [DependsOn(nameof(UpdateTicketTitle))]
+    public async Task UpdateTicketCustomer()
+    {
+        await Assert.That(CreatedTicketId).IsNotNull();
+        var client = await zammadStack.GetClientAsync();
+        var me = await client.GetUserMeAsync();
+
+        var updatedTicket = await client.UpdateTicketCustomerAsync(CreatedTicketId.Value, me.Id);
+
+        await Assert.That(updatedTicket.Id).IsEqualTo(CreatedTicketId.Value);
+        await Assert.That(updatedTicket.CustomerId).IsEqualTo(me.Id);
+        await Assert.That(updatedTicket.Title).IsEqualTo(TicketTitle + " Renamed");
+    }
+
+    [Test]
     [DependsOn(nameof(GetTicket))]
     [DependsOn(nameof(UpdateTicket))]
+    [DependsOn(nameof(UpdateTicketCustomer))]
     public async Task DeleteTicket()
     {
         await Assert.That(CreatedTicketId).IsNotNull();

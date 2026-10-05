@@ -10,6 +10,11 @@ public interface IOnlineNotificationService
     Task<OnlineNotification> UpdateOnlineNotificationAsync(NotificationId id, OnlineNotification notification);
     Task DeleteOnlineNotificationAsync(NotificationId id);
     Task MarkAllNotificationsAsReadAsync();
+
+    /// <summary>
+    /// Deletes all online notifications of the current user.
+    /// </summary>
+    Task DeleteAllOnlineNotificationsAsync();
 }
 
 public sealed partial class ZammadClient : IOnlineNotificationService
@@ -42,4 +47,7 @@ public sealed partial class ZammadClient : IOnlineNotificationService
 
     public async Task MarkAllNotificationsAsReadAsync() =>
         await PostAsync<object>($"{OnlineNotificationsEndpoint}/mark_all_as_read");
+
+    public async Task DeleteAllOnlineNotificationsAsync() =>
+        await DeleteAsync<object>($"{OnlineNotificationsEndpoint}/clear_all");
 }

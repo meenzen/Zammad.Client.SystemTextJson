@@ -68,7 +68,42 @@ public class GroupTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    [DependsOn(nameof(CreateGroup))]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
+    public async Task SearchGroups(CancellationToken cancellationToken)
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
+        var groups = await client.SearchGroupsAsync(
+            new SearchQuery
+            {
+                Query = GroupName,
+                Pagination = new Pagination { PerPage = 20 },
+            }
+        );
+
+        await Assert.That(groups).HasSingleItem();
+        await Assert.That(groups[0].Id).IsEqualTo(CreatedGroupId);
+        await Assert.That(groups[0].Name).IsEqualTo(GroupName);
+    }
+
+    [Test]
+    [DependsOn(nameof(SearchGroups))]
+    public async Task SearchGroups_NotExpanded()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var groups = await client.SearchGroupsAsync(new SearchQuery { Query = GroupName }, expand: false);
+
+        await Assert.That(groups).HasSingleItem();
+        await Assert.That(groups[0].Id).IsEqualTo(CreatedGroupId);
+    }
+
+    [Test]
     [DependsOn(nameof(GetGroup))]
+    [DependsOn(nameof(SearchGroups))]
+    [DependsOn(nameof(SearchGroups_NotExpanded))]
     public async Task UpdateGroup()
     {
         var client = await zammadStack.GetClientAsync();

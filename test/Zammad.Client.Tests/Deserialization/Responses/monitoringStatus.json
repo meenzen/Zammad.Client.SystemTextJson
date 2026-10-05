@@ -1,0 +1,33 @@
+{
+  "counts": {
+    "users": 4,
+    "groups": 1,
+    "overviews": 9,
+    "tickets": 12,
+    "ticket_articles": 15,
+    "text_modules": 0,
+    "taskbars": 0,
+    "object_manager_attributes": 52,
+    "knowledge_base_categories": 0,
+    "knowledge_base_answers": 0
+  },
+  "last_created_at": {
+    "users": "2026-10-05T09:41:12.512Z",
+    "groups": "2026-10-05T09:38:01.104Z",
+    "overviews": "2026-10-05T09:38:01.986Z",
+    "tickets": "2026-10-05T09:42:30.218Z",
+    "ticket_articles": "2026-10-05T09:42:30.390Z",
+    "text_modules": null,
+    "taskbars": null,
+    "object_manager_attributes": "2026-10-05T09:38:00.777Z",
+    "knowledge_base_categories": null,
+    "knowledge_base_answers": null
+  },
+  "last_login": "2026-10-05T09:40:55.023Z",
+  "agents": 2,
+  "storage": {
+    "kB": 1210,
+    "MB": 1,
+    "GB": 0
+  }
+}
