@@ -84,6 +84,24 @@ public class TicketTests(ZammadStackFixture zammadStack)
         await Assert.That(ticketSearch).IsNotNull();
         await Assert.That(ticketSearch).IsNotEmpty();
         await Assert.That(ticketSearch).Contains(t => t.Title == TicketTitle);
+        // expand=true (the default) resolves association IDs to names
+        await Assert.That(ticketSearch.First(t => t.Title == TicketTitle).Group).IsEqualTo("Users");
+    }
+
+    [Test]
+    [DependsOn(nameof(CreateTicket))]
+    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
+    public async Task SearchTickets_NotExpanded(CancellationToken cancellationToken)
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        await Task.Delay(TestSetup.IndexerDelay, cancellationToken);
+        var ticketSearch = await client.SearchTicketsAsync(new SearchQuery { Query = TicketTitle }, expand: false);
+
+        var ticket = ticketSearch.Find(t => t.Id == CreatedTicketId);
+        await Assert.That(ticket).IsNotNull();
+        await Assert.That(ticket!.GroupId).IsEqualTo(new GroupId(1));
+        await Assert.That(ticket.Group).IsNull();
     }
 
     [Test]
@@ -104,6 +122,7 @@ public class TicketTests(ZammadStackFixture zammadStack)
     [DependsOn(nameof(ListTickets))]
     [DependsOn(nameof(ListTickets_Pagination))]
     [DependsOn(nameof(SearchTickets_Pagination))]
+    [DependsOn(nameof(SearchTickets_NotExpanded))]
     [DependsOn(nameof(GetTicket))]
     public async Task UpdateTicket()
     {

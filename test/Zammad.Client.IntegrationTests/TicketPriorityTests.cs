@@ -91,5 +91,6 @@ public class TicketPriorityTests(ZammadStackFixture zammadStack)
         var result = await client.DeleteTicketPriorityAsync(CreatedPriorityId);
 
         await Assert.That(result).IsTrue();
+        await Assert.That(await client.GetTicketPriorityAsync(CreatedPriorityId)).IsNull();
     }
 }

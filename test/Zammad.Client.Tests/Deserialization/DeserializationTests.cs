@@ -44,6 +44,18 @@ public class DeserializationTests
     [Arguments(typeof(List<EmailAddress>), "emailAddresses.json")]
     [Arguments(typeof(OnlineNotification), "notification.json")]
     [Arguments(typeof(List<OnlineNotification>), "notifications.json")]
+    [Arguments(typeof(User), "user.json")]
+    [Arguments(typeof(List<User>), "users.json")]
+    [Arguments(typeof(List<User>), "usersSearch.json")]
+    [Arguments(typeof(Organization), "organization.json")]
+    [Arguments(typeof(List<Organization>), "organizations.json")]
+    [Arguments(typeof(List<Organization>), "organizationsSearch.json")]
+    [Arguments(typeof(Group), "group.json")]
+    [Arguments(typeof(List<Group>), "groups.json")]
+    [Arguments(typeof(TicketState), "ticketState.json")]
+    [Arguments(typeof(List<TicketState>), "ticketStates.json")]
+    [Arguments(typeof(List<Tag>), "tagList.json")]
+    [Arguments(typeof(List<TagSearchResult>), "tagSearch.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var options = Serialization.GetOptions();

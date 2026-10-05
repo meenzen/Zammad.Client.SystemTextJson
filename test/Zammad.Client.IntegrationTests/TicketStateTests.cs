@@ -97,5 +97,6 @@ public class TicketStateTests(ZammadStackFixture zammadStack)
         var result = await client.DeleteTicketStateAsync(CreatedStateId);
 
         await Assert.That(result).IsTrue();
+        await Assert.That(await client.GetTicketStateAsync(CreatedStateId)).IsNull();
     }
 }

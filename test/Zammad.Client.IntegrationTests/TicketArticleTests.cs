@@ -131,6 +131,7 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
         var stream = await client.GetTicketArticleAttachmentAsync(TestTicketId, TestArticleId, TestAttachmentId);
 
         await Assert.That(stream).IsNotNull();
-        await Assert.That(stream!.Length).IsGreaterThan(0);
+        using var reader = new StreamReader(stream!);
+        await Assert.That(await reader.ReadToEndAsync()).IsEqualTo("Hello, attachment!");
     }
 }

@@ -23,6 +23,24 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    [DependsOn(nameof(CreateOnlineNotification))]
+    public async Task ListOnlineNotifications_NotExpanded()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var notifications = await client.ListOnlineNotificationsAsync(
+            new Pagination { Page = 1, PerPage = 100 },
+            expand: false
+        );
+
+        var notification = notifications.Find(n => n.Id == NotificationId);
+        await Assert.That(notification).IsNotNull();
+        // The expanded names (object, type, user, ...) are only included with expand=true
+        await Assert.That(notification!.ObjectType).IsNull();
+        await Assert.That(notification.ObjectLookupId).IsNotNull();
+    }
+
+    [Test]
     public async Task CreateOnlineNotification()
     {
         var client = await zammadStack.GetClientAsync();
@@ -81,6 +99,7 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(GetOnlineNotification))]
+    [DependsOn(nameof(ListOnlineNotifications_NotExpanded))]
     public async Task UpdateOnlineNotification()
     {
         var client = await zammadStack.GetClientAsync();
@@ -93,6 +112,11 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
 
         await Assert.That(updated).IsNotNull();
         await Assert.That(updated.Seen).IsTrue();
+
+        // Mark it unseen again, so MarkAllAsRead has something to do
+        notification.Seen = false;
+        updated = await client.UpdateOnlineNotificationAsync(NotificationId, notification);
+        await Assert.That(updated.Seen).IsFalse();
     }
 
     [Test]
@@ -101,6 +125,10 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
         await client.MarkAllNotificationsAsReadAsync();
+
+        var notification = await client.GetOnlineNotificationAsync(NotificationId);
+        await Assert.That(notification).IsNotNull();
+        await Assert.That(notification!.Seen).IsTrue();
     }
 
     [Test]
@@ -109,5 +137,7 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
         await client.DeleteOnlineNotificationAsync(NotificationId);
+
+        await Assert.That(await client.GetOnlineNotificationAsync(NotificationId)).IsNull();
     }
 }

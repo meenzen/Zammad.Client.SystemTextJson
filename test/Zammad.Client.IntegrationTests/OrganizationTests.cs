@@ -95,11 +95,27 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    [DependsOn(nameof(SearchOrganizations))]
+    public async Task SearchOrganizations_NotExpanded()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var organizationSearch = await client.SearchOrganizationsAsync(
+            new SearchQuery { Query = OrganizationName },
+            expand: false
+        );
+
+        await Assert.That(organizationSearch).HasSingleItem();
+        await Assert.That(organizationSearch[0].Id).IsEqualTo(KrustyBurgerId);
+    }
+
+    [Test]
     [DependsOn(nameof(CreateOrganization))]
     [DependsOn(nameof(ListOrganizations))]
     [DependsOn(nameof(ListOrganizations_Pagination))]
     [DependsOn(nameof(GetOrganization))]
     [DependsOn(nameof(SearchOrganizations))]
+    [DependsOn(nameof(SearchOrganizations_NotExpanded))]
     public async Task UpdateOrganization()
     {
         var client = await zammadStack.GetClientAsync();
@@ -122,5 +138,6 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
         var organization1 = await client.DeleteOrganizationAsync(KrustyBurgerId);
 
         await Assert.That(organization1).IsTrue();
+        await Assert.That(await client.GetOrganizationAsync(KrustyBurgerId)).IsNull();
     }
 }
