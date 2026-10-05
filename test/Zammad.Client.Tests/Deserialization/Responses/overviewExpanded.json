@@ -1,0 +1,70 @@
+{
+  "id": 11,
+  "name": "Recorded Overview",
+  "link": "recorded_overview",
+  "prio": 1201,
+  "condition": {
+    "ticket.state_id": {
+      "operator": "is",
+      "value": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "ticket.owner_id": {
+      "operator": "is",
+      "pre_condition": "current_user.id"
+    }
+  },
+  "order": {
+    "by": "created_at",
+    "direction": "DESC"
+  },
+  "group_by": "priority",
+  "group_direction": "ASC",
+  "organization_shared": false,
+  "out_of_office": false,
+  "view": {
+    "d": [
+      "title",
+      "customer",
+      "state",
+      "created_at"
+    ],
+    "s": [
+      "number",
+      "title",
+      "customer",
+      "state",
+      "created_at"
+    ],
+    "m": [
+      "number",
+      "title",
+      "customer",
+      "state",
+      "created_at"
+    ],
+    "view_mode_default": "s"
+  },
+  "active": true,
+  "updated_by_id": 3,
+  "created_by_id": 3,
+  "created_at": "2026-10-05T15:20:04.401Z",
+  "updated_at": "2026-10-05T15:20:04.388Z",
+  "role_ids": [
+    2
+  ],
+  "user_ids": [
+    3
+  ],
+  "created_by": "admin@example.org",
+  "updated_by": "admin@example.org",
+  "roles": [
+    "Agent"
+  ],
+  "users": [
+    "admin@example.org"
+  ]
+}

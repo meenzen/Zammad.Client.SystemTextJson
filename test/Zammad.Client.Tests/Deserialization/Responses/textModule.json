@@ -1,0 +1,15 @@
+{
+  "id": 29,
+  "name": "Recorded Text Module",
+  "keywords": "recorded thanks",
+  "content": "Thank you\u003Cbr\u003Efor your request.",
+  "note": "a note",
+  "active": true,
+  "updated_by_id": 3,
+  "created_by_id": 3,
+  "created_at": "2026-10-05T15:20:05.567Z",
+  "updated_at": "2026-10-05T15:20:05.559Z",
+  "group_ids": [
+    1
+  ]
+}

@@ -115,3 +115,15 @@ public partial struct DataPrivacyTaskId;
 
 [StronglyTypedId]
 public partial struct SettingId;
+
+[StronglyTypedId]
+public partial struct MacroId;
+
+[StronglyTypedId]
+public partial struct OverviewId;
+
+[StronglyTypedId]
+public partial struct TemplateId;
+
+[StronglyTypedId]
+public partial struct TextModuleId;

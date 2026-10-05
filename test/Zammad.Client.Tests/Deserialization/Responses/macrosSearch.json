@@ -1,0 +1,33 @@
+[
+  {
+    "id": 2,
+    "name": "Recorded Macro",
+    "perform": {
+      "ticket.state_id": {
+        "value": "4"
+      },
+      "ticket.priority_id": {
+        "value": "3"
+      },
+      "ticket.tags": {
+        "operator": "add",
+        "value": "recorded"
+      }
+    },
+    "active": true,
+    "ux_flow_next_up": "next_task",
+    "note": "a note",
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:20:02.982Z",
+    "updated_at": "2026-10-05T15:20:02.954Z",
+    "group_ids": [
+      1
+    ],
+    "groups": [
+      "Users"
+    ],
+    "created_by": "admin@example.org",
+    "updated_by": "admin@example.org"
+  }
+]
