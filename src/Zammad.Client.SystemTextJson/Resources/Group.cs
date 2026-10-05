@@ -17,8 +17,11 @@ public sealed class Group : IHasCustomFields
     [JsonPropertyName("name")]
     public required string Name { get; set; }
 
+    /// <summary>
+    /// Minutes after which a ticket is unassigned if its owner doesn't work on it.
+    /// </summary>
     [JsonPropertyName("assignment_timeout")]
-    public TimeSpan? AssignmentTimeout { get; set; }
+    public int? AssignmentTimeout { get; set; }
 
     [JsonPropertyName("follow_up_possible")]
     public string? FollowUpPossible { get; set; }
@@ -33,7 +36,7 @@ public sealed class Group : IHasCustomFields
     public string Note { get; set; } = string.Empty;
 
     [JsonPropertyName("user_ids")]
-    public List<int>? UserIds { get; set; }
+    public List<UserId>? UserIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }

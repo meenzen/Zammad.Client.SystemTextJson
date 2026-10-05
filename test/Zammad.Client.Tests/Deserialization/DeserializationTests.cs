@@ -118,6 +118,19 @@ public class DeserializationTests
     }
 
     [Test]
+    public async Task CanDeserializeGroupWithAssignmentTimeout()
+    {
+        var group = JsonSerializer.Deserialize<Group>(
+            """{"id":1,"name":"Users","active":true,"assignment_timeout":120,"user_ids":[3,4]}""",
+            Serialization.GetOptions()
+        );
+
+        await Assert.That(group).IsNotNull();
+        await Assert.That(group!.AssignmentTimeout).IsEqualTo(120);
+        await Assert.That(group.UserIds).IsEquivalentTo([new UserId(3), new UserId(4)]);
+    }
+
+    [Test]
     public async Task CanDeserializeExtensionData()
     {
         var json = await TestFile.ReadStringAsync("Responses", "ticketExtended.json");

@@ -30,7 +30,7 @@ public sealed class Organization : IHasCustomFields
     public string Note { get; set; } = string.Empty;
 
     [JsonPropertyName("member_ids")]
-    public List<int>? MemberIds { get; set; }
+    public List<UserId>? MemberIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }
