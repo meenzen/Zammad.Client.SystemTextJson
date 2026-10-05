@@ -92,6 +92,8 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   the auto wizard (`Setup/autowizard.json`, admin `admin@example.org` / `TestPassword1234`) and prints a marker that the
   fixture waits for. When you bump the Zammad image, re-apply the patch on top of the new upstream entrypoint, align
   the other images with the referenced `zammad-docker-compose` commit, and update the version in `README.md`.
+  It also sets the period of the `DataPrivacyTaskJob` scheduler to 10 seconds (the seed uses 10 minutes) so the data
+  privacy tests finish quickly; re-apply this together with the rest of the patch when you bump the image.
 - **The stack has no internet access.** All containers are on an internal Docker network. Only the containers with
   port bindings (nginx, Elasticsearch, Postgres, Redis) are also on a regular network, because Docker doesn't publish
   ports of internal-only containers. The Zammad containers (railsserver, scheduler, websocket, init) can't reach
