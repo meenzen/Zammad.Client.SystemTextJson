@@ -76,7 +76,8 @@ dotnet csharpier format <files>                       # also runs as a husky pre
 
 - All test classes share one Zammad instance (`[ClassDataSource<ZammadStackFixture>(Shared = SharedType.PerAssembly)]`)
   and run in parallel. Data persists across tests, so names, emails and logins need a random suffix
-  (`TestSetup.RandomString()`). Never assert on global counts.
+  (`TestSetup.RandomString()`, letters only: Zammad treats 6+ digits in a user field as a phone number and
+  stores a caller ID that blocks deleting the user). Never assert on global counts.
 - Tests within a class are chained with `[DependsOn]` and pass IDs through `static` properties (create → get → update →
   delete). If one step fails, its dependents are skipped.
 - **Object manager migrations stop the stack.** After a migration that changes columns, Zammad (`auto_shutdown`) makes
@@ -102,8 +103,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
 - Logs of failed tests are uploaded as the `zammad-logs` artifact, also when a retry made the run green. Download it with
   `gh run download <run-id> -n zammad-logs`.
 - Known flaky tests (as of 2026-10): `TicketAccountingTests.CreateTicketAccounting` (500). Root cause not confirmed
-  yet. Most likely a race with Zammad's background jobs, see above. The 422s on `DeleteOrganization`/`DeleteUser` were
-  the lazy lookup race described above (confirmed for `DeleteOrganization`).
+  yet. Most likely a race with Zammad's background jobs, see above. The 422 "This object already exists." on
+  `DeleteOrganization` was the lazy lookup race described above. The 422 "Can't delete, object has references." on
+  `DeleteUser` came from digits in the random suffix (see `TestSetup.RandomString`).
 - Actions are pinned by commit SHA with a version comment. Keep it that way; Renovate updates them.
 
 ## Versioning and releases
