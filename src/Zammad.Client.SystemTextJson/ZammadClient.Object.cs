@@ -1,4 +1,4 @@
-﻿using Zammad.Client.Core;
+using Zammad.Client.Core;
 using Zammad.Client.Resources;
 using Object = Zammad.Client.Resources.Object;
 
