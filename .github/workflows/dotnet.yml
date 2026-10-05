@@ -45,6 +45,13 @@ jobs:
           max_attempts: 3
           retry_wait_seconds: 10
           command: dotnet test --no-build --report-trx --coverage --coverage-output-format cobertura --coverage-output cobertura.xml --results-directory TestResults
+      - name: Upload Zammad logs of failed tests
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: (!cancelled())
+        with:
+          name: zammad-logs
+          path: TestResults/zammad-logs/
+          if-no-files-found: ignore
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7
         env:
