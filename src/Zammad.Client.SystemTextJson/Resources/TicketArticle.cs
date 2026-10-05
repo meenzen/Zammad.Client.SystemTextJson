@@ -49,6 +49,9 @@ public sealed class TicketArticle
     [JsonPropertyName("internal")]
     public bool? Internal { get; set; }
 
+    [JsonPropertyName("body_rendering_error")]
+    public bool? BodyRenderingError { get; set; }
+
     [JsonPropertyName("preferences")]
     public IDictionary<string, object>? Preferences { get; set; }
 

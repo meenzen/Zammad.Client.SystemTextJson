@@ -36,8 +36,9 @@ function check_zammad_ready {
   check_no_restore_running
 
   echo 'Checking if Zammad is ready...'
-  # Verify that migrations have been ran and seeds executed to process ENV vars like FQDN correctly.
-  until bundle exec rails r 'ActiveRecord::Migration.check_all_pending!; Translation.any? || raise' &> /dev/null; do
+  # Verify that migrations have been ran and seeds executed to process ENV vars like FQDN correctly,
+  #   and that staged addon packages are fully installed and migrated.
+  until bundle exec rails r 'ActiveRecord::Migration.check_all_pending!; Package.check_staged_packages_applied!; Translation.any? || raise' &> /dev/null; do
     echo "  waiting for init container to finish install or update..."
     sleep 2
   done
@@ -96,6 +97,16 @@ if [ "$1" = 'zammad-init' ]; then
         %w[create update destroy reminder_reached escalation escalation_warning
            update.merged_into update.received_merge].each { |type| TypeLookup.by_name(type) }
       "
+
+      # In containers, Zammad seeds an active SMTP notification channel for host.example.com. Sending a notification
+      # through it fails and marks the channel as failed, so the health check stays unhealthy. Use the sendmail
+      # channel instead, which writes the mails to tmp/mails because ZAMMAD_MAIL_TO_FILE is set.
+      echo "Switching notification emails to files..."
+      bundle exec rails r "
+        Channel.where(area: 'Email::Notification').find_each do |channel|
+          channel.update!(active: channel.options.dig('outbound', 'adapter') == 'sendmail')
+        end
+      "
       ### Custom End ###
     fi
   else
@@ -107,6 +118,19 @@ if [ "$1" = 'zammad-init' ]; then
 
     echo Synchronizing locales and translations...
     bundle exec rails r "Locale.sync; Translation.sync"
+  fi
+
+  # uninstall addon packages staged in packages/uninstall/ (runs their down migrations)
+  if compgen -G "packages/uninstall/*.zpm" > /dev/null; then
+    echo "uninstalling addon packages..."
+    bundle exec rake zammad:package:uninstall_dir packages/uninstall
+  fi
+
+  # install / update addon packages staged in packages/install/
+  if compgen -G "packages/install/*.zpm" > /dev/null; then
+    echo "installing / updating addon packages..."
+    bundle exec rake zammad:package:install_dir packages/install
+    bundle exec rake zammad:package:migrate
   fi
 
   # es config
@@ -208,7 +232,7 @@ else
 fi
 
 ### Custom Start ###
-# Based on https://github.com/zammad/zammad/blob/7.0.1/bin/docker-entrypoint
+# Based on https://github.com/zammad/zammad/blob/7.2.0/bin/docker-entrypoint
 # The following is required for integration testing:
 echo "Zammad entrypoint script finished"
 ### Custom End ###
