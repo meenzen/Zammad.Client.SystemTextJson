@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "name": "Recorded Signature",
+  "body": "\u003Cp\u003EKind regards\u003C/p\u003E\u003Cp\u003E#{user.firstname}\u003C/p\u003E",
+  "active": true,
+  "note": "a note",
+  "updated_by_id": 3,
+  "created_by_id": 3,
+  "created_at": "2026-10-05T15:20:05.951Z",
+  "updated_at": "2026-10-05T15:20:05.951Z",
+  "group_ids": []
+}

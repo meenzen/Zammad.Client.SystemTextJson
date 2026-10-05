@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "default",
+    "body": "\u003Cbr\u003E  #{user.firstname} #{user.lastname}\u003Cbr\u003E\u003Cbr\u003E--\u003Cbr\u003E Super Support - Waterford Business Park\u003Cbr\u003E 5201 Blue Lagoon Drive - 8th Floor \u0026amp; 9th Floor - Miami, 33126 USA\u003Cbr\u003E Email: hot@example.com - Web: \u003Ca href=\u0022http://www.example.com/\u0022 rel=\u0022nofollow noreferrer noopener\u0022 target=\u0022_blank\u0022\u003Ehttp://www.example.com/\u003C/a\u003E\u003Cbr\u003E--",
+    "active": true,
+    "note": null,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:35.246Z",
+    "updated_at": "2026-10-05T15:18:35.246Z",
+    "group_ids": [
+      1
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Recorded Signature",
+    "body": "\u003Cp\u003EKind regards\u003C/p\u003E\u003Cp\u003E#{user.firstname}\u003C/p\u003E",
+    "active": true,
+    "note": "a note",
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:20:05.951Z",
+    "updated_at": "2026-10-05T15:20:05.951Z",
+    "group_ids": []
+  }
+]
