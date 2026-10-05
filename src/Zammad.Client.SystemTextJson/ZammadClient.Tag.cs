@@ -9,8 +9,8 @@ public interface ITagService
     Task<List<string>> ListTagsAsync(ObjectType type, TargetObjectId targetId);
     Task<List<TagSearchResult>> SearchTagsAsync(string term);
     Task<List<TagSearchResult>> SearchTagsAsync(string term, int limit);
-    Task<bool> AddTagAsync(ObjectType type, TargetObjectId targetId, string tag);
-    Task<bool> RemoveTagAsync(ObjectType type, TargetObjectId targetId, string tag);
+    Task AddTagAsync(ObjectType type, TargetObjectId targetId, string tag);
+    Task RemoveTagAsync(ObjectType type, TargetObjectId targetId, string tag);
     Task<List<Tag>> ListTagsAdminAsync();
     Task CreateTagAdminAsync(string tag);
     Task RenameTagAdminAsync(TagId id, string tag);
@@ -47,7 +47,7 @@ public sealed partial class ZammadClient : ITagService
         return await GetAsync<List<TagSearchResult>>(TagSearchEndpoint, builder.ToString()) ?? [];
     }
 
-    public async Task<bool> AddTagAsync(ObjectType type, TargetObjectId targetId, string tag) =>
+    public async Task AddTagAsync(ObjectType type, TargetObjectId targetId, string tag) =>
         await PostAsync<bool>(
             $"{TagsEndpoint}/add",
             new TagRequest
@@ -58,7 +58,7 @@ public sealed partial class ZammadClient : ITagService
             }
         );
 
-    public async Task<bool> RemoveTagAsync(ObjectType type, TargetObjectId targetId, string tag) =>
+    public async Task RemoveTagAsync(ObjectType type, TargetObjectId targetId, string tag) =>
         await DeleteAsync<bool>(
             $"{TagsEndpoint}/remove",
             new TagRequest

@@ -12,7 +12,7 @@ public interface IUserService
     Task<User?> GetUserAsync(UserId id);
     Task<User> CreateUserAsync(User user);
     Task<User> UpdateUserAsync(UserId id, User user);
-    Task<bool> DeleteUserAsync(UserId id);
+    Task DeleteUserAsync(UserId id);
 }
 
 public sealed partial class ZammadClient : IUserService
@@ -46,5 +46,5 @@ public sealed partial class ZammadClient : IUserService
     public async Task<User> UpdateUserAsync(UserId id, User user) =>
         await PutAsync<User>($"{UsersEndpoint}/{id}", user) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteUserAsync(UserId id) => await DeleteAsync<bool>($"{UsersEndpoint}/{id}");
+    public async Task DeleteUserAsync(UserId id) => await DeleteAsync<bool>($"{UsersEndpoint}/{id}");
 }

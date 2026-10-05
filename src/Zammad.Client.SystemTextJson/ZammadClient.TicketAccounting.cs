@@ -13,7 +13,7 @@ public interface ITicketAccountingService
         TimeAccountingId id,
         TicketAccounting accounting
     );
-    Task<bool> DeleteTicketAccountingAsync(TicketId ticketId, TimeAccountingId id);
+    Task DeleteTicketAccountingAsync(TicketId ticketId, TimeAccountingId id);
 }
 
 public sealed partial class ZammadClient : ITicketAccountingService
@@ -36,6 +36,6 @@ public sealed partial class ZammadClient : ITicketAccountingService
         await PutAsync<TicketAccounting>($"{TicketsEndpoint}/{ticketId}/time_accountings/{id}", accounting)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteTicketAccountingAsync(TicketId ticketId, TimeAccountingId id) =>
+    public async Task DeleteTicketAccountingAsync(TicketId ticketId, TimeAccountingId id) =>
         await DeleteAsync<bool>($"{TicketsEndpoint}/{ticketId}/time_accountings/{id}");
 }

@@ -144,8 +144,7 @@ public class TicketTests(ZammadStackFixture zammadStack)
         await Assert.That(CreatedTicketId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
 
-        var deleteResult = await client.DeleteTicketAsync(CreatedTicketId.Value);
-        await Assert.That(deleteResult).IsTrue();
+        await client.DeleteTicketAsync(CreatedTicketId.Value);
 
         var deletedTicket = await client.GetTicketAsync(CreatedTicketId.Value);
         await Assert.That(deletedTicket).IsNull();

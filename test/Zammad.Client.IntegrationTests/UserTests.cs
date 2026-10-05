@@ -147,9 +147,7 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         var client = await zammadStack.GetClientAsync();
 
-        var result1 = await client.DeleteUserAsync(HomerSimpsonId);
-
-        await Assert.That(result1).IsTrue();
+        await client.DeleteUserAsync(HomerSimpsonId);
         await Assert.That(await client.GetUserAsync(HomerSimpsonId)).IsNull();
     }
 }

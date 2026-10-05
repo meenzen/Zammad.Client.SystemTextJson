@@ -135,9 +135,7 @@ public class OrganizationTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var organization1 = await client.DeleteOrganizationAsync(KrustyBurgerId);
-
-        await Assert.That(organization1).IsTrue();
+        await client.DeleteOrganizationAsync(KrustyBurgerId);
         await Assert.That(await client.GetOrganizationAsync(KrustyBurgerId)).IsNull();
     }
 }

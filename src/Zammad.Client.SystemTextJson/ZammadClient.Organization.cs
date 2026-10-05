@@ -11,7 +11,7 @@ public interface IOrganizationService
     Task<Organization?> GetOrganizationAsync(OrganizationId id);
     Task<Organization> CreateOrganizationAsync(Organization organization);
     Task<Organization> UpdateOrganizationAsync(OrganizationId id, Organization organization);
-    Task<bool> DeleteOrganizationAsync(OrganizationId id);
+    Task DeleteOrganizationAsync(OrganizationId id);
 }
 
 public sealed partial class ZammadClient : IOrganizationService
@@ -44,6 +44,6 @@ public sealed partial class ZammadClient : IOrganizationService
         await PutAsync<Organization>($"{OrganizationsEndpoint}/{id}", organization)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteOrganizationAsync(OrganizationId id) =>
+    public async Task DeleteOrganizationAsync(OrganizationId id) =>
         await DeleteAsync<bool>($"{OrganizationsEndpoint}/{id}");
 }

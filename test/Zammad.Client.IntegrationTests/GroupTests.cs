@@ -88,9 +88,7 @@ public class GroupTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var result = await client.DeleteGroupAsync(CreatedGroupId);
-
-        await Assert.That(result).IsTrue();
+        await client.DeleteGroupAsync(CreatedGroupId);
         await Assert.That(await client.GetGroupAsync(CreatedGroupId)).IsNull();
     }
 }
