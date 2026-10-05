@@ -53,9 +53,18 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
         return _client!;
     }
 
+    /// <summary>
+    /// Returns a client that authenticates as the admin but acts as the given user (X-On-Behalf-Of).
+    /// </summary>
+    public async Task<IZammadClient> GetClientOnBehalfOfAsync(string user)
+    {
+        await WaitUntilReadyAsync();
+        return GetClient(GetUri(_publicPort!.Value), user);
+    }
+
     private static Uri GetUri(int port) => new Uri($"http://127.0.0.1:{port}");
 
-    private static ZammadClient GetClient(Uri baseUrl)
+    private static ZammadClient GetClient(Uri baseUrl, string? onBehalfOf = null)
     {
         ZammadClient client = new ZammadClient(
             new HttpClient(),
@@ -65,6 +74,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
                     BaseUrl = baseUrl,
                     Username = "admin@example.org",
                     Password = "TestPassword1234",
+                    OnBehalfOf = onBehalfOf,
                 }
             )
         );

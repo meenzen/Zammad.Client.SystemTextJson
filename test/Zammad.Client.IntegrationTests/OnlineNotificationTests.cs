@@ -8,7 +8,11 @@ namespace Zammad.Client.IntegrationTests;
 [ClassDataSource<ZammadStackFixture>(Shared = SharedType.PerAssembly)]
 public class OnlineNotificationTests(ZammadStackFixture zammadStack)
 {
+    private const string AgentLogin = "agent1@example.org";
+    private static readonly TimeSpan NotificationTimeout = TimeSpan.FromSeconds(60);
+
     private static NotificationId NotificationId { get; set; } = NotificationId.Empty;
+    private static TicketId TicketId { get; set; } = TicketId.Empty;
 
     [Test]
     public async Task ListOnlineNotifications()
@@ -19,38 +23,47 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
-    [Retry(TestSetup.RetryCount, BackoffMs = TestSetup.BackoffMs)]
-    [Skip("Currently does not work, find out how to reliably trigger notifications in tests.")]
     public async Task CreateOnlineNotification()
     {
         var client = await zammadStack.GetClientAsync();
+        var me = await client.GetUserMeAsync();
 
-        var user = await client.GetUserMeAsync();
-        var ticket = await client.CreateTicketAsync(
+        // Zammad doesn't notify the user who made a change, so another agent has to create the ticket. Owners get an
+        // online notification for new tickets with the default notification settings.
+        var agentClient = await zammadStack.GetClientOnBehalfOfAsync(AgentLogin);
+        var ticket = await agentClient.CreateTicketAsync(
             new Ticket
             {
-                Title = "Notification Test Ticket",
+                Title = "Notification Test Ticket " + TestSetup.RandomString(),
                 GroupId = new GroupId(1),
                 CustomerId = new UserId(1),
-                OwnerId = new UserId(1),
+                OwnerId = me.Id,
             },
             new TicketArticle
             {
                 Subject = "Notification Test",
                 Body = "Test notification",
                 Type = "note",
-                CC = user.Email,
             }
         );
-
         await Assert.That(ticket).IsNotNull();
+        TicketId = ticket.Id;
 
-        await Task.Delay(TestSetup.IndexerDelay);
+        // Notifications are created asynchronously by a background job in the scheduler.
+        var timeout = DateTimeOffset.UtcNow + NotificationTimeout;
+        OnlineNotification? notification = null;
+        while (notification is null && DateTimeOffset.UtcNow < timeout)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            var notifications = await client.ListOnlineNotificationsAsync(new Pagination { Page = 1, PerPage = 100 });
+            notification = notifications.Find(n =>
+                n.ObjectType == ObjectType.Ticket && n.ObjectId == ticket.Id.ToTargetObjectId()
+            );
+        }
 
-        var notifications = await client.ListOnlineNotificationsAsync(new Pagination { Page = 1, PerPage = 100 });
-
-        await Assert.That(notifications).IsNotEmpty();
-        NotificationId = notifications.First().Id;
+        await Assert.That(notification).IsNotNull();
+        await Assert.That(notification!.Type).IsEqualTo("create");
+        NotificationId = notification.Id;
     }
 
     [Test]
@@ -63,8 +76,7 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
 
         await Assert.That(notification).IsNotNull();
         await Assert.That(notification!.Id).IsEqualTo(NotificationId);
-        await Assert.That(notification.ObjectType).IsEqualTo(ObjectType.Ticket);
-        await Assert.That(notification.Type).IsEqualTo("mention");
+        await Assert.That(notification.ObjectId).IsEqualTo(TicketId.ToTargetObjectId());
     }
 
     [Test]

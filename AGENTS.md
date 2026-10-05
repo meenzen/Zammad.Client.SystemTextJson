@@ -76,8 +76,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   (`TestSetup.RandomString()`). Never assert on global counts.
 - Tests within a class are chained with `[DependsOn]` and pass IDs through `static` properties (create → get → update →
   delete). If one step fails, its dependents are skipped.
-- "Skipped due to failed dependencies" on the `OnlineNotification` tests is expected: `CreateOnlineNotification` is
-  skipped on purpose because there's no reliable way to trigger a notification.
+- Zammad never notifies the user who made a change. `OnlineNotificationTests` creates the ticket on behalf of
+  `agent1@example.org` (`GetClientOnBehalfOfAsync`, `X-On-Behalf-Of`) with the admin as owner, then polls until the
+  scheduler has created the admin's notification.
 - `Setup/docker-entrypoint` is a patched copy of Zammad's `bin/docker-entrypoint` for the pinned image version. It runs
   the auto wizard (`Setup/autowizard.json`, admin `admin@example.org` / `TestPassword1234`) and prints a marker that the
   fixture waits for. When you bump the Zammad image, re-apply the patch on top of the new upstream entrypoint.
