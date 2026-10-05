@@ -138,4 +138,49 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
         using var reader = new StreamReader(stream!);
         await Assert.That(await reader.ReadToEndAsync()).IsEqualTo("Hello, attachment!");
     }
+
+    [Test]
+    [DependsOn(nameof(GetTicketArticle))]
+    public async Task GetTicketArticlePlain_NoRawCopy()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        // Only emails have a raw copy. The stack can't send or receive any, so only the note case is tested.
+        var stream = await client.GetTicketArticlePlainAsync(TestArticleId);
+
+        await Assert.That(stream).IsNull();
+    }
+
+    [Test]
+    [DependsOn(nameof(GetTicketArticle))]
+    public async Task UpdateTicketArticle()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var updated = await client.UpdateTicketArticleAsync(TestArticleId, new TicketArticle { Internal = true });
+
+        await Assert.That(updated.Id).IsEqualTo(TestArticleId);
+        await Assert.That(updated.Internal).IsTrue();
+
+        var article = await client.GetTicketArticleAsync(TestArticleId);
+        await Assert.That(article).IsNotNull();
+        await Assert.That(article!.Internal).IsTrue();
+        await Assert.That(article.Subject).IsEqualTo("Test Article " + Id);
+    }
+
+    [Test]
+    [DependsOn(nameof(GetTicketArticleAttachment))]
+    [DependsOn(nameof(GetTicketArticlePlain_NoRawCopy))]
+    [DependsOn(nameof(UpdateTicketArticle))]
+    public async Task DeleteTicketArticle()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        // Agents can delete their own notes
+        await client.DeleteTicketArticleAsync(TestArticleId);
+
+        await Assert.That(await client.GetTicketArticleAsync(TestArticleId)).IsNull();
+        var articles = await client.ListTicketArticlesAsync(TestTicketId);
+        await Assert.That(articles).DoesNotContain(a => a.Id == TestArticleId);
+    }
 }

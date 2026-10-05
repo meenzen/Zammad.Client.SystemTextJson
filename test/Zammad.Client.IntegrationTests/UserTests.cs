@@ -1,3 +1,4 @@
+using System.Net;
 using Zammad.Client.Core;
 using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
@@ -139,6 +140,68 @@ public class UserTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(UpdateUser))]
+    public async Task UnlockUser()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        // Simulate a user who is locked out after too many failed logins
+        var user = await client.GetUserAsync(HomerSimpsonId);
+        await Assert.That(user).IsNotNull();
+        user!.LoginFailed = 20;
+        var locked = await client.UpdateUserAsync(HomerSimpsonId, user);
+        await Assert.That(locked.LoginFailed).IsEqualTo(20);
+
+        await client.UnlockUserAsync(HomerSimpsonId);
+
+        var unlocked = await client.GetUserAsync(HomerSimpsonId);
+        await Assert.That(unlocked).IsNotNull();
+        await Assert.That(unlocked!.LoginFailed).IsEqualTo(0);
+    }
+
+    [Test]
+    [DependsOn(nameof(CreateUser))]
+    public async Task ListUserTwoFactorMethods()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var methods = await client.ListUserTwoFactorMethodsAsync(HomerSimpsonId);
+
+        // Which methods are listed depends on the system settings, but the new user can't have configured any
+        await Assert.That(methods).All(m => !m.Configured && !m.Default);
+    }
+
+    [Test]
+    [DependsOn(nameof(ListUserTwoFactorMethods))]
+    public async Task RemoveUserTwoFactorMethod()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        // Removing a method that the user hasn't configured does nothing
+        await client.RemoveUserTwoFactorMethodAsync(HomerSimpsonId, "authenticator_app");
+
+        var exception = await Assert.ThrowsAsync<ZammadException>(() =>
+            client.RemoveUserTwoFactorMethodAsync(HomerSimpsonId, "carrier_pigeon")
+        );
+        await Assert.That(exception!.Code).IsEqualTo(HttpStatusCode.UnprocessableEntity);
+        await Assert.That(exception.Error).IsEqualTo("The given two-factor method does not exist.");
+    }
+
+    [Test]
+    [DependsOn(nameof(RemoveUserTwoFactorMethod))]
+    public async Task RemoveAllUserTwoFactorMethods()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        await client.RemoveAllUserTwoFactorMethodsAsync(HomerSimpsonId);
+
+        var methods = await client.ListUserTwoFactorMethodsAsync(HomerSimpsonId);
+        await Assert.That(methods).All(m => !m.Configured);
+    }
+
+    [Test]
+    [DependsOn(nameof(UpdateUser))]
+    [DependsOn(nameof(UnlockUser))]
+    [DependsOn(nameof(RemoveAllUserTwoFactorMethods))]
     [Retry(5, BackoffMs = TestSetup.BackoffMs)]
     public async Task DeleteUser()
     {

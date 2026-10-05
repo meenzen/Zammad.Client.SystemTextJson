@@ -1,0 +1,5 @@
+{
+  "state": "warning",
+  "message": "The limit of 10 was exceeded with 12 in the last 1h",
+  "count": 12
+}

@@ -43,6 +43,16 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
     [Test]
     public async Task CreateOnlineNotification()
     {
+        var (ticket, notification) = await CreateTicketAndWaitForNotificationAsync();
+        TicketId = ticket.Id;
+
+        await Assert.That(notification).IsNotNull();
+        await Assert.That(notification!.Type).IsEqualTo("create");
+        NotificationId = notification.Id;
+    }
+
+    private async Task<(Ticket Ticket, OnlineNotification? Notification)> CreateTicketAndWaitForNotificationAsync()
+    {
         var client = await zammadStack.GetClientAsync();
         var me = await client.GetUserMeAsync();
 
@@ -65,7 +75,6 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
             }
         );
         await Assert.That(ticket).IsNotNull();
-        TicketId = ticket.Id;
 
         // Notifications are created asynchronously by a background job in the scheduler.
         var timeout = DateTimeOffset.UtcNow + NotificationTimeout;
@@ -79,9 +88,7 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
             );
         }
 
-        await Assert.That(notification).IsNotNull();
-        await Assert.That(notification!.Type).IsEqualTo("create");
-        NotificationId = notification.Id;
+        return (ticket, notification);
     }
 
     [Test]
@@ -139,5 +146,19 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
         await client.DeleteOnlineNotificationAsync(NotificationId);
 
         await Assert.That(await client.GetOnlineNotificationAsync(NotificationId)).IsNull();
+    }
+
+    [Test]
+    // Deletes all notifications of the admin, so it has to run after the other tests of this class
+    [DependsOn(nameof(DeleteOnlineNotification))]
+    public async Task DeleteAllOnlineNotifications()
+    {
+        var (_, notification) = await CreateTicketAndWaitForNotificationAsync();
+        await Assert.That(notification).IsNotNull();
+
+        var client = await zammadStack.GetClientAsync();
+        await client.DeleteAllOnlineNotificationsAsync();
+
+        await Assert.That(await client.GetOnlineNotificationAsync(notification!.Id)).IsNull();
     }
 }
