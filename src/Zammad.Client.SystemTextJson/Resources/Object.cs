@@ -33,7 +33,7 @@ public sealed class Object
     public bool? Active { get; set; }
 
     [JsonPropertyName("screens")]
-    public dynamic? Screens { get; set; }
+    public JsonElement? Screens { get; set; }
 
     [JsonPropertyName("to_create")]
     public bool? ToCreate { get; set; }
@@ -87,7 +87,7 @@ public class ObjectDataOption
     public string? Relation { get; set; }
 
     [JsonPropertyName("relation_condition")]
-    public dynamic? RelationCondition { get; set; }
+    public JsonElement? RelationCondition { get; set; }
 
     [JsonPropertyName("autocapitalize")]
     public bool? Autocapitalize { get; set; }
@@ -129,10 +129,10 @@ public class ObjectDataOption
     public List<string>? Permissions { get; set; }
 
     [JsonPropertyName("options")]
-    public dynamic? Options { get; set; }
+    public JsonElement? Options { get; set; }
 
     [JsonPropertyName("historical_options")]
-    public dynamic? HistoricalOptions { get; set; }
+    public JsonElement? HistoricalOptions { get; set; }
 
     [JsonPropertyName("nulloption")]
     public bool? NullOption { get; set; }

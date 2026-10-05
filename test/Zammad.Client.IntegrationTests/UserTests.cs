@@ -21,6 +21,8 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         await Assert.That(user).IsNotNull();
         await Assert.That(user.Email).IsEqualTo("admin@example.org");
+        await Assert.That(user.RoleIds).IsNotNull().And.IsNotEmpty();
+        await Assert.That(user.GroupIds).IsNotNull().And.ContainsKey(new GroupId(1));
     }
 
     [Test]
@@ -106,6 +108,22 @@ public class UserTests(ZammadStackFixture zammadStack)
 
     [Test]
     [DependsOn(nameof(SearchUsers))]
+    public async Task SearchUsers_NotExpanded()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var userSearch = await client.SearchUsersAsync(
+            new SearchQuery { Query = $"homer.simpson.{RandomName}" },
+            expand: false
+        );
+
+        await Assert.That(userSearch).HasSingleItem();
+        await Assert.That(userSearch[0].Id).IsEqualTo(HomerSimpsonId);
+    }
+
+    [Test]
+    [DependsOn(nameof(SearchUsers))]
+    [DependsOn(nameof(SearchUsers_NotExpanded))]
     public async Task UpdateUser()
     {
         var client = await zammadStack.GetClientAsync();
@@ -129,8 +147,7 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         var client = await zammadStack.GetClientAsync();
 
-        var result1 = await client.DeleteUserAsync(HomerSimpsonId);
-
-        await Assert.That(result1).IsTrue();
+        await client.DeleteUserAsync(HomerSimpsonId);
+        await Assert.That(await client.GetUserAsync(HomerSimpsonId)).IsNull();
     }
 }

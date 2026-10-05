@@ -104,8 +104,7 @@ public class ObjectTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var result = await client.ExecuteMigrationAsync();
-        await Assert.That(result).IsTrue();
+        await client.ExecuteMigrationAsync();
 
         // Zammad (auto_shutdown) stops railsserver, scheduler and websocket a few seconds after a migration that changed
         // columns. The containers have no restart policy, so start them again.

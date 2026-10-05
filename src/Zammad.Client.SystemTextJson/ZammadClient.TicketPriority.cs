@@ -10,7 +10,7 @@ public interface ITicketPriorityService
     Task<TicketPriority?> GetTicketPriorityAsync(PriorityId id);
     Task<TicketPriority> CreateTicketPriorityAsync(TicketPriority priority);
     Task<TicketPriority> UpdateTicketPriorityAsync(PriorityId id, TicketPriority priority);
-    Task<bool> DeleteTicketPriorityAsync(PriorityId id);
+    Task DeleteTicketPriorityAsync(PriorityId id);
 }
 
 public sealed partial class ZammadClient : ITicketPriorityService
@@ -35,6 +35,6 @@ public sealed partial class ZammadClient : ITicketPriorityService
         await PutAsync<TicketPriority>($"{TicketPrioritiesEndpoint}/{id}", priority)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteTicketPriorityAsync(PriorityId id) =>
+    public async Task DeleteTicketPriorityAsync(PriorityId id) =>
         await DeleteAsync<bool>($"{TicketPrioritiesEndpoint}/{id}");
 }

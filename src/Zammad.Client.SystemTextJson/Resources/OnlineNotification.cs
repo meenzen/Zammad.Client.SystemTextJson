@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
@@ -32,7 +33,7 @@ public sealed class OnlineNotification
     public bool? Seen { get; set; }
 
     [JsonPropertyName("meta")]
-    public IDictionary<string, object>? Meta { get; set; }
+    public Dictionary<string, JsonElement>? Meta { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }

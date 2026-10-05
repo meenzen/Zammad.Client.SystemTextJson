@@ -15,10 +15,13 @@ public sealed class Group : IHasCustomFields
     public EmailAddressId? EmailAddressId { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
+    /// <summary>
+    /// Minutes after which a ticket is unassigned if its owner doesn't work on it.
+    /// </summary>
     [JsonPropertyName("assignment_timeout")]
-    public TimeSpan? AssignmentTimeout { get; set; }
+    public int? AssignmentTimeout { get; set; }
 
     [JsonPropertyName("follow_up_possible")]
     public string? FollowUpPossible { get; set; }
@@ -27,13 +30,13 @@ public sealed class Group : IHasCustomFields
     public bool? FollowUpAssignment { get; set; }
 
     [JsonPropertyName("active")]
-    public required bool Active { get; set; }
+    public bool? Active { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; } = string.Empty;
+    public string? Note { get; set; }
 
     [JsonPropertyName("user_ids")]
-    public List<int>? UserIds { get; set; }
+    public List<UserId>? UserIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }
@@ -46,6 +49,39 @@ public sealed class Group : IHasCustomFields
 
     [JsonPropertyName("updated_at")]
     public DateTimeOffset? UpdatedAt { get; set; }
+
+    /// <summary>
+    /// Last part of the name of a nested group, the name contains the full path.
+    /// </summary>
+    [JsonPropertyName("name_last")]
+    public string? NameLast { get; set; }
+
+    [JsonPropertyName("parent_id")]
+    public GroupId? ParentId { get; set; }
+
+    [JsonPropertyName("reopen_time_in_days")]
+    public int? ReopenTimeInDays { get; set; }
+
+    [JsonPropertyName("shared_drafts")]
+    public bool? SharedDrafts { get; set; }
+
+    [JsonPropertyName("summary_generation")]
+    public string? SummaryGeneration { get; set; }
+
+    [JsonPropertyName("email_address")]
+    public string? EmailAddress { get; set; }
+
+    [JsonPropertyName("signature")]
+    public string? Signature { get; set; }
+
+    [JsonPropertyName("users")]
+    public List<string>? Users { get; set; }
+
+    [JsonPropertyName("created_by")]
+    public string? CreatedBy { get; set; }
+
+    [JsonPropertyName("updated_by")]
+    public string? UpdatedBy { get; set; }
 
     /// <summary>
     /// Additional properties that are not explicitly defined in this class.

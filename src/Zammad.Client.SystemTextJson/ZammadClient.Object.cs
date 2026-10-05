@@ -10,7 +10,7 @@ public interface IObjectService
     Task<Object?> GetObjectAsync(ObjectId id);
     Task<Object> CreateObjectAsync(Object @object);
     Task<Object> UpdateObjectAsync(ObjectId id, Object @object);
-    Task<bool> ExecuteMigrationAsync();
+    Task ExecuteMigrationAsync();
 }
 
 public sealed partial class ZammadClient : IObjectService
@@ -30,6 +30,6 @@ public sealed partial class ZammadClient : IObjectService
         await PutAsync<Object>($"{ObjectManagerAttributesEndpoint}/{id}", @object)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> ExecuteMigrationAsync() =>
+    public async Task ExecuteMigrationAsync() =>
         await PostAsync<bool>($"{ObjectManagerAttributesEndpoint}_execute_migrations");
 }

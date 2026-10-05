@@ -11,7 +11,7 @@ public interface ITicketService
     Task<Ticket?> GetTicketAsync(TicketId id);
     Task<Ticket> CreateTicketAsync(Ticket ticket, TicketArticle article);
     Task<Ticket> UpdateTicketAsync(TicketId id, Ticket ticket);
-    Task<bool> DeleteTicketAsync(TicketId id);
+    Task DeleteTicketAsync(TicketId id);
 }
 
 public sealed partial class ZammadClient : ITicketService
@@ -42,5 +42,5 @@ public sealed partial class ZammadClient : ITicketService
     public async Task<Ticket> UpdateTicketAsync(TicketId id, Ticket ticket) =>
         await PutAsync<Ticket>($"{TicketsEndpoint}/{id}", ticket) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteTicketAsync(TicketId id) => await DeleteAsync<bool>($"{TicketsEndpoint}/{id}");
+    public async Task DeleteTicketAsync(TicketId id) => await DeleteAsync<bool>($"{TicketsEndpoint}/{id}");
 }

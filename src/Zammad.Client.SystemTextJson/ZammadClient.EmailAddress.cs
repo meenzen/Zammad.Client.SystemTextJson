@@ -9,7 +9,7 @@ public interface IEmailAddressService
     Task<EmailAddress?> GetEmailAddressAsync(EmailAddressId id);
     Task<EmailAddress> CreateEmailAddressAsync(EmailAddress emailAddress);
     Task<EmailAddress> UpdateEmailAddressAsync(EmailAddressId id, EmailAddress emailAddress);
-    Task<bool> DeleteEmailAddressAsync(EmailAddressId id);
+    Task DeleteEmailAddressAsync(EmailAddressId id);
 }
 
 public sealed partial class ZammadClient : IEmailAddressService
@@ -34,6 +34,6 @@ public sealed partial class ZammadClient : IEmailAddressService
         await PutAsync<EmailAddress>($"{EmailAddressesEndpoint}/{id}", emailAddress)
         ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteEmailAddressAsync(EmailAddressId id) =>
+    public async Task DeleteEmailAddressAsync(EmailAddressId id) =>
         await DeleteAsync<bool>($"{EmailAddressesEndpoint}/{id}");
 }

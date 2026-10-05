@@ -64,13 +64,13 @@ public class HttpResponseParserTest
         await Assert.That(ticket.LastContactCustomerAt).IsEqualTo(DateTimeOffset.Parse("2017-09-25T14:50:50.946Z"));
         await Assert.That(ticket.LastOwnerUpdateAt).IsNull();
         await Assert.That(ticket.CreateArticleTypeId).IsEqualTo(new ArticleTypeId(5));
-        await Assert.That(ticket.CreateArticleSenderId).IsEqualTo(new UserId(2));
+        await Assert.That(ticket.CreateArticleSenderId).IsEqualTo(new ArticleSenderId(2));
         await Assert.That(ticket.ArticleCount).IsEqualTo(1);
         await Assert.That(ticket.EscalationAt).IsNull();
         await Assert.That(ticket.PendingTime).IsNull();
         await Assert.That(ticket.Type).IsNull();
         await Assert.That(ticket.TimeUnit).IsNull();
-        await Assert.That(ticket.Preferences).IsEquivalentTo(new Dictionary<string, object>());
+        await Assert.That(ticket.Preferences).IsEmpty();
         await Assert.That(ticket.UpdatedById).IsEqualTo(new UserId(3));
         await Assert.That(ticket.CreatedById).IsEqualTo(new UserId(2));
         await Assert.That(ticket.CreatedAt).IsEqualTo(DateTimeOffset.Parse("2017-09-25T14:50:50.910Z"));

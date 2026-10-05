@@ -53,6 +53,12 @@ public partial struct ArticleId;
 [StronglyTypedId]
 public partial struct ArticleTypeId;
 
+/// <summary>
+/// ID of a <c>Ticket::Article::Sender</c> (by default 1 = Agent, 2 = Customer, 3 = System), not a user.
+/// </summary>
+[StronglyTypedId]
+public partial struct ArticleSenderId;
+
 [StronglyTypedId]
 public partial struct AttachmentId;
 
@@ -85,3 +91,21 @@ public partial struct TimeAccountingId;
 
 [StronglyTypedId]
 public partial struct TimeAccountingTypeId;
+
+[StronglyTypedId]
+public partial struct AIStoredResultId;
+
+[StronglyTypedId]
+public partial struct RoleId;
+
+[StronglyTypedId]
+public partial struct TwoFactorPreferenceId;
+
+[StronglyTypedId]
+public partial struct AuthorizationId;
+
+[StronglyTypedId]
+public partial struct OverviewSortingId;
+
+[StronglyTypedId]
+public partial struct DailyEventLockId;

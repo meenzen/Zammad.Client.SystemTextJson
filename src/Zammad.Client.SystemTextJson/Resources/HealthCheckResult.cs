@@ -12,10 +12,10 @@ public sealed class HealthCheckResult
     public required string Message { get; set; }
 
     [JsonPropertyName("issues")]
-    public required List<JsonElement> Issues { get; set; }
+    public required List<string> Issues { get; set; }
 
     [JsonPropertyName("actions")]
-    public required List<JsonElement> Actions { get; set; }
+    public required List<string> Actions { get; set; }
 
     [JsonPropertyName("token")]
     public required string Token { get; set; }

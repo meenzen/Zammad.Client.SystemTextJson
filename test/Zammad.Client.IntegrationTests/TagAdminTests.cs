@@ -59,6 +59,10 @@ public class TagAdminTests(ZammadStackFixture zammadStack)
         await Assert.That(CreatedTagId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
         await client.RenameTagAdminAsync(CreatedTagId.Value, "AdminTagRenamed" + Id);
+
+        var results = await client.ListTagsAdminAsync();
+        await Assert.That(results).Contains(t => t.Id == CreatedTagId && t.Name == "AdminTagRenamed" + Id);
+        await Assert.That(results).DoesNotContain(t => t.Name == TagName);
     }
 
     [Test]
@@ -68,5 +72,8 @@ public class TagAdminTests(ZammadStackFixture zammadStack)
         await Assert.That(CreatedTagId).IsNotNull();
         var client = await zammadStack.GetClientAsync();
         await client.DeleteTagAdminAsync(CreatedTagId.Value);
+
+        var results = await client.ListTagsAdminAsync();
+        await Assert.That(results).DoesNotContain(t => t.Id == CreatedTagId);
     }
 }

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
@@ -11,10 +12,10 @@ public sealed class EmailAddress
     public ChannelId? ChannelId { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("email")]
-    public required string Email { get; set; }
+    public string? Email { get; set; }
 
     /// <summary>
     /// Whether the email address is active.
@@ -29,7 +30,7 @@ public sealed class EmailAddress
     public string? Note { get; set; }
 
     [JsonPropertyName("preferences")]
-    public IDictionary<string, object>? Preferences { get; set; }
+    public Dictionary<string, JsonElement>? Preferences { get; set; }
 
     [JsonPropertyName("group_ids")]
     public List<GroupId>? GroupIds { get; set; }

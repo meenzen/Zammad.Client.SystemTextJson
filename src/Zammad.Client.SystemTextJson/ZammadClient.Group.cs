@@ -9,7 +9,7 @@ public interface IGroupService
     Task<Group?> GetGroupAsync(GroupId id);
     Task<Group> CreateGroupAsync(Group group);
     Task<Group> UpdateGroupAsync(GroupId id, Group group);
-    Task<bool> DeleteGroupAsync(GroupId id);
+    Task DeleteGroupAsync(GroupId id);
 }
 
 public sealed partial class ZammadClient : IGroupService
@@ -31,5 +31,5 @@ public sealed partial class ZammadClient : IGroupService
     public async Task<Group> UpdateGroupAsync(GroupId id, Group group) =>
         await PutAsync<Group>($"{GroupsEndpoint}/{id}", group) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteGroupAsync(GroupId id) => await DeleteAsync<bool>($"{GroupsEndpoint}/{id}");
+    public async Task DeleteGroupAsync(GroupId id) => await DeleteAsync<bool>($"{GroupsEndpoint}/{id}");
 }

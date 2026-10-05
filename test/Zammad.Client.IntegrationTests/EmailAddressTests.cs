@@ -88,9 +88,7 @@ public class EmailAddressTests(ZammadStackFixture zammadStack)
     {
         var client = await zammadStack.GetClientAsync();
 
-        var result = await client.DeleteEmailAddressAsync(CreatedEmailAddressId);
-
-        await Assert.That(result).IsTrue();
+        await client.DeleteEmailAddressAsync(CreatedEmailAddressId);
         await Assert.That(await client.GetEmailAddressAsync(CreatedEmailAddressId)).IsNull();
     }
 }

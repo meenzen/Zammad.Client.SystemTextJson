@@ -120,6 +120,10 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
         await Assert.That(article!.Id).IsEqualTo(TestArticleId);
         await Assert.That(article.TicketId).IsEqualTo(TestTicketId);
         await Assert.That(article.Subject).IsEqualTo("Test Article " + Id);
+        await Assert.That(article.Type).IsEqualTo("note");
+        await Assert.That(article.TypeId).IsNotNull();
+        await Assert.That(article.Sender).IsEqualTo("Agent");
+        await Assert.That(article.SenderId).IsEqualTo(new ArticleSenderId(1));
     }
 
     [Test]
@@ -131,6 +135,7 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
         var stream = await client.GetTicketArticleAttachmentAsync(TestTicketId, TestArticleId, TestAttachmentId);
 
         await Assert.That(stream).IsNotNull();
-        await Assert.That(stream!.Length).IsGreaterThan(0);
+        using var reader = new StreamReader(stream!);
+        await Assert.That(await reader.ReadToEndAsync()).IsEqualTo("Hello, attachment!");
     }
 }

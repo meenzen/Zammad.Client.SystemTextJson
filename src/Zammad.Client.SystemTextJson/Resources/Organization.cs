@@ -9,28 +9,28 @@ public sealed class Organization : IHasCustomFields
     public OrganizationId Id { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("shared")]
-    public required bool Shared { get; set; }
+    public bool? Shared { get; set; }
 
     [JsonPropertyName("domain")]
-    public string Domain { get; set; } = string.Empty;
+    public string? Domain { get; set; }
 
     [JsonPropertyName("domain_assignment")]
-    public bool DomainAssignment { get; set; }
+    public bool? DomainAssignment { get; set; }
 
     [JsonPropertyName("active")]
-    public required bool Active { get; set; }
+    public bool? Active { get; set; }
 
     [JsonPropertyName("vip")]
-    public bool Vip { get; set; }
+    public bool? Vip { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; } = string.Empty;
+    public string? Note { get; set; }
 
     [JsonPropertyName("member_ids")]
-    public List<int>? MemberIds { get; set; }
+    public List<UserId>? MemberIds { get; set; }
 
     [JsonPropertyName("updated_by_id")]
     public UserId? UpdatedById { get; set; }
@@ -43,6 +43,18 @@ public sealed class Organization : IHasCustomFields
 
     [JsonPropertyName("updated_at")]
     public DateTimeOffset? UpdatedAt { get; set; }
+
+    [JsonPropertyName("secondary_member_ids")]
+    public List<UserId>? SecondaryMemberIds { get; set; }
+
+    [JsonPropertyName("members")]
+    public List<string>? Members { get; set; }
+
+    [JsonPropertyName("created_by")]
+    public string? CreatedBy { get; set; }
+
+    [JsonPropertyName("updated_by")]
+    public string? UpdatedBy { get; set; }
 
     /// <summary>
     /// Additional properties that are not explicitly defined in this class.

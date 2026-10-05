@@ -19,6 +19,12 @@ public sealed class TicketPriority
     [JsonPropertyName("active")]
     public bool? Active { get; set; }
 
+    [JsonPropertyName("ui_icon")]
+    public string? UiIcon { get; set; }
+
+    [JsonPropertyName("ui_color")]
+    public string? UiColor { get; set; }
+
     [JsonPropertyName("created_by_id")]
     public UserId? CreatedById { get; set; }
 

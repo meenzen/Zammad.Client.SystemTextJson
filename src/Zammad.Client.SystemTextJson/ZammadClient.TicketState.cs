@@ -10,7 +10,7 @@ public interface ITicketStateService
     Task<TicketState?> GetTicketStateAsync(StateId id);
     Task<TicketState> CreateTicketStateAsync(TicketState state);
     Task<TicketState> UpdateTicketStateAsync(StateId id, TicketState state);
-    Task<bool> DeleteTicketStateAsync(StateId id);
+    Task DeleteTicketStateAsync(StateId id);
 }
 
 public sealed partial class ZammadClient : ITicketStateService
@@ -33,6 +33,5 @@ public sealed partial class ZammadClient : ITicketStateService
     public async Task<TicketState> UpdateTicketStateAsync(StateId id, TicketState state) =>
         await PutAsync<TicketState>($"{TicketStatesEndpoint}/{id}", state) ?? throw LogicException.UnexpectedNullResult;
 
-    public async Task<bool> DeleteTicketStateAsync(StateId id) =>
-        await DeleteAsync<bool>($"{TicketStatesEndpoint}/{id}");
+    public async Task DeleteTicketStateAsync(StateId id) => await DeleteAsync<bool>($"{TicketStatesEndpoint}/{id}");
 }
