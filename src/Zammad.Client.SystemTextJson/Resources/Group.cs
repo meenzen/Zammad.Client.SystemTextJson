@@ -15,7 +15,7 @@ public sealed class Group : IHasCustomFields
     public EmailAddressId? EmailAddressId { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Minutes after which a ticket is unassigned if its owner doesn't work on it.
@@ -30,10 +30,10 @@ public sealed class Group : IHasCustomFields
     public bool? FollowUpAssignment { get; set; }
 
     [JsonPropertyName("active")]
-    public required bool Active { get; set; }
+    public bool? Active { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; } = string.Empty;
+    public string? Note { get; set; }
 
     [JsonPropertyName("user_ids")]
     public List<UserId>? UserIds { get; set; }

@@ -9,25 +9,25 @@ public sealed class Organization : IHasCustomFields
     public OrganizationId Id { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("shared")]
-    public required bool Shared { get; set; }
+    public bool? Shared { get; set; }
 
     [JsonPropertyName("domain")]
-    public string Domain { get; set; } = string.Empty;
+    public string? Domain { get; set; }
 
     [JsonPropertyName("domain_assignment")]
-    public bool DomainAssignment { get; set; }
+    public bool? DomainAssignment { get; set; }
 
     [JsonPropertyName("active")]
-    public required bool Active { get; set; }
+    public bool? Active { get; set; }
 
     [JsonPropertyName("vip")]
-    public bool Vip { get; set; }
+    public bool? Vip { get; set; }
 
     [JsonPropertyName("note")]
-    public string Note { get; set; } = string.Empty;
+    public string? Note { get; set; }
 
     [JsonPropertyName("member_ids")]
     public List<UserId>? MemberIds { get; set; }

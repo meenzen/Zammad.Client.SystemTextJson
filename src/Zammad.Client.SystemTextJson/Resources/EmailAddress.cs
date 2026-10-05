@@ -12,10 +12,10 @@ public sealed class EmailAddress
     public ChannelId? ChannelId { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("email")]
-    public required string Email { get; set; }
+    public string? Email { get; set; }
 
     /// <summary>
     /// Whether the email address is active.
