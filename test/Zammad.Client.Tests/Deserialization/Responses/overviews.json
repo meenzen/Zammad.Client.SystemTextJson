@@ -1,0 +1,669 @@
+[
+  {
+    "id": 1,
+    "name": "My Assigned Tickets",
+    "link": "my_assigned",
+    "prio": 1000,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          1,
+          2,
+          3,
+          6
+        ]
+      },
+      "ticket.owner_id": {
+        "operator": "is",
+        "pre_condition": "current_user.id"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "ASC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.311Z",
+    "updated_at": "2026-10-05T15:18:36.311Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 2,
+    "name": "Unassigned \u0026 Open Tickets",
+    "link": "all_unassigned",
+    "prio": 1010,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          1,
+          2,
+          3
+        ]
+      },
+      "ticket.owner_id": {
+        "operator": "is",
+        "pre_condition": "not_set"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "ASC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.341Z",
+    "updated_at": "2026-10-05T15:18:36.341Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 3,
+    "name": "My Pending Reached Tickets",
+    "link": "my_pending_reached",
+    "prio": 1020,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          3
+        ]
+      },
+      "ticket.owner_id": {
+        "operator": "is",
+        "pre_condition": "current_user.id"
+      },
+      "ticket.pending_time": {
+        "operator": "before (relative)",
+        "value": 0,
+        "range": "minute"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "ASC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.350Z",
+    "updated_at": "2026-10-05T15:18:36.350Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 4,
+    "name": "My Subscribed Tickets",
+    "link": "my_subscribed_tickets",
+    "prio": 1025,
+    "condition": {
+      "ticket.mention_user_ids": {
+        "operator": "is",
+        "pre_condition": "current_user.id",
+        "value": "",
+        "value_completion": ""
+      }
+    },
+    "order": {
+      "by": "updated_at",
+      "direction": "DESC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "created_at",
+        "updated_by",
+        "updated_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "created_at",
+        "updated_by",
+        "updated_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "created_at",
+        "updated_by",
+        "updated_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.360Z",
+    "updated_at": "2026-10-05T15:18:36.360Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 5,
+    "name": "Open Tickets",
+    "link": "all_open",
+    "prio": 1030,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "ASC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "state",
+        "owner",
+        "created_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "state",
+        "owner",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "state",
+        "owner",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.370Z",
+    "updated_at": "2026-10-05T15:18:36.370Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 6,
+    "name": "Pending Reached Tickets",
+    "link": "all_pending_reached",
+    "prio": 1040,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          3
+        ]
+      },
+      "ticket.pending_time": {
+        "operator": "before (relative)",
+        "value": 0,
+        "range": "minute"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "ASC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "created_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.377Z",
+    "updated_at": "2026-10-05T15:18:36.377Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 7,
+    "name": "Escalated Tickets",
+    "link": "all_escalated",
+    "prio": 1050,
+    "condition": {
+      "ticket.escalation_at": {
+        "operator": "till (relative)",
+        "value": "10",
+        "range": "minute"
+      }
+    },
+    "order": {
+      "by": "escalation_at",
+      "direction": "ASC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "escalation_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "escalation_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "escalation_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.387Z",
+    "updated_at": "2026-10-05T15:18:36.387Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 8,
+    "name": "My Replacement Tickets",
+    "link": "my_replacement_tickets",
+    "prio": 1080,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          1,
+          2,
+          3,
+          6
+        ]
+      },
+      "ticket.out_of_office_replacement_id": {
+        "operator": "is",
+        "pre_condition": "current_user.id"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "DESC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": true,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "escalation_at"
+      ],
+      "s": [
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "escalation_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "group",
+        "owner",
+        "escalation_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.395Z",
+    "updated_at": "2026-10-05T15:18:36.395Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 9,
+    "name": "My Tickets",
+    "link": "my_tickets",
+    "prio": 1100,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      "ticket.customer_id": {
+        "operator": "is",
+        "pre_condition": "current_user.id"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "DESC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "state",
+        "created_at"
+      ],
+      "s": [
+        "number",
+        "title",
+        "state",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "state",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.410Z",
+    "updated_at": "2026-10-05T15:18:36.410Z",
+    "role_ids": [
+      3
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 10,
+    "name": "My Organization Tickets",
+    "link": "my_organization_tickets",
+    "prio": 1200,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      "ticket.organization_id": {
+        "operator": "is",
+        "pre_condition": "current_user.organization_id"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "DESC"
+    },
+    "group_by": null,
+    "group_direction": null,
+    "organization_shared": true,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "organization",
+        "state",
+        "created_at"
+      ],
+      "s": [
+        "number",
+        "title",
+        "customer",
+        "organization",
+        "state",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "organization",
+        "state",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 1,
+    "created_by_id": 1,
+    "created_at": "2026-10-05T15:18:36.424Z",
+    "updated_at": "2026-10-05T15:18:36.424Z",
+    "role_ids": [
+      3
+    ],
+    "user_ids": []
+  },
+  {
+    "id": 11,
+    "name": "Recorded Overview",
+    "link": "recorded_overview",
+    "prio": 1201,
+    "condition": {
+      "ticket.state_id": {
+        "operator": "is",
+        "value": [
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      "ticket.owner_id": {
+        "operator": "is",
+        "pre_condition": "current_user.id"
+      }
+    },
+    "order": {
+      "by": "created_at",
+      "direction": "DESC"
+    },
+    "group_by": "priority",
+    "group_direction": "ASC",
+    "organization_shared": false,
+    "out_of_office": false,
+    "view": {
+      "d": [
+        "title",
+        "customer",
+        "state",
+        "created_at"
+      ],
+      "s": [
+        "number",
+        "title",
+        "customer",
+        "state",
+        "created_at"
+      ],
+      "m": [
+        "number",
+        "title",
+        "customer",
+        "state",
+        "created_at"
+      ],
+      "view_mode_default": "s"
+    },
+    "active": true,
+    "updated_by_id": 3,
+    "created_by_id": 3,
+    "created_at": "2026-10-05T15:20:04.401Z",
+    "updated_at": "2026-10-05T15:20:04.388Z",
+    "role_ids": [
+      2
+    ],
+    "user_ids": [
+      3
+    ]
+  }
+]

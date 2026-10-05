@@ -109,3 +109,15 @@ public partial struct OverviewSortingId;
 
 [StronglyTypedId]
 public partial struct DailyEventLockId;
+
+[StronglyTypedId]
+public partial struct MacroId;
+
+[StronglyTypedId]
+public partial struct OverviewId;
+
+[StronglyTypedId]
+public partial struct TemplateId;
+
+[StronglyTypedId]
+public partial struct TextModuleId;

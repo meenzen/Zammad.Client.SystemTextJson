@@ -26,6 +26,11 @@ public class ErrorHandlingTests(ZammadStackFixture zammadStack)
         await Assert.That(await client.GetEmailAddressAsync(new EmailAddressId(MissingId))).IsNull();
         await Assert.That(await client.GetObjectAsync(new ObjectId(MissingId))).IsNull();
         await Assert.That(await client.GetOnlineNotificationAsync(new NotificationId(MissingId))).IsNull();
+        await Assert.That(await client.GetMacroAsync(new MacroId(MissingId))).IsNull();
+        await Assert.That(await client.GetOverviewAsync(new OverviewId(MissingId))).IsNull();
+        await Assert.That(await client.GetTemplateAsync(new TemplateId(MissingId))).IsNull();
+        await Assert.That(await client.GetTextModuleAsync(new TextModuleId(MissingId))).IsNull();
+        await Assert.That(await client.GetSignatureAsync(new SignatureId(MissingId))).IsNull();
     }
 
     [Test]
