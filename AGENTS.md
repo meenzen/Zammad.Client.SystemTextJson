@@ -61,6 +61,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   The check (`Models.references` in Zammad's `lib/models.rb`) looks at `<model>_id` columns, `belongs_to` links, and for
   users also `created_by_id`/`updated_by_id`. The controller also turns *any* error during that check into a 422, so a
   422 on delete isn't always about references.
+- **`ObjectLookup`/`TypeLookup` rows are created lazily** (check-then-create inside the request transaction). On a
+  fresh database, concurrent requests race on the unique index and one fails with 422 "This object already exists."
+  (`PG::UniqueViolation` in the Rails log). `Setup/docker-entrypoint` seeds these rows after the auto wizard.
 - **Zammad does a lot of work asynchronously** in the scheduler container (avatar lookups, triggers, escalation
   calculation, search indexing). A record you just created may still be changed by a background job a moment later.
 - **Search goes through Elasticsearch and lags behind writes.** Search tests wait `TestSetup.IndexerDelay` and use
@@ -93,9 +96,9 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   `Attempt 1 failed`.
 - Logs of failed tests are uploaded as the `zammad-logs` artifact, also when a retry made the run green. Download it with
   `gh run download <run-id> -n zammad-logs`.
-- Known flaky tests (as of 2026-10): `UserTests.DeleteUser` and `OrganizationTests.DeleteOrganization` (422 on delete),
-  and `TicketAccountingTests.CreateTicketAccounting` (500). Root cause not confirmed yet. Most likely a race with
-  Zammad's background jobs, see above.
+- Known flaky tests (as of 2026-10): `TicketAccountingTests.CreateTicketAccounting` (500). Root cause not confirmed
+  yet. Most likely a race with Zammad's background jobs, see above. The 422s on `DeleteOrganization`/`DeleteUser` were
+  the lazy lookup race described above (confirmed for `DeleteOrganization`).
 - Actions are pinned by commit SHA with a version comment. Keep it that way; Renovate updates them.
 
 ## Versioning and releases
