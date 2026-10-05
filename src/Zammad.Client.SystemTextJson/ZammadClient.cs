@@ -24,6 +24,7 @@ public interface IZammadClient
         IOrganizationService,
         IOverviewService,
         IPostmasterFilterService,
+        IRoleService,
         ISettingService,
         ISignatureService,
         ISlaService,
@@ -35,7 +36,9 @@ public interface IZammadClient
         ITicketPriorityService,
         ITicketService,
         ITicketStateService,
+        ITimeAccountingService,
         ITriggerService,
+        IUserAccessTokenService,
         IUserService,
         IWebhookService;
 
