@@ -75,6 +75,9 @@ public partial struct EmailAddressId;
 public partial struct SignatureId;
 
 [StronglyTypedId]
+public partial struct ChannelId;
+
+[StronglyTypedId]
 public partial struct ChecklistId;
 
 [StronglyTypedId]
