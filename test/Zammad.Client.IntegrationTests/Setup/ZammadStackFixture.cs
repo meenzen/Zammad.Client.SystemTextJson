@@ -311,7 +311,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
         var directory = Path.Combine(TestContext.ResultsDirectory, "zammad-logs");
         Directory.CreateDirectory(directory);
         var name = string.Concat(context.Metadata.TestDetails.MethodName.Split(Path.GetInvalidFileNameChars()));
-        var path = Path.Combine(directory, $"{DateTime.UtcNow:yyyyMMdd-HHmmss}-{name}.log");
+        var path = Path.Combine(directory, $"{DateTime.UtcNow:yyyyMMdd-HHmmss}-{name}-{Guid.NewGuid():N}.log");
 
         var builder = new StringBuilder();
         builder.AppendLine($"Test: {context.Metadata.TestDetails.ClassType.FullName}.{name}");

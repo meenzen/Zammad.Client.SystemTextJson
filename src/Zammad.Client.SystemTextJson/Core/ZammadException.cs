@@ -72,9 +72,11 @@ public sealed class ZammadException : Exception
                 if (
                     document.RootElement.TryGetProperty(name, out var property)
                     && property.ValueKind == JsonValueKind.String
+                    && property.GetString() is { } error
+                    && !string.IsNullOrWhiteSpace(error)
                 )
                 {
-                    return property.GetString();
+                    return error;
                 }
             }
 

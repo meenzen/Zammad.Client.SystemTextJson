@@ -49,6 +49,21 @@ public class ZammadExceptionTests
     }
 
     [Test]
+    public async Task Message_FallsBackToErrorWhenHumanErrorIsBlank()
+    {
+        var exception = new ZammadException(
+            Request,
+            Response(HttpStatusCode.UnprocessableEntity),
+            "{\"error\":\"technical\",\"error_human\":\" \"}"
+        );
+
+        await Assert.That(exception.Error).IsEqualTo("technical");
+        await Assert
+            .That(exception.Message)
+            .IsEqualTo("DELETE /api/v1/organizations/1 failed with 422 Reason: technical");
+    }
+
+    [Test]
     public async Task Message_WithNonJsonContent()
     {
         var exception = new ZammadException(Request, Response(HttpStatusCode.BadGateway), "bad gateway");

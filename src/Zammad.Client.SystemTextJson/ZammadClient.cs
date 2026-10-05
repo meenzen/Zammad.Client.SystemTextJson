@@ -82,7 +82,8 @@ public sealed partial class ZammadClient : IZammadClient
         {
             content = await httpResponse.Content.ReadAsStringAsync();
         }
-        catch (Exception e) when (e is HttpRequestException or IOException or ObjectDisposedException)
+        catch (Exception e)
+            when (e is HttpRequestException or IOException or ObjectDisposedException or InvalidOperationException)
         {
             // the response body is only used for diagnostics
             content = null;
