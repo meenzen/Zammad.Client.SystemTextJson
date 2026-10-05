@@ -92,6 +92,10 @@ dotnet csharpier format <files>                       # also runs as a husky pre
   the auto wizard (`Setup/autowizard.json`, admin `admin@example.org` / `TestPassword1234`) and prints a marker that the
   fixture waits for. When you bump the Zammad image, re-apply the patch on top of the new upstream entrypoint, align
   the other images with the referenced `zammad-docker-compose` commit, and update the version in `README.md`.
+- **The stack has no internet access.** All containers are on an internal Docker network. Only the containers with
+  port bindings (nginx, Elasticsearch, Postgres, Redis) are also on a regular network, because Docker doesn't publish
+  ports of internal-only containers. The Zammad containers (railsserver, scheduler, websocket, init) can't reach
+  anything outside the stack, so outgoing requests (avatar/geo lookups, webhooks, mail) fail with DNS errors.
 - Notification emails are written to `tmp/mails/*.eml` inside the containers (`ZAMMAD_MAIL_TO_FILE`), not sent. The
   entrypoint replaces the seeded SMTP notification channel (`host.example.com`) because a failed delivery marks the
   channel as failed, and the health check then stays unhealthy (seen as `RestartAsync` timing out in

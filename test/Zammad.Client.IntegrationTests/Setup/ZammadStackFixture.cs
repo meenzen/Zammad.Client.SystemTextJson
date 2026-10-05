@@ -106,8 +106,19 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             ["ZAMMAD_MAIL_TO_FILE"] = "1",
         };
 
-        var network = new NetworkBuilder().WithName($"zammad-{id}").WithCleanUp(true).Build();
+        // The stack runs on an internal network without access to the internet, so Zammad can't send emails or reach
+        // external services (avatar lookups, geo IP, ...). Docker doesn't publish ports of containers that are only
+        // attached to internal networks, so the containers with port bindings (nginx, and Elasticsearch, Postgres and
+        // Redis, whose Testcontainers modules always bind a port) are also attached to a regular network.
+        var network = new NetworkBuilder()
+            .WithName($"zammad-{id}")
+            .WithCreateParameterModifier(x => x.Internal = true)
+            .WithCleanUp(true)
+            .Build();
         _resources.Add(network);
+
+        var publicNetwork = new NetworkBuilder().WithName($"zammad-{id}-public").WithCleanUp(true).Build();
+        _resources.Add(publicNetwork);
 
         var storage = new VolumeBuilder().WithName($"zammad-{id}").WithCleanUp(true).WithReuse(false).Build();
         _resources.Add(storage);
@@ -117,7 +128,9 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             .WithEnvironment("xpack.security.enabled", "false")
             .WithEnvironment("xpack.security.http.ssl.enabled", "false")
             .WithEnvironment("ES_JAVA_OPTS", "-Xms512m -Xmx512m")
+            .WithEnvironment("ingest.geoip.downloader.enabled", "false")
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithName($"zammad-elasticsearch-{id}")
             .WithCleanUp(true)
             .Build();
@@ -128,6 +141,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             .WithUsername("zammad")
             .WithPassword("zammad")
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithName($"zammad-postgres-{id}")
             .WithCleanUp(true)
             .WithReuse(false)
@@ -136,6 +150,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
 
         var zammadRedis = new RedisBuilder("redis:8.10.2-alpine")
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithName($"zammad-redis-{id}")
             .WithCleanUp(true)
             .Build();
@@ -191,6 +206,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             .DependsOn(zammadRailsserver)
             .WithEnvironment(environment)
             .WithNetwork(network)
+            .WithNetwork(publicNetwork)
             .WithExposedPort(8080)
             .WithPortBinding(8080, true)
             .WithWaitStrategy(Wait.ForUnixContainer().UntilInternalTcpPortIsAvailable(8080))
@@ -225,7 +241,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
             .Build();
         _resources.Add(zammadWebsocket);
 
-        await Task.WhenAll([network.CreateAsync(), storage.CreateAsync()]);
+        await Task.WhenAll([network.CreateAsync(), publicNetwork.CreateAsync(), storage.CreateAsync()]);
 
         await Task.WhenAll([
             zammadElasticsearch.StartAsync(),
