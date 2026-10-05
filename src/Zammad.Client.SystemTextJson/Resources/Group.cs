@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-public sealed class Group
+public sealed class Group : IHasCustomFields
 {
     [JsonPropertyName("id")]
     public GroupId Id { get; set; }

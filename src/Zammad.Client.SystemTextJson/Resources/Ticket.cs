@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Zammad.Client.Resources;
 
-public class Ticket
+public class Ticket : IHasCustomFields
 {
     [JsonPropertyName("id")]
     public TicketId Id { get; set; }
