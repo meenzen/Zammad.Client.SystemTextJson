@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
+using Zammad.Client.Resources.Internal;
 using Object = Zammad.Client.Resources.Object;
 
 namespace Zammad.Client.Tests.Deserialization;
@@ -43,6 +44,12 @@ public class DeserializationTests
     [Arguments(typeof(MonitoringStatus), "monitoringStatus.json")]
     [Arguments(typeof(AmountCheckResult), "amountCheck.json")]
     [Arguments(typeof(List<TwoFactorMethod>), "twoFactorMethods.json")]
+    [Arguments(typeof(VersionResponse), "version.json")]
+    [Arguments(typeof(DataPrivacyTask), "dataPrivacyTask.json")]
+    [Arguments(typeof(List<DataPrivacyTask>), "dataPrivacyTasks.json")]
+    [Arguments(typeof(DataPrivacyTasksByStateResponse), "dataPrivacyTasksByState.json")]
+    [Arguments(typeof(Setting), "setting.json")]
+    [Arguments(typeof(List<Setting>), "settings.json")]
     [Arguments(typeof(EmailAddress), "emailAddress.json")]
     [Arguments(typeof(List<EmailAddress>), "emailAddresses.json")]
     [Arguments(typeof(OnlineNotification), "notification.json")]

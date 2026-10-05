@@ -1,0 +1,1 @@
+{"id":1,"title":"Kb multi-lingual support","name":"kb_multi_lingual_support","area":"Kb::Core","description":"Support of multi-lingual Knowledge Base.","options":{},"state_current":{"value":true},"state_initial":{"value":true},"frontend":true,"preferences":{"online_service_disable":true},"created_at":"2026-10-05T15:24:42.344Z","updated_at":"2026-10-05T15:24:42.344Z"}
