@@ -63,6 +63,7 @@ public class GroupTests(ZammadStackFixture zammadStack)
         await Assert.That(group).IsNotNull();
         await Assert.That(group!.Id).IsEqualTo(CreatedGroupId);
         await Assert.That(group.Name).IsEqualTo(GroupName);
+        await Assert.That(group.NameLast).IsEqualTo(GroupName);
         await Assert.That(group.Active).IsTrue();
     }
 

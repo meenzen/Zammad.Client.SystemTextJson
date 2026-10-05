@@ -20,5 +20,13 @@
   "user_ids": [
     3,
     4
+  ],
+  "created_by": "-",
+  "updated_by": "admin@example.org",
+  "email_address": "Zammad Helpdesk",
+  "signature": "default",
+  "users": [
+    "admin@example.org",
+    "agent1@example.org"
   ]
 }

@@ -21,6 +21,8 @@ public class UserTests(ZammadStackFixture zammadStack)
 
         await Assert.That(user).IsNotNull();
         await Assert.That(user.Email).IsEqualTo("admin@example.org");
+        await Assert.That(user.RoleIds).IsNotNull().And.IsNotEmpty();
+        await Assert.That(user.GroupIds).IsNotNull().And.ContainsKey(new GroupId(1));
     }
 
     [Test]

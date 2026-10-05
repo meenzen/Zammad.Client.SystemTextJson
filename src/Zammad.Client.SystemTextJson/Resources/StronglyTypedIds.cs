@@ -94,3 +94,18 @@ public partial struct TimeAccountingTypeId;
 
 [StronglyTypedId]
 public partial struct AIStoredResultId;
+
+[StronglyTypedId]
+public partial struct RoleId;
+
+[StronglyTypedId]
+public partial struct TwoFactorPreferenceId;
+
+[StronglyTypedId]
+public partial struct AuthorizationId;
+
+[StronglyTypedId]
+public partial struct OverviewSortingId;
+
+[StronglyTypedId]
+public partial struct DailyEventLockId;

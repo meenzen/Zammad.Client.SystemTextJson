@@ -48,6 +48,39 @@ public sealed class Group : IHasCustomFields
     public DateTimeOffset? UpdatedAt { get; set; }
 
     /// <summary>
+    /// Last part of the name of a nested group, the name contains the full path.
+    /// </summary>
+    [JsonPropertyName("name_last")]
+    public string? NameLast { get; set; }
+
+    [JsonPropertyName("parent_id")]
+    public GroupId? ParentId { get; set; }
+
+    [JsonPropertyName("reopen_time_in_days")]
+    public int? ReopenTimeInDays { get; set; }
+
+    [JsonPropertyName("shared_drafts")]
+    public bool? SharedDrafts { get; set; }
+
+    [JsonPropertyName("summary_generation")]
+    public string? SummaryGeneration { get; set; }
+
+    [JsonPropertyName("email_address")]
+    public string? EmailAddress { get; set; }
+
+    [JsonPropertyName("signature")]
+    public string? Signature { get; set; }
+
+    [JsonPropertyName("users")]
+    public List<string>? Users { get; set; }
+
+    [JsonPropertyName("created_by")]
+    public string? CreatedBy { get; set; }
+
+    [JsonPropertyName("updated_by")]
+    public string? UpdatedBy { get; set; }
+
+    /// <summary>
     /// Additional properties that are not explicitly defined in this class.
     /// </summary>
     /// <remarks>

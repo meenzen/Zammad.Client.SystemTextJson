@@ -107,6 +107,57 @@ public sealed class User : IHasCustomFields
     [JsonPropertyName("updated_at")]
     public DateTimeOffset? UpdatedAt { get; set; }
 
+    [JsonPropertyName("role_ids")]
+    public List<RoleId>? RoleIds { get; set; }
+
+    /// <summary>
+    /// Secondary organizations of the user.
+    /// </summary>
+    [JsonPropertyName("organization_ids")]
+    public List<OrganizationId>? OrganizationIds { get; set; }
+
+    /// <summary>
+    /// Group access of the user, mapped to the access levels (e.g. <c>full</c>, <c>read</c>).
+    /// </summary>
+    [JsonPropertyName("group_ids")]
+    public Dictionary<GroupId, List<string>>? GroupIds { get; set; }
+
+    [JsonPropertyName("two_factor_preference_ids")]
+    public List<TwoFactorPreferenceId>? TwoFactorPreferenceIds { get; set; }
+
+    [JsonPropertyName("authorization_ids")]
+    public List<AuthorizationId>? AuthorizationIds { get; set; }
+
+    [JsonPropertyName("overview_sorting_ids")]
+    public List<OverviewSortingId>? OverviewSortingIds { get; set; }
+
+    [JsonPropertyName("organization")]
+    public string? Organization { get; set; }
+
+    [JsonPropertyName("roles")]
+    public List<string>? Roles { get; set; }
+
+    [JsonPropertyName("organizations")]
+    public List<string>? Organizations { get; set; }
+
+    [JsonPropertyName("groups")]
+    public Dictionary<string, List<string>>? Groups { get; set; }
+
+    [JsonPropertyName("two_factor_preferences")]
+    public List<string>? TwoFactorPreferences { get; set; }
+
+    [JsonPropertyName("authorizations")]
+    public List<string>? Authorizations { get; set; }
+
+    [JsonPropertyName("overview_sortings")]
+    public List<string>? OverviewSortings { get; set; }
+
+    [JsonPropertyName("created_by")]
+    public string? CreatedBy { get; set; }
+
+    [JsonPropertyName("updated_by")]
+    public string? UpdatedBy { get; set; }
+
     /// <summary>
     /// Additional properties that are not explicitly defined in this class.
     /// </summary>

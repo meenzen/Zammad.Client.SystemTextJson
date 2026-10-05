@@ -14,5 +14,10 @@
   "member_ids": [
     2
   ],
-  "secondary_member_ids": []
+  "secondary_member_ids": [],
+  "members": [
+    "nicole.braun@zammad.org"
+  ],
+  "created_by": "-",
+  "updated_by": "-"
 }

@@ -39,7 +39,15 @@
     "organization_ids": [],
     "authorization_ids": [],
     "overview_sorting_ids": [],
-    "group_ids": {}
+    "group_ids": {},
+    "roles": [],
+    "two_factor_preferences": [],
+    "organizations": [],
+    "authorizations": [],
+    "overview_sortings": [],
+    "groups": {},
+    "created_by": "-",
+    "updated_by": "-"
   },
   {
     "id": 2,
@@ -86,7 +94,18 @@
     "organization_ids": [],
     "authorization_ids": [],
     "overview_sorting_ids": [],
-    "group_ids": {}
+    "group_ids": {},
+    "roles": [
+      "Customer"
+    ],
+    "two_factor_preferences": [],
+    "organizations": [],
+    "authorizations": [],
+    "overview_sortings": [],
+    "organization": "Zammad Foundation",
+    "groups": {},
+    "created_by": "-",
+    "updated_by": "nicole.braun@zammad.org"
   },
   {
     "id": 3,
@@ -191,6 +210,24 @@
       "1": [
         "full"
       ]
-    }
+    },
+    "roles": [
+      "Admin",
+      "Agent"
+    ],
+    "two_factor_preferences": [],
+    "organizations": [],
+    "authorizations": [],
+    "overview_sortings": [],
+    "groups": {
+      "some group1": [
+        "full"
+      ],
+      "Users": [
+        "full"
+      ]
+    },
+    "created_by": "-",
+    "updated_by": "admin@example.org"
   }
 ]

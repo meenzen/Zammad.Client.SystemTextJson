@@ -194,6 +194,21 @@ public class Ticket : IHasCustomFields
     [JsonPropertyName("create_article_sender")]
     public string? CreateArticleSender { get; set; }
 
+    [JsonPropertyName("ai_agent_running")]
+    public bool? AIAgentRunning { get; set; }
+
+    [JsonPropertyName("ai_stored_result_ids")]
+    public List<AIStoredResultId>? AIStoredResultIds { get; set; }
+
+    [JsonPropertyName("daily_event_lock_ids")]
+    public List<DailyEventLockId>? DailyEventLockIds { get; set; }
+
+    [JsonPropertyName("ai_stored_results")]
+    public List<string>? AIStoredResults { get; set; }
+
+    [JsonPropertyName("daily_event_locks")]
+    public List<string>? DailyEventLocks { get; set; }
+
     /// <summary>
     /// Additional properties that are not explicitly defined in this class.
     /// </summary>

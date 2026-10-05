@@ -44,6 +44,14 @@ public class DeserializationTests
     [Arguments(typeof(List<EmailAddress>), "emailAddresses.json")]
     [Arguments(typeof(OnlineNotification), "notification.json")]
     [Arguments(typeof(List<OnlineNotification>), "notifications.json")]
+    [Arguments(typeof(User), "userExpanded.json")]
+    [Arguments(typeof(List<User>), "usersExpanded.json")]
+    [Arguments(typeof(Organization), "organizationExpanded.json")]
+    [Arguments(typeof(Group), "groupExpanded.json")]
+    [Arguments(typeof(Ticket), "ticketZammad72.json")]
+    [Arguments(typeof(Ticket), "ticketExpandedZammad72.json")]
+    [Arguments(typeof(List<Ticket>), "ticketsZammad72.json")]
+    [Arguments(typeof(List<Ticket>), "ticketsSearch.json")]
     [Arguments(typeof(User), "user.json")]
     [Arguments(typeof(List<User>), "users.json")]
     [Arguments(typeof(List<User>), "usersSearch.json")]
@@ -69,6 +77,44 @@ public class DeserializationTests
         var json = await TestFile.ReadStringAsync("Responses", fileName);
         var result = JsonSerializer.Deserialize(json, type, options);
         await Assert.That(result).IsNotNull();
+    }
+
+    /// <summary>
+    /// <see cref="IHasCustomFields.ExtensionData"/> is only meant for custom attributes. These responses were recorded
+    /// without any, so every field has to be mapped to a property.
+    /// </summary>
+    [Test]
+    [Arguments(typeof(User), "user.json")]
+    [Arguments(typeof(User), "userExpanded.json")]
+    [Arguments(typeof(List<User>), "users.json")]
+    [Arguments(typeof(List<User>), "usersExpanded.json")]
+    [Arguments(typeof(List<User>), "usersSearch.json")]
+    [Arguments(typeof(Organization), "organization.json")]
+    [Arguments(typeof(Organization), "organizationExpanded.json")]
+    [Arguments(typeof(List<Organization>), "organizations.json")]
+    [Arguments(typeof(List<Organization>), "organizationsSearch.json")]
+    [Arguments(typeof(Group), "group.json")]
+    [Arguments(typeof(Group), "groupExpanded.json")]
+    [Arguments(typeof(List<Group>), "groups.json")]
+    [Arguments(typeof(Ticket), "ticketZammad72.json")]
+    [Arguments(typeof(Ticket), "ticketExpandedZammad72.json")]
+    [Arguments(typeof(List<Ticket>), "ticketsZammad72.json")]
+    [Arguments(typeof(List<Ticket>), "ticketsSearch.json")]
+    public async Task MapsAllBuiltInFields(Type type, string fileName)
+    {
+        var json = await TestFile.ReadStringAsync("Responses", fileName);
+        var result = JsonSerializer.Deserialize(json, type, Serialization.GetOptions());
+
+        IEnumerable<IHasCustomFields> items = result switch
+        {
+            IHasCustomFields item => [item],
+            System.Collections.IEnumerable list => list.Cast<IHasCustomFields>(),
+            _ => throw new InvalidOperationException($"Unexpected result type {result?.GetType()}"),
+        };
+        foreach (var item in items)
+        {
+            await Assert.That(item.ExtensionData?.Keys ?? Enumerable.Empty<string>()).IsEmpty();
+        }
     }
 
     [Test]
