@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Zammad.Client.Core;
 using Zammad.Client.Resources;
 

@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using Zammad.Client.Core;
 
 namespace Zammad.Client.Tests.Core;

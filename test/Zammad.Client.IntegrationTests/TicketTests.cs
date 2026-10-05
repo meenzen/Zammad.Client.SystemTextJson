@@ -1,4 +1,4 @@
-﻿using Zammad.Client.Core;
+using Zammad.Client.Core;
 using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
 using Zammad.Client.Resources;
