@@ -87,7 +87,7 @@ public class Ticket : IHasCustomFields
     public ArticleTypeId? CreateArticleTypeId { get; set; }
 
     [JsonPropertyName("create_article_sender_id")]
-    public UserId? CreateArticleSenderId { get; set; }
+    public ArticleSenderId? CreateArticleSenderId { get; set; }
 
     [JsonPropertyName("article_count")]
     public int? ArticleCount { get; set; }

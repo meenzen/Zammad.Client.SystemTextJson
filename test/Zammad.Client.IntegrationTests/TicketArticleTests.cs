@@ -122,6 +122,8 @@ public class TicketArticleTests(ZammadStackFixture zammadStack)
         await Assert.That(article.Subject).IsEqualTo("Test Article " + Id);
         await Assert.That(article.Type).IsEqualTo("note");
         await Assert.That(article.TypeId).IsNotNull();
+        await Assert.That(article.Sender).IsEqualTo("Agent");
+        await Assert.That(article.SenderId).IsEqualTo(new ArticleSenderId(1));
     }
 
     [Test]

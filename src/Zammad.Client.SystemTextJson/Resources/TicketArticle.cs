@@ -14,7 +14,7 @@ public sealed class TicketArticle
     public ArticleTypeId? TypeId { get; set; }
 
     [JsonPropertyName("sender_id")]
-    public UserId? SenderId { get; set; }
+    public ArticleSenderId? SenderId { get; set; }
 
     [JsonPropertyName("from")]
     public string? From { get; set; }
