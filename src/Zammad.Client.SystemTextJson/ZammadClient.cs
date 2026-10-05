@@ -54,15 +54,41 @@ public sealed partial class ZammadClient : IZammadClient
         }
     }
 
+    private Task<HttpResponseMessage> SendRawAsync(HttpRequestMessage httpRequest)
+    {
+        // without this, Zammad renders errors as HTML pages instead of JSON
+        httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        return _client.SendAsync(httpRequest);
+    }
+
     private async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequest)
     {
-        var httpResponse = await _client.SendAsync(httpRequest);
+        var httpResponse = await SendRawAsync(httpRequest);
         if (!httpResponse.IsSuccessStatusCode)
         {
-            throw new ZammadException(httpRequest, httpResponse);
+            throw await CreateExceptionAsync(httpRequest, httpResponse);
         }
 
         return httpResponse;
+    }
+
+    private static async Task<ZammadException> CreateExceptionAsync(
+        HttpRequestMessage httpRequest,
+        HttpResponseMessage httpResponse
+    )
+    {
+        string? content;
+        try
+        {
+            content = await httpResponse.Content.ReadAsStringAsync();
+        }
+        catch (Exception e) when (e is HttpRequestException or IOException or ObjectDisposedException)
+        {
+            // the response body is only used for diagnostics
+            content = null;
+        }
+
+        return new ZammadException(httpRequest, httpResponse, content);
     }
 
     private async Task<TResult?> GetAsync<TResult>(string path, string? query = null)
@@ -75,7 +101,7 @@ public sealed partial class ZammadClient : IZammadClient
 
         var httpRequest = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
 
-        var httpResponse = await _client.SendAsync(httpRequest);
+        var httpResponse = await SendRawAsync(httpRequest);
 
         if (httpResponse.IsSuccessStatusCode)
         {
@@ -88,7 +114,7 @@ public sealed partial class ZammadClient : IZammadClient
             return default;
         }
 
-        throw new ZammadException(httpRequest, httpResponse);
+        throw await CreateExceptionAsync(httpRequest, httpResponse);
     }
 
     private async Task<TResult?> PostAsync<TResult>(string path, object? content = null)

@@ -12,7 +12,7 @@ using Zammad.Client.IntegrationTests.Infrastructure;
 namespace Zammad.Client.IntegrationTests.Setup;
 
 // Based on https://github.com/zammad/zammad-docker-compose/blob/cb03095125f7adce0e0936e1364477f1ad77f550/docker-compose.yml
-public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
+public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndEventReceiver
 {
     private const string ZammadImage = "ghcr.io/zammad/zammad:7.0.1";
     private const string ZammadEntrypoint = "/docker-entrypoint-override";
@@ -22,6 +22,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
 
     private readonly List<IAsyncDisposable> _resources = [];
     private readonly List<IContainer> _zammadContainers = [];
+    private IContainer? _zammadNginx;
 
     private async Task<string> GetAutowizardJson()
     {
@@ -230,6 +231,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
         ]);
 
         _zammadContainers.AddRange([zammadRailsserver, zammadScheduler, zammadWebsocket]);
+        _zammadNginx = zammadNginx;
 
         var exitCode = await zammadInit.GetExitCodeAsync();
         if (exitCode != 0)
@@ -279,6 +281,61 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable
 
             await Task.Delay(1000);
         }
+    }
+
+    /// <summary>
+    /// Writes the logs of the Zammad containers to the test results directory when a test fails,
+    /// because the response of the Zammad API usually does not contain enough details to debug flaky tests.
+    /// </summary>
+    public async ValueTask OnTestEnd(TestContext context)
+    {
+        if (context.Execution.Result?.State is not (TestState.Failed or TestState.Timeout))
+        {
+            return;
+        }
+
+        if (!_ready.Task.IsCompleted || _zammadNginx is null)
+        {
+            return;
+        }
+
+        // include previous attempts of retried tests
+        var start = context
+            .Execution.RetryAttempts.Select(r => r.Start)
+            .Append(context.Execution.TestStart)
+            .Where(s => s is not null)
+            .Min();
+        var since = (start ?? DateTimeOffset.UtcNow.AddMinutes(-1)).UtcDateTime.AddSeconds(-5);
+        var until = DateTime.UtcNow.AddSeconds(5);
+
+        var directory = Path.Combine(TestContext.ResultsDirectory, "zammad-logs");
+        Directory.CreateDirectory(directory);
+        var name = string.Concat(context.Metadata.TestDetails.MethodName.Split(Path.GetInvalidFileNameChars()));
+        var path = Path.Combine(directory, $"{DateTime.UtcNow:yyyyMMdd-HHmmss}-{name}.log");
+
+        var builder = new StringBuilder();
+        builder.AppendLine($"Test: {context.Metadata.TestDetails.ClassType.FullName}.{name}");
+        builder.AppendLine($"Logs from {since:O} to {until:O}");
+        builder.AppendLine(context.Execution.Result.Exception?.ToString());
+
+        foreach (var container in _zammadContainers.Append(_zammadNginx))
+        {
+            builder.AppendLine();
+            builder.AppendLine($"===== {container.Name} =====");
+            try
+            {
+                var (stdout, stderr) = await container.GetLogsAsync(since, until, timestampsEnabled: true);
+                builder.AppendLine(stdout);
+                builder.AppendLine(stderr);
+            }
+            catch (Exception e)
+            {
+                builder.AppendLine($"Failed to get logs: {e}");
+            }
+        }
+
+        await File.WriteAllTextAsync(path, builder.ToString());
+        context.Output.AttachArtifact(path, Path.GetFileName(path), "Zammad container logs");
     }
 
     public async ValueTask DisposeAsync()
