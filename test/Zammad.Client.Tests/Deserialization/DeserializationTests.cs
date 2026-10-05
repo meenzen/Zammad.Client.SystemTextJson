@@ -115,6 +115,17 @@ public class DeserializationTests
     [Arguments(typeof(List<Sla>), "slas.json")]
     [Arguments(typeof(PostmasterFilter), "postmasterFilter.json")]
     [Arguments(typeof(List<PostmasterFilter>), "postmasterFilters.json")]
+    [Arguments(typeof(Assets), "assets.json")]
+    [Arguments(typeof(LinkList), "links.json")]
+    [Arguments(typeof(MentionList), "mentions.json")]
+    [Arguments(typeof(Checklist), "checklist.json")]
+    [Arguments(typeof(FullResponse), "checklistFull.json")]
+    [Arguments(typeof(FullResponse), "checklistCreate.json")]
+    [Arguments(typeof(ChecklistItem), "checklistItem.json")]
+    [Arguments(typeof(ChecklistItemBulkResponse), "checklistItemsBulk.json")]
+    [Arguments(typeof(ChecklistTemplate), "checklistTemplate.json")]
+    [Arguments(typeof(List<ChecklistTemplate>), "checklistTemplates.json")]
+    [Arguments(typeof(FullResponse), "checklistTemplatesFull.json")]
     public async Task CanDeserialize(Type type, string fileName)
     {
         var options = Serialization.GetOptions();
