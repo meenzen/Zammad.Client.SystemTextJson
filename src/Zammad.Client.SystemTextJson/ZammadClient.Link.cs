@@ -12,8 +12,12 @@ public interface ILinkService
     /// <remarks>
     /// <see cref="Link.LinkType"/> is what the linked ticket is to <paramref name="ticketId"/>, so the same link is
     /// <see cref="LinkType.Parent"/> on one side and <see cref="LinkType.Child"/> on the other. Links to tickets the
-    /// current user can't read are left out. Returns an empty list if the ticket doesn't exist.
+    /// current user can't read are left out.
     /// </remarks>
+    /// <exception cref="ZammadException">
+    /// Since Zammad 7.2.1, thrown with <see cref="System.Net.HttpStatusCode.Forbidden"/> if the ticket doesn't exist
+    /// or the current user can't read it. Older versions return an empty list instead.
+    /// </exception>
     Task<LinkList> ListTicketLinksAsync(TicketId ticketId);
 
     /// <summary>

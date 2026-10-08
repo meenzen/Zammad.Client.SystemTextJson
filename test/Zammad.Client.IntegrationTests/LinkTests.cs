@@ -75,6 +75,17 @@ public class LinkTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    public async Task ListTicketLinks_MissingTicket()
+    {
+        var client = await zammadStack.GetClientAsync();
+
+        var exception = await Assert.ThrowsAsync<ZammadException>(() =>
+            client.ListTicketLinksAsync(new TicketId(int.MaxValue))
+        );
+        await Assert.That(exception!.Code).IsEqualTo(HttpStatusCode.Forbidden);
+    }
+
+    [Test]
     [DependsOn(nameof(AddTicketLink))]
     public async Task ListTicketLinks()
     {

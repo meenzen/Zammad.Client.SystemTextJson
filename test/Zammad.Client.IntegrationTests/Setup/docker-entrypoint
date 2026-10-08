@@ -239,7 +239,7 @@ else
 fi
 
 ### Custom Start ###
-# Based on https://github.com/zammad/zammad/blob/7.2.0/bin/docker-entrypoint
+# Based on https://github.com/zammad/zammad/blob/7.2.2/bin/docker-entrypoint
 # The following is required for integration testing:
 echo "Zammad entrypoint script finished"
 ### Custom End ###

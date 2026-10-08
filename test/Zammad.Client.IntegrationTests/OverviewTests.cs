@@ -89,6 +89,21 @@ public class OverviewTests(ZammadStackFixture zammadStack)
     }
 
     [Test]
+    public async Task CreateOverview_ThrowsWithInvalidDirection()
+    {
+        var client = await zammadStack.GetClientAsync();
+        var overview = NewOverview("TestOverviewInvalidDirection" + RandomName);
+        overview.Order = new OverviewOrder { By = "created_at", Direction = "SIDEWAYS" };
+
+        var exception = await Assert.ThrowsAsync<ZammadException>(() => client.CreateOverviewAsync(overview));
+
+        await Assert.That(exception!.Code).IsEqualTo(HttpStatusCode.UnprocessableEntity);
+        await Assert
+            .That(exception.Error)
+            .IsEqualTo("Invalid order direction 'SIDEWAYS', only ASC or DESC are allowed.");
+    }
+
+    [Test]
     [DependsOn(nameof(CreateOverview))]
     public async Task ListOverviews()
     {

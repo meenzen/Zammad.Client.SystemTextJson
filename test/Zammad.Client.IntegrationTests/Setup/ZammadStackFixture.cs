@@ -11,10 +11,10 @@ using Zammad.Client.IntegrationTests.Infrastructure;
 
 namespace Zammad.Client.IntegrationTests.Setup;
 
-// Based on https://github.com/zammad/zammad-docker-compose/blob/bbab857e65884357837f8866c437c47bb4709a3f/docker-compose.yml
+// Based on https://github.com/zammad/zammad-docker-compose/blob/b51cba16ab6d753efcb6676a30afaf97753b72cb/docker-compose.yml
 public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndEventReceiver
 {
-    internal const string ZammadImage = "ghcr.io/zammad/zammad:7.2.0";
+    internal const string ZammadImage = "ghcr.io/zammad/zammad:7.2.2";
     private const string ZammadEntrypoint = "/docker-entrypoint-override";
     private const string ZammadStorage = "/opt/zammad/storage";
     private const string EntrypointFinished = "Zammad entrypoint script finished";
@@ -123,7 +123,7 @@ public class ZammadStackFixture : IAsyncInitializer, IAsyncDisposable, ITestEndE
         var storage = new VolumeBuilder().WithName($"zammad-{id}").WithCleanUp(true).WithReuse(false).Build();
         _resources.Add(storage);
 
-        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:9.5.3")
+        var zammadElasticsearch = new ElasticsearchBuilder("elasticsearch:9.5.5")
             .WithEnvironment("discovery.type", "single-node")
             .WithEnvironment("xpack.security.enabled", "false")
             .WithEnvironment("xpack.security.http.ssl.enabled", "false")

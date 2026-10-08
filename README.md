@@ -12,8 +12,33 @@ This library provides a .NET client for interacting with the [Zammad](https://za
 
 ## Compatibility
 
-The integration tests run against **Zammad 7.2.0** (`ghcr.io/zammad/zammad:7.2.0`). Other versions usually work as
-long as the REST API hasn't changed, but they aren't tested.
+The integration tests on `master` run against **Zammad 7.2.2** (`ghcr.io/zammad/zammad:7.2.2`). Each release is
+tested against one Zammad version only:
+
+| Library version    | Tested against Zammad |
+| ------------------ | --------------------- |
+| `master` (> 4.0.0) | 7.2.2                 |
+| 4.0.0              | 7.2.0                 |
+| 3.0.0              | 7.0.1                 |
+| 2.0.0 – 2.4.0      | 6.5.2                 |
+
+Other versions usually work as long as the REST API hasn't changed, but they aren't tested.
+
+Zammad changes that affect this client:
+
+- **7.2.1**: `ListTicketLinksAsync` throws a `ZammadException` with `403 Forbidden` for a ticket that doesn't exist or
+  that the user can't read. Before, it returned an empty list.
+- **7.2.1**: Overviews reject an `order.direction` or `group_direction` other than `ASC` or `DESC` with
+  `422 Unprocessable Entity`.
+- **7.2.1**: Agents without admin permissions can no longer update users that have any `admin.*` permission.
+- **7.2.1**: `GetOnlineNotificationAsync` throws a `ZammadException` with `403 Forbidden` for a notification that
+  doesn't exist. Before, it returned `null`. Notifications can also only be read or updated while the user can still
+  access the related ticket.
+- **7.2.1**: Articles created by customers drop `preferences`.
+
+See Zammad's [breaking changes](https://github.com/zammad/zammad/blob/stable/BREAKING_CHANGES.md) for everything else.
+The 7.2.1 breaking changes (`email_verify`, `getting_started`, `signshow` and the WebSocket login) concern endpoints
+this client doesn't use.
 
 ## Installation
 
