@@ -6,6 +6,15 @@ namespace Zammad.Client;
 public interface IOnlineNotificationService
 {
     Task<List<OnlineNotification>> ListOnlineNotificationsAsync(Pagination? pagination = null, bool expand = true);
+
+    /// <summary>
+    /// Gets an online notification of the current user.
+    /// </summary>
+    /// <exception cref="ZammadException">
+    /// Thrown with <see cref="System.Net.HttpStatusCode.Forbidden"/> if the notification belongs to another user or the
+    /// current user can no longer access its ticket. Since Zammad 7.2.1 also if the notification doesn't exist. Older
+    /// versions return <c>null</c> in that case.
+    /// </exception>
     Task<OnlineNotification?> GetOnlineNotificationAsync(NotificationId id);
     Task<OnlineNotification> UpdateOnlineNotificationAsync(NotificationId id, OnlineNotification notification);
     Task DeleteOnlineNotificationAsync(NotificationId id);

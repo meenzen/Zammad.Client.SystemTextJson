@@ -1,3 +1,4 @@
+using System.Net;
 using Zammad.Client.Core;
 using Zammad.Client.IntegrationTests.Infrastructure;
 using Zammad.Client.IntegrationTests.Setup;
@@ -145,7 +146,7 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
         var client = await zammadStack.GetClientAsync();
         await client.DeleteOnlineNotificationAsync(NotificationId);
 
-        await Assert.That(await client.GetOnlineNotificationAsync(NotificationId)).IsNull();
+        await AssertNotificationMissingAsync(client, NotificationId);
     }
 
     [Test]
@@ -159,6 +160,13 @@ public class OnlineNotificationTests(ZammadStackFixture zammadStack)
         var client = await zammadStack.GetClientAsync();
         await client.DeleteAllOnlineNotificationsAsync();
 
-        await Assert.That(await client.GetOnlineNotificationAsync(notification!.Id)).IsNull();
+        await AssertNotificationMissingAsync(client, notification!.Id);
+    }
+
+    // Since Zammad 7.2.1, a missing notification is denied like one of another user instead of returning 404
+    private static async Task AssertNotificationMissingAsync(IZammadClient client, NotificationId id)
+    {
+        var exception = await Assert.ThrowsAsync<ZammadException>(() => client.GetOnlineNotificationAsync(id));
+        await Assert.That(exception!.Code).IsEqualTo(HttpStatusCode.Forbidden);
     }
 }
