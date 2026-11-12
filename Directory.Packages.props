@@ -23,7 +23,7 @@
     <PackageVersion Include="Testcontainers.Elasticsearch" Version="4.16.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.16.0" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.16.0" />
-    <PackageVersion Include="TUnit" Version="1.83.0" />
+    <PackageVersion Include="TUnit" Version="1.83.8" />
   </ItemGroup>
   <!-- Microsoft.Extensions.* and System.Text.Json 11.x don't support net8.0/net9.0. Keep 10.x up to net10.0, where it is in-box. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0' Or '$(TargetFramework)' == 'net10.0'">
